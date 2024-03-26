@@ -22,20 +22,16 @@
 #endif
 
 static size_t xml_res_size_0 = 0;
-static unsigned char xml_res_file_0[] = {
-};
+static unsigned char* xml_res_file_0 = nullptr;
 
 static size_t xml_res_size_1 = 0;
-static unsigned char xml_res_file_1[] = {
-};
+static unsigned char* xml_res_file_1 = nullptr;
 
 static size_t xml_res_size_2 = 0;
-static unsigned char xml_res_file_2[] = {
-};
+static unsigned char* xml_res_file_2 = nullptr;
 
 static size_t xml_res_size_3 = 0;
-static unsigned char xml_res_file_3[] = {
-};
+static unsigned char* xml_res_file_3 = nullptr;
 
 static size_t xml_res_size_4 = 585;
 static unsigned char xml_res_file_4[] = {
