@@ -117,8 +117,7 @@ static unsigned char xml_res_file_2[] = {
 128,160,35,189,211,201,0,0,0,0,73,69,78,68,174,66,96,130};
 
 static size_t xml_res_size_3 = 0;
-static unsigned char xml_res_file_3[] = {
-};
+static unsigned char* xml_res_file_3 = nullptr;
 
 static size_t xml_res_size_4 = 666;
 static unsigned char xml_res_file_4[] = {
