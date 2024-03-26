@@ -22,8 +22,7 @@
 #endif
 
 static size_t xml_res_size_0 = 0;
-static unsigned char xml_res_file_0[] = {
-};
+static unsigned char* xml_res_file_0 = nullptr;
 
 static size_t xml_res_size_1 = 246;
 static unsigned char xml_res_file_1[] = {
