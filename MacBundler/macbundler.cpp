@@ -26,10 +26,11 @@
 #include "macbundler.h"
 #include "windowattrmanager.h"
 #include "workspace.h"
-#include "wx/msgdlg.h"
-#include "wx/textfile.h"
-#include "wx/wx.h"
-#include "wx/xrc/xmlres.h"
+
+#include <wx/msgdlg.h>
+#include <wx/textfile.h>
+#include <wx/wx.h>
+#include <wx/xrc/xmlres.h>
 
 static MacBundler* thePlugin = NULL;
 
