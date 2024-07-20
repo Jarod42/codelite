@@ -1,8 +1,10 @@
 #include "BitmapSelectorDlg.h"
+
+#include "windowattrmanager.h"
 #include "wxc_project_metadata.h"
 #include "wxc_settings.h"
 #include "wxgui_helpers.h"
-#include <windowattrmanager.h>
+
 #include <wx/filedlg.h>
 #include <wx/filename.h>
 
