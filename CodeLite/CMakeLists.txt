@@ -23,36 +23,25 @@ FLEX_TARGET(XmlFlex "${CMAKE_SOURCE_DIR}/CodeLite/XML/XMLLexer.l" "${CMAKE_CURRE
 
 set(FlexSrcs "${FLEX_CxxFlex_OUTPUTS}" "${FLEX_IncludeFinderFlex_OUTPUTS}" "${FLEX_PhpFlex_OUTPUTS}" "${FLEX_XmlFlex_OUTPUTS}")
 
+file(GLOB_RECURSE SRCS "*.cpp" "*.h" "*.hpp")
+
+add_library(libcodelite SHARED ${SRCS} ${FlexSrcs})
+
 # Include paths
-include_directories(
+target_include_directories(libcodelite
+    PUBLIC
     "${CL_SRC_ROOT}/sdk/wxsqlite3/include"
-    "${CL_SRC_ROOT}/sdk/websocketpp"
-    "${CL_SRC_ROOT}/sdk/asio-1.12.1"
     "${CL_SRC_ROOT}/CodeLite"
     "${CL_SRC_ROOT}/CodeLite/ssh"
     "${CL_SRC_ROOT}/PCH"
-    "${CL_SRC_ROOT}/Interfaces"
-    "${CL_SRC_ROOT}/CodeLite/ssh")
-
-set(ADDITIONAL_LIBRARIES "")
-
-if(UNIX)
-    if(IS_FREEBSD)
-        set(ADDITIONAL_LIBRARIES "-lkvm -lutil")
-    elseif(IS_NETBSD)
-        set(ADDTIONAL_LIBRARIES "-lutil")
-    elseif(UNIX AND NOT APPLE)
-        set(ADDITIONAL_LIBRARIES "-ldl -lutil")
-    endif()
-else(UNIX)
-    set(ADDITIONAL_LIBRARIES "-lws2_32")
-endif(UNIX)
-
+    PRIVATE
+    "${CL_SRC_ROOT}/sdk/asio-1.12.1"
+    "${CL_SRC_ROOT}/sdk/websocketpp"
+)
 # Macros
-if(WIN32)
-    add_definitions(-DWXMAKINGDLL_CL)
-endif(WIN32)
-add_definitions(-DwxUSE_GUI=1)
+target_compile_definitions(libcodelite PRIVATE WXMAKINGDLL_CL INTERFACE WXUSINGDLL_CL)
+target_compile_definitions(libcodelite PUBLIC WXUSINGDLL_WXSQLITE3)
+target_compile_definitions(libcodelite PRIVATE wxUSE_GUI=1)
 
 if(USE_PCH AND NOT MINGW)
     add_definitions(-include "${CL_PCH_FILE}")
@@ -68,29 +57,12 @@ if(APPLE)
     add_definitions(-fPIC)
 endif()
 
-add_definitions(-DWXUSINGDLL_WXSQLITE3)
-
 # Add RPATH
 if(NOT MINGW AND WXC_APP)
     string(REPLACE "codelite" "wxcrafter" WXC_LIBS_DIR ${PLUGINS_DIR})
     set(LINKER_OPTIONS -Wl,-rpath,"${WXC_LIBS_DIR}")
     message("-- libcodelite.so is using RPATH set to ${WXC_LIBS_DIR}")
 endif()
-
-file(
-    GLOB
-    SRCS
-    "*.cpp"
-    "AsyncProcess/*.cpp"
-    "Console/*.cpp"
-    "Cxx/*.cpp"
-    "LSP/*.cpp"
-    "PHP/*.cpp"
-    "Platform/*.cpp"
-    "SocketAPI/*.cpp"
-    "XML/*.cpp"
-    "database/*.cpp"
-    "ssh/*.cpp")
 
 # Define GTK libraries
 if(GTK2_FOUND)
@@ -101,8 +73,19 @@ else()
     set(GTK_LIBS "")
 endif()
 
-# Define the output
-add_library(libcodelite SHARED ${SRCS} ${FlexSrcs})
+set(ADDITIONAL_LIBRARIES "")
+if(UNIX)
+    if(IS_FREEBSD)
+        set(ADDITIONAL_LIBRARIES "-lkvm -lutil")
+    elseif(IS_NETBSD)
+        set(ADDTIONAL_LIBRARIES "-lutil")
+    elseif(UNIX AND NOT APPLE)
+        set(ADDITIONAL_LIBRARIES "-ldl -lutil")
+    endif()
+else(UNIX)
+    set(ADDITIONAL_LIBRARIES "-lws2_32")
+endif(UNIX)
+
 target_link_libraries(
     libcodelite
     ${LINKER_OPTIONS}
