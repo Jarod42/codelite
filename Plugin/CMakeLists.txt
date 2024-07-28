@@ -6,18 +6,23 @@ project(plugin)
 # wxWidgets include (this will do all the magic to configure everything)
 include("${wxWidgets_USE_FILE}")
 
+file(GLOB_RECURSE SRCS "*.cpp" "*.h" "*.hpp")
+
+add_library(plugin SHARED ${SRCS})
+
 # Include paths
-include_directories(
+target_include_directories(plugin
+    PUBLIC
     "${CL_SRC_ROOT}/Plugin"
+    "${CL_SRC_ROOT}/Interfaces"
+    PRIVATE
     "${CL_SRC_ROOT}/yaml-cpp/include"
     "${CL_SRC_ROOT}/ThemeImporters"
     "${CL_SRC_ROOT}/wxTerminalCtrl"
-    "${CL_SRC_ROOT}/Interfaces")
+)
 
 # Macros
-if(WIN32)
-    add_definitions(-DWXMAKINGDLL_SDK)
-endif(WIN32)
+target_compile_definitions(libcodelite PRIVATE WXMAKINGDLL_SDK INTERFACE WXUSINGDLL_SDK)
 
 if(USE_PCH AND NOT MINGW)
     add_definitions(-include "${CL_PCH_FILE}")
@@ -80,11 +85,6 @@ if(NOT MINGW AND WXC_APP)
     message("-- libplugin.so is using RPATH set to ${WXC_LIBS_DIR}")
 endif()
 
-file(GLOB_RECURSE SRCS "*.cpp" "*.h" "*.hpp")
-
-# Define the output
-add_library(plugin SHARED ${SRCS})
-
 target_link_libraries(
     plugin
     ${LINKER_OPTIONS}
@@ -94,8 +94,6 @@ target_link_libraries(
     ${LIBYAML_CPP}
     -L"${CL_LIBPATH}"
     libcodelite)
-target_link_libraries(plugin ${LINKER_OPTIONS} ${ADDITIONAL_LIBRARIES} ${wxWidgets_LIBRARIES} -L"${CL_LIBPATH}"
-                      libcodelite)
 
 codelite_add_pch(plugin)
 

@@ -8,15 +8,6 @@ add_subdirectory("${CL_SRC_ROOT}/wxdap/dap" ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 # wxWidgets include (this will do all the magic to configure everything)
 include("${wxWidgets_USE_FILE}")
 
-# Include paths
-include_directories(
-    "${CL_SRC_ROOT}/Plugin"
-    "${CL_SRC_ROOT}/Interfaces"
-    "${CL_SRC_ROOT}/wxdap")
-# Definitions
-add_definitions(-DWXUSINGDLL_SDK)
-add_definitions(-DWXUSINGDLL_DAP)
-
 # By default, use the sources under the current folder
 file(GLOB PLUGIN_SRCS "*.cpp")
 

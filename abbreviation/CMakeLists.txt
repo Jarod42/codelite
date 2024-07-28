@@ -9,13 +9,6 @@ project(${PLUGIN_NAME})
 # wxWidgets include (this will do all the magic to configure everything)
 include("${wxWidgets_USE_FILE}")
 
-# Include paths
-include_directories(
-    "${CL_SRC_ROOT}/Plugin"
-    "${CL_SRC_ROOT}/Interfaces")
-
-add_definitions(-DWXUSINGDLL_SDK)
-
 if(UNIX AND NOT APPLE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
