@@ -39,7 +39,7 @@ bool LSPTypeScriptDetector::DoLocate()
     wxArrayString langs;
     langs.Add("javascript");
     langs.Add("typescript");
-    SetLangugaes(langs);
+    SetLanguages(langs);
     SetConnectionString("stdio");
     return true;
 }
