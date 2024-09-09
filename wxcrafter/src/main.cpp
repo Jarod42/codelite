@@ -142,6 +142,11 @@ bool wxcApp::OnInit()
         }
     }
 
+    if (false) {
+        wxCommandEvent evtGenCode(wxEVT_WXC_CMD_GENERATE_CODE);
+        EventNotifier::Get()->ProcessEvent(evtGenCode);
+    }
+
     // initialize the socket library
     wxSocketBase::Initialize();
 
@@ -158,13 +163,8 @@ bool wxcApp::OnInit()
 
     m_wxcPlugin = new wxCrafterPlugin(NULL, false);
     SetTopWindow(m_wxcPlugin->GetMainFrame());
-    if (false) {
-        // Don't show the top window
-        return true;
 
-    } else {
-        return GetTopWindow()->Show();
-    }
+    return GetTopWindow()->Show();
 }
 
 int wxcApp::OnExit()
