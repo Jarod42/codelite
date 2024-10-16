@@ -276,9 +276,11 @@ MainFrame::MainFrame(wxWindow* parent, bool hidden)
                                   this);
     EventNotifier::Get()->Connect(wxEVT_WXC_CLOSE_PROJECT, wxCommandEventHandler(MainFrame::OnProjectClosed), NULL,
                                   this);
+#if !STANDALONE_BUILD
     EventNotifier::Get()->Bind(wxEVT_WORKSPACE_CLOSED, &MainFrame::OnWorkspaceClosed, this);
     EventNotifier::Get()->Connect(wxEVT_CODELITE_MAINFRAME_GOT_FOCUS,
                                   wxCommandEventHandler(MainFrame::OnCodeLiteGotFocus), NULL, this);
+#endif
     EventNotifier::Get()->Connect(wxEVT_WXC_CODE_PREVIEW_PAGE_CHANGED,
                                   wxCommandEventHandler(MainFrame::OnCodeEditorSelected), NULL, this);
 
@@ -303,9 +305,11 @@ MainFrame::~MainFrame()
                                      this);
     EventNotifier::Get()->Disconnect(wxEVT_WXC_CLOSE_PROJECT, wxCommandEventHandler(MainFrame::OnProjectClosed), NULL,
                                      this);
+#if !STANDALONE_BUILD
     EventNotifier::Get()->Unbind(wxEVT_WORKSPACE_CLOSED, &MainFrame::OnWorkspaceClosed, this);
     EventNotifier::Get()->Disconnect(wxEVT_CODELITE_MAINFRAME_GOT_FOCUS,
                                      wxCommandEventHandler(MainFrame::OnCodeLiteGotFocus), NULL, this);
+#endif
     EventNotifier::Get()->Disconnect(wxEVT_WXC_CODE_PREVIEW_PAGE_CHANGED,
                                      wxCommandEventHandler(MainFrame::OnCodeEditorSelected), NULL, this);
 
@@ -419,11 +423,13 @@ void MainFrame::OnPreviewUI(wxUpdateUIEvent& event)
     event.Enable(!m_wxcView->IsPreviewAlive() && wxcProjectMetadata::Get().IsLoaded());
 }
 
+#if !STANDALONE_BUILD
 void MainFrame::OnWorkspaceClosed(clWorkspaceEvent& e)
 {
     e.Skip();
     SetTitle("wxCrafter");
 }
+#endif
 
 void MainFrame::OnCopy(wxCommandEvent& event)
 {
@@ -675,7 +681,9 @@ void MainFrame::OnSwitchToCodeliteUI(wxUpdateUIEvent& event)
 #endif
 }
 
+#if !STANDALONE_BUILD
 void MainFrame::OnCodeLiteGotFocus(wxCommandEvent& e) { e.Skip(); }
+#endif
 
 void MainFrame::OnPasteUI(wxUpdateUIEvent& event) { event.Enable(true); }
 

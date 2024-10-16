@@ -4,7 +4,6 @@
 #include "DebugSession.hpp"
 #include "clModuleLogger.hpp"
 #include "cl_command_event.h"
-#include "codelite_events.h"
 #include "dap/Client.hpp"
 #include "dap/dap.hpp"
 #include "globals.h"

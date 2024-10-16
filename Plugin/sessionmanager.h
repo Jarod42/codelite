@@ -26,13 +26,14 @@
 #define SESSIONMANAGER_H
 
 #include "clFilesCollector.h"
-#include "codelite_events.h"
 #include "codelite_exports.h"
 #include "debugger.h"
 #include "serialized_object.h"
 
 #include <vector>
 #include <wx/xml/xml.h>
+
+class clWorkspaceEvent;
 
 namespace
 {

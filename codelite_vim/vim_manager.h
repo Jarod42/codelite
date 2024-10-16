@@ -3,7 +3,6 @@
 
 #include "VimSettings.h"
 #include "clWorkspaceEvent.hpp"
-#include "codelite_events.h"
 #include "event_notifier.h"
 #include "globals.h"
 #include "ieditor.h"

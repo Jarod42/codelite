@@ -2,7 +2,6 @@
 #define WXTERMINALINPUTCTRL_HPP
 
 #include "clEditorEditEventsHandler.h"
-#include "codelite_events.h"
 #include "codelite_exports.h"
 #include "wxCodeCompletionBoxManager.h"
 #include "wxTerminalHistory.hpp"

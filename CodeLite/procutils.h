@@ -42,9 +42,6 @@
 #include <tlhelp32.h>
 #endif
 
-#include "cl_command_event.h"
-#include "codelite_events.h"
-
 struct ProcessEntry {
     wxString name;
     long pid;

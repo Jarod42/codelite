@@ -4,7 +4,6 @@
 #if USE_SFTP
 
 #include "clFileSystemEvent.h"
-#include "codelite_events.h"
 #include "ssh_workspace_settings.h"
 #include <wx/event.h>
 #include <wx/filename.h>

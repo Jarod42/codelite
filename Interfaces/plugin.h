@@ -35,7 +35,6 @@
 #include "clToolBar.h"
 #include "cl_aui_tb_are.h"
 #include "cl_defs.h"
-#include "codelite_events.h"
 #include "imanager.h"
 #include "plugin_version.h"
 #include "plugindata.h"

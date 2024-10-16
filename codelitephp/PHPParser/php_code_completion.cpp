@@ -14,6 +14,7 @@
 #include "clSelectSymbolDialog.h"
 #include "cl_command_event.h"
 #include "cl_config.h"
+#include "codelite_events.h"
 #include "database/entry.h"
 #include "editor_config.h"
 #include "event_notifier.h"

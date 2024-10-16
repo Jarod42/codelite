@@ -3,7 +3,6 @@
 #if USE_SFTP
 
 #include "clThemedTreeCtrl.h"
-#include "codelite_events.h"
 #include "ssh/cl_sftp.h"
 #include "ssh/cl_ssh.h"
 #include "ssh/ssh_account_info.h"

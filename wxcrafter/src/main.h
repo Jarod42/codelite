@@ -69,8 +69,10 @@ protected:
     virtual void OnProjectModified(wxCommandEvent& e);
     virtual void OnProjectSynched(wxCommandEvent& e);
     virtual void OnProjectLoaded(wxCommandEvent& e);
+#if !STANDALONE_BUILD
     virtual void OnWorkspaceClosed(clWorkspaceEvent& e);
     virtual void OnCodeLiteGotFocus(wxCommandEvent& e);
+#endif
     void OnCodeEditorSelected(wxCommandEvent& e);
 
 protected:
