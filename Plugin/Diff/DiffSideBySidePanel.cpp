@@ -32,6 +32,7 @@
 #include "clDTL.h"
 #include "clPluginsFindBar.h"
 #include "clToolBar.h"
+#include "codelite_events.h"
 #include "drawingutils.h"
 #include "editor_config.h"
 #include "event_notifier.h"

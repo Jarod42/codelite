@@ -1,5 +1,6 @@
 #include "RunInTerminalHelper.hpp"
 
+#include "codelite_events.h"
 #include "event_notifier.h"
 
 RunInTerminalHelper::RunInTerminalHelper(clModuleLogger& log)

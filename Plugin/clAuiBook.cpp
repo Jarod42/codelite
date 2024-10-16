@@ -1,6 +1,7 @@
 #include "clAuiBook.hpp"
 
 #include "clSystemSettings.h"
+#include "codelite_events.h"
 #include "editor_config.h"
 #include "event_notifier.h"
 

@@ -1,5 +1,6 @@
 #include "BreakpointsHelper.hpp"
 
+#include "codelite_events.h"
 #include "event_notifier.h"
 
 #include <algorithm>

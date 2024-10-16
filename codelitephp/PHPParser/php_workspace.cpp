@@ -2,6 +2,7 @@
 
 #include "clWorkspaceManager.h"
 #include "cl_command_event.h"
+#include "codelite_events.h"
 #include "dirtraverser.h"
 #include "event_notifier.h"
 #include "file_logger.h"

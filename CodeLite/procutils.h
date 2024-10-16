@@ -25,6 +25,7 @@
 #ifndef PROCUTILS_H
 #define PROCUTILS_H
 
+#include "cl_command_event.h"
 #include "codelite_exports.h"
 
 #include <map>
@@ -41,9 +42,6 @@
 #include <SetupAPI.h>
 #include <tlhelp32.h>
 #endif
-
-#include "cl_command_event.h"
-#include "codelite_events.h"
 
 struct ProcessEntry {
     wxString name;

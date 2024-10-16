@@ -4,7 +4,6 @@
 #include "AsyncProcess/asyncprocess.h"
 #include "AsyncProcess/processreaderthread.h"
 #include "clResult.hpp"
-#include "codelite_events.h"
 #include "codelite_exports.h"
 #include "wxTerminalColourHandler.h"
 #include "wxTerminalEvent.hpp"
@@ -20,6 +19,7 @@
 #include <wx/utils.h>
 
 class wxTerminalOutputCtrl;
+class clWorkspaceEvent;
 // Styles
 enum {
     // Low word (0-16)

@@ -33,6 +33,7 @@
 #include "SvnShowRecentChangesDlg.h"
 #include "clGotoAnythingManager.h"
 #include "cl_standard_paths.h"
+#include "codelite_events.h"
 #include "detachedpanesinfo.h"
 #include "dockablepane.h"
 #include "event_notifier.h"

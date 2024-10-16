@@ -28,6 +28,7 @@
 #include "EditorOptionsGeneralEdit.h"
 #include "EditorOptionsGeneralGuidesPanel.h"
 #include "clTabRendererMinimal.hpp"
+#include "codelite_events.h"
 #include "editoroptionsgeneralindentationpanel.h"
 #include "editoroptionsgeneralsavepanel.h"
 #include "editorsettingsbookmarkspanel.h"

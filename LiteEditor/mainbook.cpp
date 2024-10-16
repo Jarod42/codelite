@@ -31,6 +31,7 @@
 #include "clImageViewer.h"
 #include "clWorkspaceManager.h"
 #include "cl_defs.h"
+#include "codelite_events.h"
 #include "ctags_manager.h"
 #include "editor_config.h"
 #include "event_notifier.h"

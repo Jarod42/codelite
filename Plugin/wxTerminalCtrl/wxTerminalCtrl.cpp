@@ -4,6 +4,7 @@
 #include "StringUtils.h"
 #include "clModuleLogger.hpp"
 #include "clResult.hpp"
+#include "codelite_events.h"
 #include "environmentconfig.h" // EnvSetter
 #include "event_notifier.h"
 #include "file_logger.h"

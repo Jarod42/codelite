@@ -73,6 +73,7 @@
 #include "cl_standard_paths.h"
 #include "cl_unredo.h"
 #include "code_completion_manager.h"
+#include "codelite_events.h"
 #include "configuration_manager_dlg.h"
 #include "context_cpp.h"
 #include "cpp_symbol_tree.h"

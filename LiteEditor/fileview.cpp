@@ -33,6 +33,7 @@
 #include "build_settings_config.h"
 #include "clFileOrFolderDropTarget.h"
 #include "cl_command_event.h"
+#include "codelite_events.h"
 #include "compiler.h"
 #include "ctags_manager.h"
 #include "drawingutils.h"

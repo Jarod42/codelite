@@ -53,14 +53,15 @@
 #include <wx/menu.h>
 #include <wx/stc/stc.h>
 
-class wxRichToolTip;
-class CCBoxTipWindow;
-class IManager;
-class wxFindReplaceDialog;
 class CCBox;
-class clEditorTipWindow;
+class CCBoxTipWindow;
 class DisplayVariableDlg;
 class EditorDeltasHolder;
+class IManager;
+class clEditorTipWindow;
+class clFileSystemEvent;
+class wxFindReplaceDialog;
+class wxRichToolTip;
 
 enum sci_annotation_styles { eAnnotationStyleError = 128, eAnnotationStyleWarning };
 

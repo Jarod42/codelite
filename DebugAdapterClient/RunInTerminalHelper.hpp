@@ -5,7 +5,6 @@
 #include "AsyncProcess/processreaderthread.h"
 #include "clModuleLogger.hpp"
 #include "cl_command_event.h"
-#include "codelite_events.h"
 
 #include <vector>
 #include <wx/event.h>

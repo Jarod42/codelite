@@ -26,6 +26,7 @@
 #include "VirtualDirectorySelectorDlg.h"
 
 #include "bitmap_loader.h"
+#include "codelite_events.h"
 #include "event_notifier.h"
 #include "globals.h"
 #include "imanager.h"

@@ -10,7 +10,6 @@
 #include "LSP/MessageWithParams.h"
 #include "SocketAPI/clSocketClientAsync.h"
 #include "cl_command_event.h"
-#include "codelite_events.h"
 #include "codelite_exports.h"
 #include "fileextmanager.h"
 #include "macros.h"
@@ -28,6 +27,8 @@
 typedef std::function<void()> LSPOnConnectedCallback_t;
 
 class IEditor;
+class clWorkspaceEvent;
+
 class WXDLLIMPEXP_SDK LSPRequestMessageQueue
 {
     std::queue<LSP::MessageWithParams::Ptr_t> m_Queue;
