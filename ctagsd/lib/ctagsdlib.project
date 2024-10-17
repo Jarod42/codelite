@@ -31,7 +31,7 @@
         <IncludePath Value="../../CodeLite"/>
         <IncludePath Value="../../Interfaces"/>
         <IncludePath Value="../../Plugin"/>
-        <IncludePath Value="../../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../../submodules/wxsqlite3/include"/>
         <Preprocessor Value="WXUSINGDLL_SDK"/>
         <Preprocessor Value="WXUSINGDLL_CL"/>
         <Preprocessor Value="WXUSINGDLL_SCI"/>
@@ -83,7 +83,7 @@
         <IncludePath Value="../../CodeLite"/>
         <IncludePath Value="../../Interfaces"/>
         <IncludePath Value="../../Plugin"/>
-        <IncludePath Value="../../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../../submodules/wxsqlite3/include"/>
         <Preprocessor Value="WXUSINGDLL_SDK"/>
         <Preprocessor Value="WXUSINGDLL_CL"/>
         <Preprocessor Value="WXUSINGDLL_SCI"/>

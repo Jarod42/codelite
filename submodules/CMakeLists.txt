@@ -24,6 +24,27 @@ target_include_directories(cJSON PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/cJSON)
 include("${wxWidgets_USE_FILE}")
 
 # ##############################################################################
+# wxsqlite3
+# ##############################################################################
+
+add_library(wxsqlite3 SHARED
+    ${CMAKE_CURRENT_SOURCE_DIR}/wxsqlite3/src/wxsqlite3.cpp
+)
+
+target_include_directories(wxsqlite3 PRIVATE ${SQLite3_INCLUDE_DIRS})
+target_include_directories(wxsqlite3 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/wxsqlite3/include)
+target_link_libraries(wxsqlite3 PRIVATE ${LINKER_OPTIONS} ${wxWidgets_LIBRARIES} -L"${CL_LIBPATH}" ${SQLite3_LIBRARIES})
+
+target_compile_definitions(wxsqlite3 PRIVATE WXMAKINGDLL_WXSQLITE3)
+target_compile_definitions(wxsqlite3 INTERFACE WXUSINGDLL_WXSQLITE3)
+
+set_target_properties(wxsqlite3 PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
+
+codelite_install_library_target(wxsqlite3)
+
+# ##############################################################################
 # wxshapeframework
 # ##############################################################################
 file(GLOB WXSF_SRCS

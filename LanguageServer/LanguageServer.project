@@ -78,7 +78,7 @@
         <IncludePath Value="$(WorkspacePath)/Interfaces"/>
         <IncludePath Value="$(WorkspacePath)/CodeLite"/>
         <IncludePath Value="$(WorkspacePath)/Plugin"/>
-        <IncludePath Value="$(WorkspacePath)/sdk/wxsqlite3/include"/>
+        <IncludePath Value="$(WorkspacePath)/submodules/wxsqlite3/include"/>
         <IncludePath Value="$(WorkspacePath)/sdk/libssh/include"/>
         <Preprocessor Value="WXUSINGDLL_SDK"/>
         <Preprocessor Value="WXUSINGDLL_CL"/>
@@ -140,7 +140,7 @@
         <IncludePath Value="../Interfaces"/>
         <IncludePath Value="../CodeLite"/>
         <IncludePath Value="../Plugin"/>
-        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../submodules/wxsqlite3/include"/>
         <Preprocessor Value="__WX__"/>
         <Preprocessor Value="WXUSINGDLL"/>
         <Preprocessor Value="WXUSINGDLL_WXSQLITE3"/>
@@ -195,7 +195,7 @@
         <IncludePath Value="../Interfaces"/>
         <IncludePath Value="../CodeLite"/>
         <IncludePath Value="../Plugin"/>
-        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../submodules/wxsqlite3/include"/>
         <Preprocessor Value="__WX__"/>
         <Preprocessor Value="WXUSINGDLL"/>
         <Preprocessor Value="WXUSINGDLL_WXSQLITE3"/>

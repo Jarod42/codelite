@@ -35,7 +35,7 @@
         <IncludePath Value="../CodeLite"/>
         <IncludePath Value="../Plugin"/>
         <IncludePath Value="lib"/>
-        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../submodules/wxsqlite3/include"/>
       </Compiler>
       <Linker Options="$(shell wx-config --libs)" Required="yes">
         <LibraryPath Value="../build-Win_x64_Debug/lib"/>

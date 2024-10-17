@@ -25,8 +25,6 @@ set(FlexSrcs "${FLEX_CxxFlex_OUTPUTS}" "${FLEX_IncludeFinderFlex_OUTPUTS}" "${FL
 
 # Include paths
 include_directories(
-    "${CL_SRC_ROOT}/sdk/wxsqlite3/include"
-    "${CL_SRC_ROOT}/submodules/websocketpp"
     "${CL_SRC_ROOT}/submodules/asio/asio/include"
     "${CL_SRC_ROOT}/CodeLite"
     "${CL_SRC_ROOT}/CodeLite/ssh"
@@ -67,8 +65,6 @@ if(APPLE)
     add_definitions(-fPIC)
 endif()
 
-add_definitions(-DWXUSINGDLL_WXSQLITE3)
-
 # Add RPATH
 if(NOT MINGW AND WXC_APP)
     string(REPLACE "codelite" "wxcrafter" WXC_LIBS_DIR ${PLUGINS_DIR})
@@ -102,19 +98,20 @@ endif()
 
 # Define the output
 add_library(libcodelite SHARED ${SRCS} ${FlexSrcs})
-target_link_libraries(
-    libcodelite
+target_link_libraries(libcodelite PRIVATE
     ${LINKER_OPTIONS}
     ${wxWidgets_LIBRARIES}
     -L"${CL_LIBPATH}"
     ${SQLite3_LIBRARIES}
     libCxxParser
-    wxsqlite3
     ${LIBSSH_LIB}
     ${GTK_LIBS}
     ${ADDITIONAL_LIBRARIES}
     ${LIBUCHARDET_LIB}
     cJSON
+)
+target_link_libraries(libcodelite PUBLIC
+    wxsqlite3
 )
 
 if(MINGW)

@@ -32,7 +32,7 @@
         <IncludePath Value="../../CodeLite"/>
         <IncludePath Value="../../Interfaces"/>
         <IncludePath Value="../../Plugin"/>
-        <IncludePath Value="../../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../../submodules/wxsqlite3/include"/>
         <IncludePath Value="../lib"/>
         <Preprocessor Value="WXUSINGDLL_SDK"/>
         <Preprocessor Value="WXUSINGDLL_CL"/>
@@ -92,7 +92,7 @@ PATH=C:\src\codelite\build-Win_x64_Debug\lib;$PATH]]>
         <IncludePath Value="../../CodeLite"/>
         <IncludePath Value="../../Interfaces"/>
         <IncludePath Value="../../Plugin"/>
-        <IncludePath Value="../../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../../submodules/wxsqlite3/include"/>
         <IncludePath Value="../lib"/>
         <Preprocessor Value="WXUSINGDLL_SDK"/>
         <Preprocessor Value="WXUSINGDLL_CL"/>

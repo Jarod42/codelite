@@ -887,7 +887,6 @@ include_directories(submodules/dtl)
 add_subdirectory(submodules)
 include_directories(submodules/cJSON)
 
-add_subdirectory(sdk/wxsqlite3)
 add_subdirectory(sdk/databaselayer)
 
 if(NOT APPLE)

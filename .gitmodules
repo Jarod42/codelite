@@ -43,3 +43,6 @@
 [submodule "submodules/wxsf-code"]
 	path = submodules/wxsf-code
 	url = https://github.com/wxShaper/wxsf-code.git
+[submodule "submodules/wxsqlite3"]
+	path = submodules/wxsqlite3
+	url = https://github.com/utelle/wxsqlite3.git

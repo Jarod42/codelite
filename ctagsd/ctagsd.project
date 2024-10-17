@@ -20,7 +20,7 @@
         <IncludePath Value="../CodeLite"/>
         <IncludePath Value="../Interfaces"/>
         <IncludePath Value="../Plugin"/>
-        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../submodules/wxsqlite3/include"/>
         <IncludePath Value="./lib"/>
         <Preprocessor Value="WXUSINGDLL_SDK"/>
         <Preprocessor Value="WXUSINGDLL_CL"/>
@@ -80,7 +80,7 @@
         <IncludePath Value="../CodeLite"/>
         <IncludePath Value="../Interfaces"/>
         <IncludePath Value="../Plugin"/>
-        <IncludePath Value="../sdk/wxsqlite3/include"/>
+        <IncludePath Value="../submodules/wxsqlite3/include"/>
         <IncludePath Value="./lib"/>
         <Preprocessor Value="WXUSINGDLL_SDK"/>
         <Preprocessor Value="WXUSINGDLL_CL"/>

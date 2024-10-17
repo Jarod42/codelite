@@ -22,7 +22,6 @@ endif(NOT CL_SRC_ROOT)
 # Include paths
 include_directories(
     "${CL_SRC_ROOT}/Plugin"
-    "${CL_SRC_ROOT}/sdk/wxsqlite3/include"
     "${CL_SRC_ROOT}/CodeLite"
     "${CL_SRC_ROOT}/CodeLite/ssh"
     "${CL_SRC_ROOT}/PCH"
@@ -31,7 +30,6 @@ include_directories(
     "${CL_SRC_ROOT}/codelitephp/php-plugin"
     "${CL_SRC_ROOT}/codelitephp/PHPParserUnitTests")
 
-add_definitions(-DWXUSINGDLL_WXSQLITE3)
 add_definitions(-DWXUSINGDLL_CL)
 add_definitions(-DWXUSINGDLL_SDK)
 
@@ -54,6 +52,8 @@ file(GLOB LIBSRC "PHPParser/*.cpp")
 add_library(${PLUGIN_NAME} SHARED ${SRCS})
 add_library(PHPParser STATIC ${LIBSRC})
 
+target_link_libraries(PHPParser PUBLIC wxsqlite3)
+
 include(CTest)
 if(BUILD_TESTING)
     file(GLOB UNIT_TESTS_SRC "PHPParserUnitTests/*.cpp")
@@ -68,7 +68,6 @@ if(BUILD_TESTING)
         plugin
         ${ADDITIONAL_LIBRARIES}
         ${wxWidgets_LIBRARIES}
-        wxsqlite3
     )
 
     add_test(NAME "PHPUnitTests" COMMAND PHPUnitTests WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/PHPParserUnitTests/Tests)
