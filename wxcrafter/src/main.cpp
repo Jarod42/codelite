@@ -566,11 +566,13 @@ void MainFrame::OnBuildUI(wxUpdateUIEvent& event)
 #endif
 }
 
+#if !STANDALONE_BUILD
 void MainFrame::OnSwitchToCodelite(wxCommandEvent& event)
 {
     wxUnusedVar(event);
     MinimizeDesigner();
 }
+#endif
 
 void MainFrame::OnRename(wxCommandEvent& event)
 {
@@ -672,14 +674,9 @@ void MainFrame::OnProjectClosed(wxCommandEvent& event)
     SetTitle("wxCrafter");
 }
 
-void MainFrame::OnSwitchToCodeliteUI(wxUpdateUIEvent& event)
-{
-#if STANDALONE_BUILD
-    event.Enable(false);
-#else
-    event.Enable(true);
+#if !STANDALONE_BUILD
+void MainFrame::OnSwitchToCodeliteUI(wxUpdateUIEvent& event) { event.Enable(true); }
 #endif
-}
 
 #if !STANDALONE_BUILD
 void MainFrame::OnCodeLiteGotFocus(wxCommandEvent& e) { e.Skip(); }

@@ -40,7 +40,9 @@ protected:
     virtual void OnCloseUI(wxUpdateUIEvent& event);
     virtual void OnSaveUI(wxUpdateUIEvent& event);
     virtual void OnPasteUI(wxUpdateUIEvent& event);
+#if !STANDALONE_BUILD
     virtual void OnSwitchToCodeliteUI(wxUpdateUIEvent& event);
+#endif
     virtual void OnSettings(wxCommandEvent& event);
     virtual void OnProjectClosed(wxCommandEvent& event);
     virtual void OnHide(wxCommandEvent& event);
@@ -49,7 +51,9 @@ protected:
     virtual void OnImportSmith(wxCommandEvent& event);
     virtual void OnImportXRC(wxCommandEvent& event);
     virtual void OnRename(wxCommandEvent& event);
+#if !STANDALONE_BUILD
     virtual void OnSwitchToCodelite(wxCommandEvent& event);
+#endif
     virtual void OnBuild(wxCommandEvent& event);
     virtual void OnBuildUI(wxUpdateUIEvent& event);
     virtual void OnCopy(wxCommandEvent& event);
