@@ -65,7 +65,6 @@ void Column::Edit(wxString& name,
 	this->m_parentName = parentName;
 	if (this->m_pType) delete this->m_pType;
 	this->m_pType = type;
-
 }
 
 void Column::initSerializable()

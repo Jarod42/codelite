@@ -56,7 +56,7 @@ public:
 	Constraint(const wxString& name, const wxString& localColumn, constraintType type, constraintAction onDelete, constraintAction onUpdate);
 	/*! \brief Default destructors */
 	virtual ~Constraint();
-	
+
 	/*! \brief Set local column name */
 	void SetLocalColumn(const wxString & localColumn) {
 		this->m_localColumn = localColumn;

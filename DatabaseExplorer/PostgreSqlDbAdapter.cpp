@@ -459,7 +459,6 @@ void PostgreSqlDbAdapter::GetTables(Database* db, bool includeViews)
             dbLayer->Close();
         }
     }
-    return;
 }
 wxString PostgreSqlDbAdapter::GetCreateDatabaseSql(const wxString& dbName)
 {
@@ -556,7 +555,6 @@ void PostgreSqlDbAdapter::GetViews(Database* db)
             dbLayer->Close();
         }
     }
-    return;
 }
 wxString PostgreSqlDbAdapter::GetCreateViewSql(View* view, bool dropView)
 {

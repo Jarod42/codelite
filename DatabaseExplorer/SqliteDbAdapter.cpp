@@ -30,6 +30,10 @@
 #include "dbconnection.h"
 #include "table.h"
 
+#ifdef DBL_USE_SQLITE
+#include <wx/dblayer/include/SqliteDatabaseLayer.h>
+#endif
+
 SQLiteDbAdapter::SQLiteDbAdapter()
 {
     m_sFileName = wxT("");

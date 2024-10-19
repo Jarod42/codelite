@@ -315,7 +315,6 @@ void MySqlDbAdapter::GetDatabases(DbConnection* dbCon)
             dbLayer->Close();
         }
     }
-    return;
 }
 
 void MySqlDbAdapter::GetTables(Database* db, bool includeViews)
@@ -353,7 +352,6 @@ void MySqlDbAdapter::GetTables(Database* db, bool includeViews)
             dbLayer->Close();
         }
     }
-    return;
 }
 wxString MySqlDbAdapter::GetCreateDatabaseSql(const wxString& dbName)
 {

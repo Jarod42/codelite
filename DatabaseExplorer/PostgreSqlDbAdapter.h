@@ -74,8 +74,6 @@ public:
 	virtual void ConvertTable(Table* pTab);
 	virtual IDbType* ConvertType(IDbType* pType);
 
-
-
 protected:
 	//void SetDatabase(const wxString& db) { m_defaultDb = db; }
 

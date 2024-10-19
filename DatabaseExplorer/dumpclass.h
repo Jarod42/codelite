@@ -43,13 +43,11 @@ public:
 	/*! \brief start dumping data. Return finally status */
 	wxString DumpData();
 
-	
 protected:
 	int DumpTable(wxTextFile* pFile, Table* pTab);
 	wxString m_fileName;
 	xsSerializable* m_pItems;
 	IDbAdapter* m_pDbAdapter;
-
 };
 
 #endif // DUMPCLASS_H

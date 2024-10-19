@@ -27,39 +27,28 @@
 #define DBEXPLORERPANEL_H
 
 #include "../Interfaces/imanager.h"
+#include "ClassGenerateDialog.h"
 #include "GUI.h" // Base class: _DbExplorerPanel
+#include "IDbAdapter.h"
+#include "IDbItem.h"
+#include "LogDialog.h"
 #include "clToolBar.h"
-// database
-#include <wx/dblayer/include/DatabaseLayer.h>
+#include "column.h"
+#include "database.h"
+#include "dbconnection.h"
+#include "dbitem.h"
+#include "dumpclass.h"
+#include "table.h"
+#include "view.h"
 
-//#ifdef DBL_USE_MYSQL
-//#include <wx/dblayer/include/MysqlDatabaseLayer.h>
-//#endif
-
-#include <wx/wxsf/wxShapeFramework.h>
-
-// wx classes
+#include <unordered_set>
 #include <wx/aui/aui.h>
+#include <wx/dblayer/include/DatabaseLayer.h>
 #include <wx/hashmap.h>
 #include <wx/textdlg.h>
 #include <wx/txtstrm.h>
 #include <wx/wx.h>
-
-// other
-#include "IDbAdapter.h"
-#include "IDbItem.h"
-#include "column.h"
-#include "database.h"
-#include "dbconnection.h"
-#include "dumpclass.h"
-#include "table.h"
-#include "view.h"
-//#include "MySqlDbAdapter.h"
-#include "ClassGenerateDialog.h"
-#include "LogDialog.h"
-#include "dbitem.h"
-
-#include <unordered_set>
+#include <wx/wxsf/wxShapeFramework.h>
 
 class DbExplorerFrame;
 WX_DECLARE_HASH_MAP(wxString, wxTreeItemId, wxStringHash, wxStringEqual, TableHashMap);

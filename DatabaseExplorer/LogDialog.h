@@ -48,7 +48,7 @@ public:
 	void AppendComment(const wxString& txt);
 	/*! \brief Add separator. */
 	void AppendSeparator();
-	
+
 protected:
 	bool m_canClose;
 	wxString m_text;

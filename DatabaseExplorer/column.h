@@ -58,7 +58,7 @@ public:
 	/*! \brief Default destructor */
 	virtual ~Column();
 	
-	wxString FormatName() {
+	wxString FormatName() const {
 		wxString typeDesc;
 		if(m_pType) {
 			typeDesc << m_pType->GetTypeName();
@@ -66,32 +66,31 @@ public:
 				typeDesc << wxT(" (") << m_pType->GetSize() << wxT(")");
 			}
 		}
-		
+
 		typeDesc.Trim().Trim(false);
 		if(typeDesc.IsEmpty())
 			typeDesc << wxT("<UNKNOWN>");
-		
+
 		wxString formattedName = wxString::Format( wxT("%s : %s"), GetName().c_str(), typeDesc.c_str());
 		return formattedName;
 	}
-	
+
 	/*! \brief Retrun column name */
-	wxString GetName() { return this->m_name; }
+	wxString GetName() const { return this->m_name; }
 	/*! \brief Set column name */
 	void SetName(const wxString& name) { this->m_name = name; }
 	/*! \brief Return parent name (table) */
-	wxString GetParentName() { return this->m_parentName; }
-	
+	wxString GetParentName() const { return this->m_parentName; }
+
 	/*! \brief Return IDbType */
-	IDbType* GetType(){ return this->m_pType; }
+	IDbType* GetType() const { return this->m_pType; }
 	/*! \brief Set IDbType */
 	void SetType(IDbType* pType ) { this->m_pType = pType; }
-	
+
 	/*! \brief Function for column editing. */
 	void Edit(wxString& name,
 			wxString& parentName,
 			IDbType* type);
-	
 };
 
 #endif // COLUMN_H

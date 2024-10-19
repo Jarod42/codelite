@@ -41,12 +41,12 @@ protected:
 	wxString m_name;
 	wxString m_parentName;
 	IDbAdapter* m_pDbAdapter;
-	int m_rowCount;	
-	bool m_isSaved;	
+	int m_rowCount;
+	bool m_isSaved;
 	bool m_isView;
-	
+
 	void initSerializable();
-	
+
 public:
 	XS_DECLARE_CLONABLE_CLASS(Table);	
 	/*! \brief Default consturctors */
@@ -56,18 +56,18 @@ public:
 	/*! \brief Default destructor*/
 	virtual ~Table();
 	/*! \brief Return table name */
-	wxString GetName() { return this->m_name; }
+	wxString GetName() const { return this->m_name; }
 	/*! \brief Return parent name, usually dbName */
-	wxString GetParentName() { return this->m_parentName; }
+	wxString GetParentName() const { return this->m_parentName; }
 	/*! \brief Reload children db structure. */
 	void RefreshChildren();
 	/*! \brief Set table name */
 	void SetName(const wxString& name) ;
-	
+
 	/*! \brief DEPRECATED. Return row count */
-	int GetRowCount() { return this->m_rowCount; }
+	int GetRowCount() const { return this->m_rowCount; }
 	/*! \brief DEPRECATED. Check if table modifications are saved */
-	bool IsSaved() { return this->m_isSaved; }
+	bool IsSaved() const { return this->m_isSaved; }
 	/*! \brief Add column */
 	void AddColumn(Column* col) { this->AddChild(col); }
 	/*! \brief Add constraint */
@@ -77,7 +77,7 @@ public:
 	/*! \brief Return connected dbAdapter. */
 	IDbAdapter* GetDbAdapter() { return m_pDbAdapter; }
 	/*! \brief Is true, if table object was construted on view base. This feature is usisng in code generating. */
-	bool IsView() { return m_isView;  }
+	bool IsView() const { return m_isView; }
 	/*! \brief Set view parameter. More info in IsView() */
 	void SetView(bool view) { m_isView = view; }
 };

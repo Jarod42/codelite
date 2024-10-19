@@ -27,9 +27,6 @@
 #define IDBADAPTER_H
 
 #include "IDbType.h"
-//#include "columncol.h"
-//#include "databasecol.h"
-//#include "tablecol.h"
 
 #include <memory>
 #include <wx/dblayer/include/DatabaseLayer.h>

@@ -31,18 +31,6 @@
 #include "DbViewerPanel.h"
 #include "db_explorer_settings.h"
 
-#ifdef DBL_USE_MYSQL
-#include "MySqlDbAdapter.h"
-#endif
-
-#ifdef DBL_USE_SQLITE
-#include "SqliteDbAdapter.h"
-#endif
-
-#ifdef DBL_USE_POSTGRES
-#include "PostgreSqlDbAdapter.h"
-#endif
-
 /*! \brief Dialog for connection to the database server. It should be changed every time, if new database server type is
  * added. */
 class DbSettingDialog : public _DBSettingsDialog

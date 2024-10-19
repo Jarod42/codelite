@@ -39,7 +39,7 @@ SqliteDatabaseLayer::~SqliteDatabaseLayer()
 // open database
 bool SqliteDatabaseLayer::Open(const wxString& strDatabase, bool mustExist)
 {
-  if (strDatabase!= _(":memory:") && // :memory: is a special SQLite in-memory database
+  if (strDatabase!= N_(":memory:") && // :memory: is a special SQLite in-memory database
     mustExist && !(wxFileName::FileExists(strDatabase)))
   {
     SetErrorCode(DATABASE_LAYER_ERROR);

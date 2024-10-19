@@ -42,7 +42,7 @@ public:
 	/*! \brief Default destructor */
 	virtual ~DbConnection();
 	/*! \brief Return server name */
-	wxString GetServerName() { return m_serverName; }
+	wxString GetServerName() const { return m_serverName; }
 	/*! \brief Load databases from connection */
 	void Load();
 	/*! \brief Return IDbAdapter */

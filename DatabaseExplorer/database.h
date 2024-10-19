@@ -36,12 +36,10 @@
 class IDbAdapter;
 /*! \brief Class representing one database */
 class Database : public xsSerializable {
-	
-	
 protected:
 	wxString m_name;
 	IDbAdapter* m_pDbAdapter;
-	
+
 public:
 	XS_DECLARE_CLONABLE_CLASS(Database);
 	/*! \brief Default consturctors */
@@ -57,9 +55,7 @@ public:
 	/*! \brief Return IDbAdapter */
 	IDbAdapter* GetDbAdapter() { return this->m_pDbAdapter; }
 	/*! \brief Return database name*/
-	wxString GetName() { return this->m_name; }
-
-
+	wxString GetName() const { return this->m_name; }
 };
 
 #endif // DATABASE_H

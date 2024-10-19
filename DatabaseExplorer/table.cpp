@@ -64,8 +64,8 @@ Table::~Table()
 
 void Table::SetName(const wxString& name)
 {
-	 this->m_isSaved = false; 
-	 this->m_name = name; 
+	this->m_isSaved = false;
+	this->m_name = name;
 }
 
 void Table::initSerializable()

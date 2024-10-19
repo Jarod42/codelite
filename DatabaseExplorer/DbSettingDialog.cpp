@@ -32,11 +32,17 @@
 #include <wx/dblayer/include/DatabaseLayer.h>
 
 #ifdef DBL_USE_MYSQL
+#include "MySqlDbAdapter.h"
 #include <wx/dblayer/include/MysqlDatabaseLayer.h>
 #endif
 
 #ifdef DBL_USE_SQLITE
+#include "SqliteDbAdapter.h"
 #include <wx/dblayer/include/SqliteDatabaseLayer.h>
+#endif
+
+#ifdef DBL_USE_POSTGRES
+#include "PostgreSqlDbAdapter.h"
 #endif
 
 #include <wx/dblayer/include/DatabaseErrorCodes.h>

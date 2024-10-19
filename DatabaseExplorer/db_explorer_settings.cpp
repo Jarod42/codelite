@@ -92,7 +92,7 @@ void DbExplorerSettings::FromJSON(const JSONItem& json)
 {
     m_recentFiles = json.namedObject("m_recentFiles").toArrayString();
     m_sqlHistory  = json.namedObject("m_sqlHistory").toArrayString();
-    
+
     // read the connections
     JSONItem arrConnections = json.namedObject("connections");
     for(int i=0; i<arrConnections.arraySize(); ++i) {
@@ -107,7 +107,7 @@ JSONItem DbExplorerSettings::ToJSON() const
     JSONItem element = JSONItem::createObject(GetName());
     element.addProperty("m_recentFiles", m_recentFiles);
     element.addProperty("m_sqlHistory",  m_sqlHistory);
-    
+
     // add the connections array
     JSONItem arrConnections = JSONItem::createArray("connections");
     element.append(arrConnections);

@@ -106,7 +106,6 @@ CL_PLUGIN_API int GetPluginInterfaceVersion() { return PLUGIN_INTERFACE_VERSION;
 DatabaseExplorer::DatabaseExplorer(IManager* manager)
     : IPlugin(manager)
 {
-
     // create tab (possibly detached)
     wxWindow* editorBook = m_mgr->GetEditorPaneNotebook();
 
@@ -145,7 +144,6 @@ void DatabaseExplorer::CreateToolBar(clToolBarGeneric* toolbar) { wxUnusedVar(to
 
 void DatabaseExplorer::CreatePluginMenu(wxMenu* pluginsMenu)
 {
-
     // You can use the below code a snippet:
     wxMenu* menu = new wxMenu();
     wxMenuItem* item(NULL);
@@ -222,5 +220,4 @@ void DatabaseExplorer::DoOpenFile(const wxFileName& filename)
 void DatabaseExplorer::OnToggleTab(clCommandEvent& event)
 {
     wxUnusedVar(event);
-    return;
 }

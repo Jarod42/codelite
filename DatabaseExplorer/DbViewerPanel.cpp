@@ -32,7 +32,6 @@
 #include "editor_config.h"
 #include "event_notifier.h"
 #include "globals.h"
-#include "lexer_configuration.h"
 #include "window_locker.h"
 
 #include <algorithm>
@@ -186,7 +185,7 @@ void DbViewerPanel::RefreshDbView()
     // ---------------- load connections ----------------------------
     SerializableList::compatibility_iterator connectionNode = m_pConnections->GetFirstChildNode();
     while(connectionNode) {
-        DbConnection* pDbCon = (DbConnection*)wxDynamicCast(connectionNode->GetData(), DbConnection);
+        DbConnection* pDbCon = wxDynamicCast(connectionNode->GetData(), DbConnection);
         if(pDbCon) {
             wxTreeItemId rootID = m_treeDatabases->AppendItem(
                 totalRootID, wxString::Format(_("Databases (%s)"), pDbCon->GetServerName().c_str()), img_database,
@@ -353,7 +352,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_DROP_DATABASE")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Database* pDb = (Database*)wxDynamicCast(data->GetData(), Database);
+                Database* pDb = wxDynamicCast(data->GetData(), Database);
                 if(pDb) {
                     wxString dropSQL = pDb->GetDbAdapter()->GetDropDatabaseSql(pDb);
                     if(!dropSQL.IsEmpty()) {
@@ -374,7 +373,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_CLASS_DB")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Database* pDb = (Database*)wxDynamicCast(data->GetData(), Database);
+                Database* pDb = wxDynamicCast(data->GetData(), Database);
                 if(pDb) {
                     pDb = (Database*)pDb->Clone();
                     // NOTE: the refresh functions must be here for proper code generation (they translate views into
@@ -389,7 +388,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_CLASS_TABLE")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Table* pTab = (Table*)wxDynamicCast(data->GetData(), Table);
+                Table* pTab = wxDynamicCast(data->GetData(), Table);
                 if(pTab) {
                     ClassGenerateDialog dlg(m_mgr->GetTheApp()->GetTopWindow(), pTab->GetDbAdapter(),
                                             (Table*)pTab->Clone(), m_mgr);
@@ -399,7 +398,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_DROP_TABLE")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Table* pTab = (Table*)wxDynamicCast(data->GetData(), Table);
+                Table* pTab = wxDynamicCast(data->GetData(), Table);
                 if(pTab) {
                     wxMessageDialog dlg(this, wxString::Format(_("Remove table '%s'?"), pTab->GetName().c_str()),
                                         _("Drop table"), wxYES_NO);
@@ -416,7 +415,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_DROP_VIEW")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                View* pView = (View*)wxDynamicCast(data->GetData(), View);
+                View* pView = wxDynamicCast(data->GetData(), View);
                 if(pView) {
                     wxMessageDialog dlg(this, wxString::Format(_("Remove view '%s'?"), pView->GetName().c_str()),
                                         _("Drop view"), wxYES_NO);
@@ -433,7 +432,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_SQL_TABLE")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Table* pTab = (Table*)wxDynamicCast(data->GetData(), Table);
+                Table* pTab = wxDynamicCast(data->GetData(), Table);
                 if(pTab) {
 #ifdef __WXMSW__
                     clWindowUpdateLocker locker(m_mgr->GetEditorPaneNotebook());
@@ -449,7 +448,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_SQL_VIEW")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                View* pView = (View*)wxDynamicCast(data->GetData(), View);
+                View* pView = wxDynamicCast(data->GetData(), View);
                 if(pView) {
 #ifdef __WXMSW__
                     clWindowUpdateLocker locker(m_mgr->GetEditorPaneNotebook());
@@ -465,7 +464,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_SQL_DATABASE")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Database* pDb = (Database*)wxDynamicCast(data->GetData(), Database);
+                Database* pDb = wxDynamicCast(data->GetData(), Database);
                 if(pDb) {
                     wxString pagename = CreatePanelName(pDb);
                     if(!DoSelectPage(pagename)) {
@@ -481,7 +480,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_IMPORT_DATABASE")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Database* pDb = (Database*)wxDynamicCast(data->GetData(), Database);
+                Database* pDb = wxDynamicCast(data->GetData(), Database);
                 if(pDb) {
                     // TODO:LANG:
                     wxFileDialog dlg(this, _("Import database from SQL file ..."), wxGetCwd(), wxT(""),
@@ -495,7 +494,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_DUMP_DATABASE")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Database* pDb = (Database*)wxDynamicCast(data->GetData(), Database);
+                Database* pDb = wxDynamicCast(data->GetData(), Database);
                 if(pDb) {
                     // TODO:LANG:
                     wxFileDialog dlg(this, _("Dump data into file ..."), wxT(""), pDb->GetName() + wxT(".sql"),
@@ -510,7 +509,7 @@ void DbViewerPanel::OnPopupClick(wxCommandEvent& evt)
         } else if(evt.GetId() == XRCID("IDR_DBVIEWER_EXPORT_DATABASE")) {
             DbItem* data = (DbItem*)m_treeDatabases->GetItemData(m_selectedID);
             if(data) {
-                Database* pDb = (Database*)wxDynamicCast(data->GetData(), Database);
+                Database* pDb = wxDynamicCast(data->GetData(), Database);
                 if(pDb) {
                     wxFileDialog dlg(this, _("Export database..."), wxGetCwd(), wxT(""), wxT("SQL Files (*.sql)|*.sql"),
                                      wxFD_SAVE | wxFD_OVERWRITE_PROMPT);

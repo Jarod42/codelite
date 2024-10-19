@@ -32,11 +32,6 @@
 #include "view.h"
 #include "database.h"
 
-
-#ifdef DBL_USE_SQLITE
-#include <wx/dblayer/include/SqliteDatabaseLayer.h>
-#endif
-
 #include <wx/dblayer/include/DatabaseLayer.h>
 #include "SqliteType.h"
 
@@ -48,13 +43,10 @@ public:
 	virtual void CloseConnection();
 	virtual DatabaseLayerPtr GetDatabaseLayer(const wxString& dbName) ;
 
-
 	virtual void GetDatabases(DbConnection* dbCon);
 	virtual void GetTables(Database* db, bool includeViews);
 	virtual bool GetColumns(Table* pTab);
 	virtual void GetViews(Database* db);
-
-
 
 	virtual IDbType* GetDbTypeByName(const wxString& typeName);
 	virtual wxArrayString* GetDbTypes();
