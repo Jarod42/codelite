@@ -7,6 +7,8 @@ else ()
     option(WITH_MYSQL "Enable support of MySQL for DatabaseExplorer plugin" ON)
 endif ()
 
+option(WITH_POSTGRES "Enable support of Postgres for DatabaseExplorer plugin" ON)
+
 # It was noticed that when using MinGW gcc it is essential that 'core' is mentioned before 'base'.
 
 # wxWidgets include (this will do all the magic to configure everything)
@@ -76,5 +78,15 @@ endif(WITH_MYSQL)
 # Define the output
 add_library(databaselayersqlite SHARED ${SRCS} ${MYSQL_SRCS})
 target_link_libraries(databaselayersqlite ${LINKER_OPTIONS} ${wxWidgets_LIBRARIES} ${SQLite3_LIBRARIES})
+
+if(WITH_POSTGRES)
+    FindPostgreSQL()
+    if(NOT PostgreSQL_FOUND)
+        message(FATAL_ERROR "-- Could not locate postgreSQL")
+    endif()
+    file(GLOB POSTGRES_SRCS "src/dblayer/Postgres*.cpp" "src/dblayer/Postgres*.h")
+    target_sources(databaselayersqlite PRIVATE ${POSTGRES_SRCS})
+    target_link_libraries(databaselayersqlite PostgreSQL::PostgreSQL)
+endif()
 
 codelite_install_library_target(databaselayersqlite)
