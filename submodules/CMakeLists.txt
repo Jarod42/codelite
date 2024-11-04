@@ -58,6 +58,15 @@ add_library(dtl INTERFACE)
 target_include_directories(dtl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/dtl)
 
 # ##############################################################################
+# llama.cpp
+# ##############################################################################
+if(WITH_CHATAI AND NOT WXC_APP)
+    add_subdirectory("llama.cpp")
+    add_subdirectory("llama.cpp/examples/main")
+    install(TARGETS llama-cli DESTINATION ${CL_INSTALL_BIN})
+endif()
+
+# ##############################################################################
 # For wxWidgets dependencies
 # ##############################################################################
 include("${wxWidgets_USE_FILE}")
