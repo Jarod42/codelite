@@ -104,13 +104,13 @@ target_link_libraries(
   ${LINKER_OPTIONS}
   ${ADDITIONAL_LIBRARIES}
   ${GTK3_LIBRARIES}
-  ${LIBYAML_CPP}
   -L"${CL_LIBPATH}"
   lexers_extra
   libcodelite
   lualib
   LuaBridge
   PRIVATE
+  ${LIBYAML_CPP}
   dtl)
 
 if(USE_PCH)
