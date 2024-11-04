@@ -83,13 +83,16 @@ endif()
 
 target_link_libraries(
     plugin
+    PUBLIC
     ${LINKER_OPTIONS}
     ${ADDITIONAL_LIBRARIES}
     ${GTK3_LIBRARIES}
     ${LIBYAML_CPP}
     -L"${CL_LIBPATH}"
     lexers_extra
-    libcodelite)
+    libcodelite
+    PRIVATE
+    dtl)
 
 if(USE_PCH)
     codelite_add_pch(plugin)

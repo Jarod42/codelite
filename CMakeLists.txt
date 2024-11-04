@@ -876,9 +876,6 @@ if(MINGW AND USE_PCH)
     endif()
 endif()
 
-# add the dtl module include path before we include Plugin folder
-include_directories(submodules/dtl)
-
 # Extra lexers required by CodeLite
 add_subdirectory(submodules/lexilla)
 
