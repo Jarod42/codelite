@@ -29,8 +29,7 @@ add_library(libcodelite SHARED ${SRCS} ${FlexSrcs})
 target_include_directories(
     libcodelite
     PUBLIC "${CL_SRC_ROOT}/sdk/wxsqlite3/include" "${CL_SRC_ROOT}/CodeLite" "${CL_SRC_ROOT}/CodeLite/ssh"
-           "${CL_SRC_ROOT}/PCH"
-    PRIVATE "${CL_SRC_ROOT}/submodules/websocketpp")
+           "${CL_SRC_ROOT}/PCH")
 # Macros
 if(WIN32)
     target_compile_definitions(
@@ -92,7 +91,8 @@ target_link_libraries(
     ${LIBUCHARDET_LIB}
     cJSON
     PRIVATE
-    asio)
+    asio
+    websocketpp)
 
 if(MINGW)
     set_target_properties(
