@@ -887,11 +887,6 @@ include_directories(submodules/cJSON)
 add_subdirectory(sdk/wxsqlite3)
 add_subdirectory(sdk/databaselayer)
 
-if(NOT APPLE)
-    add_subdirectory(submodules/yaml-cpp)
-    set(LIBYAML_CPP "yaml-cpp")
-endif()
-
 add_compile_definitions(wxUSE_GUI=1) # Missing `#include <wx/setup.h>` before `#if wxUse_GUI` for some generated files
 
 add_subdirectory(CxxParser)
@@ -903,8 +898,6 @@ endif()
 
 set(WITHOUT_INSTALL ON)
 
-# include the yaml-cpp directory
-include_directories("${CL_SRC_ROOT}/submodules/yaml-cpp/include")
 if(UNIX)
     # On Windows, this is default. Set it OFF for Linux / macOS as well
     set(BUILD_SHARED_LIBS OFF)

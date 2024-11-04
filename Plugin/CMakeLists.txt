@@ -15,8 +15,8 @@ target_include_directories(plugin
     PUBLIC
     "${CL_SRC_ROOT}/Plugin"
     "${CL_SRC_ROOT}/Interfaces"
-    PRIVATE
     "${CL_SRC_ROOT}/submodules/yaml-cpp/include"
+    PRIVATE
     "${CL_SRC_ROOT}/ThemeImporters"
     "${CL_SRC_ROOT}/wxTerminalCtrl"
 )
