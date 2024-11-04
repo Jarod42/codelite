@@ -1012,11 +1012,6 @@ add_subdirectory(submodules)
 add_subdirectory(sdk/wxsqlite3)
 add_subdirectory(sdk/databaselayer)
 
-if(NOT APPLE)
-  add_subdirectory(submodules/yaml-cpp)
-  set(LIBYAML_CPP "yaml-cpp")
-endif()
-
 if(DEBUG_BUILD)
   set(CMAKE_CXX_FLAGS_RELEASE "")
   message(STATUS "CMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}")
@@ -1037,8 +1032,6 @@ add_subdirectory(wxcrafter/wxcgen)
 
 add_subdirectory(Plugin)
 
-# include the yaml-cpp directory
-include_directories("${CL_SRC_ROOT}/submodules/yaml-cpp/include")
 if(UNIX)
   # On Windows, this is default. Set it OFF for Linux / macOS as well
   set(BUILD_SHARED_LIBS OFF)

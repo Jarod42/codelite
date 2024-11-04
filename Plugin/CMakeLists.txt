@@ -346,14 +346,14 @@ target_link_libraries(
   PUBLIC ${LINKER_OPTIONS}
          ${ADDITIONAL_LIBRARIES}
          ${GTK3_LIBRARIES}
-         ${LIBYAML_CPP}
          -L"${CL_LIBPATH}"
          lexers_extra
          libcodelite
          lualib
          LuaBridge
          wxterminal_lib
-  PRIVATE dtl)
+  PRIVATE ${LIBYAML_CPP}
+          dtl)
 target_include_directories(plugin
                            PUBLIC ${CL_SRC_ROOT}/submodules/wxTerminalEmulator)
 
