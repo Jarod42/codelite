@@ -16,6 +16,13 @@ add_library(asio INTERFACE)
 target_include_directories(asio INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/asio/asio/include)
 
 # ##############################################################################
+# cc-wrapper
+# ##############################################################################
+add_subdirectory(cc-wrapper)
+
+install(TARGETS cc-wrapper DESTINATION ${CL_INSTALL_BIN})
+
+# ##############################################################################
 # cJSON
 # ##############################################################################
 add_library(cJSON STATIC
