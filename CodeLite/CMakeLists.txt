@@ -35,7 +35,6 @@ target_include_directories(libcodelite
     "${CL_SRC_ROOT}/CodeLite/ssh"
     "${CL_SRC_ROOT}/PCH"
     PRIVATE
-    "${CL_SRC_ROOT}/submodules/asio/asio/include"
     "${CL_SRC_ROOT}/submodules/websocketpp"
 )
 # Macros
@@ -84,6 +83,7 @@ endif()
 
 target_link_libraries(
     libcodelite
+    PUBLIC
     ${LINKER_OPTIONS}
     ${wxWidgets_LIBRARIES}
     -L"${CL_LIBPATH}"
@@ -95,6 +95,8 @@ target_link_libraries(
     ${ADDITIONAL_LIBRARIES}
     ${LIBUCHARDET_LIB}
     cJSON
+    PRIVATE
+    asio
 )
 
 if(MINGW)
