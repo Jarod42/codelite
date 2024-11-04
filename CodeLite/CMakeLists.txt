@@ -30,7 +30,7 @@ target_include_directories(
     libcodelite
     PUBLIC "${CL_SRC_ROOT}/sdk/wxsqlite3/include" "${CL_SRC_ROOT}/CodeLite" "${CL_SRC_ROOT}/CodeLite/ssh"
            "${CL_SRC_ROOT}/PCH"
-    PRIVATE "${CL_SRC_ROOT}/submodules/asio/asio/include" "${CL_SRC_ROOT}/submodules/websocketpp")
+    PRIVATE "${CL_SRC_ROOT}/submodules/websocketpp")
 # Macros
 if(WIN32)
     target_compile_definitions(
@@ -80,6 +80,7 @@ endif()
 
 target_link_libraries(
     libcodelite
+    PUBLIC
     ${LINKER_OPTIONS}
     -L"${CL_LIBPATH}"
     ${SQLite3_LIBRARIES}
@@ -89,7 +90,9 @@ target_link_libraries(
     ${GTK_LIBS}
     ${ADDITIONAL_LIBRARIES}
     ${LIBUCHARDET_LIB}
-    cJSON)
+    cJSON
+    PRIVATE
+    asio)
 
 if(MINGW)
     set_target_properties(
