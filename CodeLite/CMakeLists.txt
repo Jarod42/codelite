@@ -34,8 +34,6 @@ target_include_directories(libcodelite
     "${CL_SRC_ROOT}/CodeLite"
     "${CL_SRC_ROOT}/CodeLite/ssh"
     "${CL_SRC_ROOT}/PCH"
-    PRIVATE
-    "${CL_SRC_ROOT}/submodules/websocketpp"
 )
 # Macros
 if(WIN32)
@@ -97,6 +95,7 @@ target_link_libraries(
     cJSON
     PRIVATE
     asio
+    websocketpp
 )
 
 if(MINGW)

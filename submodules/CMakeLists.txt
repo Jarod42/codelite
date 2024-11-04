@@ -67,6 +67,12 @@ if(WITH_CHATAI AND NOT WXC_APP)
 endif()
 
 # ##############################################################################
+# websocketpp
+# ##############################################################################
+add_library(websocketpp INTERFACE)
+target_include_directories(websocketpp INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/websocketpp)
+
+# ##############################################################################
 # For wxWidgets dependencies
 # ##############################################################################
 include("${wxWidgets_USE_FILE}")
