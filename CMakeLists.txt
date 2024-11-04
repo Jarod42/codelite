@@ -881,9 +881,6 @@ if(APPLE)
     add_definitions(-mmacosx-version-min=10.8)
 endif()
 
-# add the dtl module include path before we include Plugin folder
-include_directories(submodules/dtl)
-
 add_subdirectory(submodules)
 include_directories(submodules/cJSON)
 

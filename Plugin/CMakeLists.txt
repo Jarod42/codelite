@@ -84,13 +84,17 @@ endif()
 
 target_link_libraries(
     plugin
+    PUBLIC
     ${LINKER_OPTIONS}
     ${ADDITIONAL_LIBRARIES}
     ${GTK3_LIBRARIES}
     ${wxWidgets_LIBRARIES}
     ${LIBYAML_CPP}
     -L"${CL_LIBPATH}"
-    libcodelite)
+    libcodelite
+    PRIVATE
+    dtl
+)
 
 if(USE_PCH)
     codelite_add_pch(plugin)
