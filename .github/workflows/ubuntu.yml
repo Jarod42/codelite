@@ -2,12 +2,12 @@ name: ubuntu
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '**'
-      - '!.github/**'
-      - '.github/workflows/ubuntu.yml'
-      - '!**.md'
+#  push:
+#    paths:
+#      - '**'
+#      - '!.github/**'
+#      - '.github/workflows/ubuntu.yml'
+#      - '!**.md'
   pull_request:
     paths:
       - '**'
