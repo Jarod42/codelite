@@ -2,11 +2,11 @@ name: msys2
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '**'
-      - '!.github/**'
-      - '.github/workflows/msys2.yml'
+#  push:
+#    paths:
+#      - '**'
+#      - '!.github/**'
+#      - '.github/workflows/msys2.yml'
   pull_request:
     paths:
       - '**'
