@@ -73,6 +73,16 @@ add_library(websocketpp INTERFACE)
 target_include_directories(websocketpp INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/websocketpp)
 
 # ##############################################################################
+# wx-config-msys2
+# ##############################################################################
+
+if(NOT WXC_APP AND MINGW)
+    # build wx-config for Windows
+    add_subdirectory(wx-config-msys2)
+    install(TARGETS wx-config DESTINATION ${CL_INSTALL_BIN})
+endif()
+
+# ##############################################################################
 # For wxWidgets dependencies
 # ##############################################################################
 include("${wxWidgets_USE_FILE}")

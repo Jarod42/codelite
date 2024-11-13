@@ -924,12 +924,6 @@ endif()
 if(WXC_APP)
     add_subdirectory(wxcrafter)
 else()
-    if(MINGW)
-        # build wx-config for Windows
-        add_subdirectory(submodules/wx-config-msys2)
-        install(TARGETS wx-config DESTINATION ${CL_INSTALL_BIN})
-    endif()
-
     if(NOT NO_CORE_PLUGINS)
         add_subdirectory(abbreviation)
         if(NOT DISABLE_CXX)
