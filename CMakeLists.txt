@@ -81,6 +81,7 @@ if(MINGW)
         )
     endif()
     set(MSYS2_BASE $ENV{MSYS2_BASE})
+    message(STATUS "MSYS2_BASE is set to ${MSYS2_BASE}")
 elseif(UNIX AND NOT APPLE)
     if(CL_PREFIX)
         # user provided CL_PREFIX -> use it instead of CMAKE_INSTALL_PREFIX
