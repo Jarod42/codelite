@@ -3,7 +3,8 @@
 
 #include "LSP/MessageWithParams.h"
 #include "LSP/Notification.h"
-#include <wx/filename.h>
+
+#include <wx/string.h>
 
 namespace LSP
 {

@@ -4,6 +4,7 @@
 #include "codelite_exports.h"
 #include "wxStringHash.h"
 
+#include <unordered_set>
 #include <wx/stc/stc.h>
 #include <wx/string.h>
 

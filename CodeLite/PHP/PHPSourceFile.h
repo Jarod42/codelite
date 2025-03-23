@@ -29,8 +29,11 @@
 #include "PHPEntityBase.h"
 #include "PhpLexerAPI.h"
 #include "codelite_exports.h"
+
+#include <map>
 #include <vector>
-#include <wx/filename.h>
+#include <wx/string.h>
+#include <wx/sharedptr.h>
 
 class WXDLLIMPEXP_CL PHPLookupTable;
 

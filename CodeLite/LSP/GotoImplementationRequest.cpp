@@ -1,6 +1,5 @@
 #include "GotoImplementationRequest.h"
 #include "LSP/LSPEvent.h"
-#include "LSP/json_rpc_params.h"
 
 LSP::GotoImplementationRequest::GotoImplementationRequest(const wxString& filename, size_t line, size_t column)
 {

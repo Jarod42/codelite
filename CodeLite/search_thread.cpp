@@ -26,15 +26,12 @@
 
 #include "clFilesCollector.h"
 #include "clWildMatch.hpp"
-#include "dirtraverser.h"
 #include "file_logger.h"
 #include "fileutils.h"
 #include "macros.h"
 
 #include <algorithm>
-#include <iostream>
 #include <set>
-#include <wx/dir.h>
 #include <wx/event.h>
 #include <wx/fontmap.h>
 #include <wx/log.h>

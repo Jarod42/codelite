@@ -28,15 +28,14 @@
 #include "ICompilerLocator.h"
 #include "build_config.h"
 #include "build_settings_config.h"
-#include "buildmanager.h"
 #include "cl_command_event.h"
+#include "codelite_events.h"
 #include "compiler.h"
 #include "dirsaver.h"
 #include "environmentconfig.h"
 #include "event_notifier.h"
 #include "globals.h"
 #include "imanager.h"
-#include "macromanager.h"
 #include "macros.h"
 #include "plugin.h"
 #include "workspace.h"
@@ -44,7 +43,6 @@
 #include <wx/app.h>
 #include <wx/log.h>
 #include <wx/msgdlg.h>
-#include <wx/process.h>
 #include <wx/regex.h>
 
 CompileRequest::CompileRequest(const QueueCommand& buildInfo, const wxString& fileName, bool runPremakeOnly,

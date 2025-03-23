@@ -29,12 +29,10 @@
 #include "Cxx/CxxScannerTokens.h"
 #include "Cxx/CxxTokenizer.h"
 #include "ctags_manager.h"
-#include "language.h"
 #include "macros.h"
 #include "pptable.h"
 #include "precompiled_header.h"
 #include "tokenizer.h"
-#include "wxStringHash.h"
 
 #include <wx/regex.h>
 #include <wx/tokenzr.h>

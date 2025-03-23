@@ -5,7 +5,6 @@
 #include "clDebuggerBreakpoint.hpp"
 #include "codelite_exports.h"
 
-#include <functional>
 #include <unordered_set>
 #include <wx/string.h>
 

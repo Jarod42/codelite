@@ -25,15 +25,9 @@
 #ifndef MACROS_H
 #define MACROS_H
 
-#include "cl_standard_paths.h"
-#include "wxStringHash.h"
-
-#include <map>
-#include <set>
 #include <unordered_map>
 #include <unordered_set>
 #include <wx/intl.h>
-#include <wx/stdpaths.h>
 
 //-------------------------------------------------------
 // wxWidgets Connect macros

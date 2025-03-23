@@ -28,7 +28,7 @@
 
 #include "CxxLexerAPI.h"
 #include "codelite_exports.h"
-#include <list>
+
 #include <unordered_set>
 #include <wx/sharedptr.h>
 #include <wx/string.h>

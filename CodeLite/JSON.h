@@ -25,25 +25,24 @@
 
 #ifndef ZJSONNODE_H
 #define ZJSONNODE_H
-// clang-format off
-#include <wx/vector.h>
+
+#include "codelite_exports.h"
+#include "macros.h"
+
+#include <cJSON.h>
+#include <type_traits>
+#include <vector>
+#include <wx/filename.h>
+#include <wx/gdicmn.h>
 #include <wx/string.h>
 #include <wx/variant.h>
-#include <wx/filename.h>
-#include <string_view>
-#include <wx/gdicmn.h>
-#include "codelite_exports.h"
-#include <map>
-#include <cJSON.h>
+#include <wx/vector.h>
+
 #if wxUSE_GUI
 #include <wx/arrstr.h>
 #include <wx/colour.h>
 #include <wx/font.h>
 #endif
-#include "macros.h"
-#include <vector>
-#include <type_traits>
-// clang-format on
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////

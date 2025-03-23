@@ -5,7 +5,6 @@
 #include "file_logger.h"
 #include "json_rpc_params.h"
 
-#include <thread>
 #include <vector>
 #include <wx/vector.h>
 

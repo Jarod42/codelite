@@ -3,7 +3,6 @@
 
 #include "LSP/Request.h"
 #include "LSP/ResponseMessage.h"
-#include <wx/filename.h>
 
 namespace LSP
 {

@@ -2,6 +2,7 @@
 #define CLMODULELOGGER_HPP
 
 #include "codelite_exports.h"
+#include "cl_standard_paths.h"
 #include "file_logger.h"
 
 #include <wx/colour.h>

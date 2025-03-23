@@ -45,9 +45,10 @@
 #include "procutils.h"
 
 #include <atomic>
-#include <memory>
+#include <thread>
 #include <wincon.h>
 #include <wx/filefn.h>
+#include <wx/log.h>
 #include <wx/msgqueue.h>
 #include <wx/string.h>
 

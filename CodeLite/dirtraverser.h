@@ -28,7 +28,6 @@
 #include "codelite_exports.h"
 #include <wx/dir.h>
 #include <wx/arrstr.h>
-#include <map>
 
 /**
  * A helper class that help us recurse into sub-directories.

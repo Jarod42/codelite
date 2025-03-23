@@ -26,13 +26,11 @@
 #ifndef PHPDOCCOMMENT_H
 #define PHPDOCCOMMENT_H
 
-#include "codelite_exports.h"
-#include <wx/string.h>
-#include <wx/arrstr.h>
 #include "PHPSourceFile.h"
-#include "macros.h"
-#include "wxStringHash.h"
-#include "PHPDocParam.h"
+#include "codelite_exports.h"
+
+#include <wx/arrstr.h>
+#include <wx/string.h>
 
 class WXDLLIMPEXP_CL PHPDocComment
 {

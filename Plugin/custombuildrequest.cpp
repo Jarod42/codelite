@@ -25,9 +25,8 @@
 #include "custombuildrequest.h"
 
 #include "AsyncProcess/asyncprocess.h"
-#include "build_settings_config.h"
-#include "buildmanager.h"
 #include "cl_command_event.h"
+#include "codelite_events.h"
 #include "compiler.h"
 #include "dirsaver.h"
 #include "environmentconfig.h"

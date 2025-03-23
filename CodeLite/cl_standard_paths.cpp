@@ -25,9 +25,6 @@
 
 #include "cl_standard_paths.h"
 
-#include "fileutils.h"
-
-#include <wx/datetime.h>
 #include <wx/dir.h>
 #include <wx/filefn.h>
 #include <wx/filename.h>

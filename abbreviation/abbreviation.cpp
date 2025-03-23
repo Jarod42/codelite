@@ -30,6 +30,7 @@
 #include "abbreviationentry.h"
 #include "abbreviationssettingsdlg.h"
 #include "cl_config.h"
+#include "codelite_events.h"
 #include "event_notifier.h"
 #include "globals.h"
 #include "macromanager.h"

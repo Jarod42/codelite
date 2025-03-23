@@ -29,7 +29,6 @@
 #include "LSP/basic_types.h"
 #include "browse_record.h"
 #include "cl_calltip.h"
-#include "database/entry.h"
 #include "optionsconfig.h"
 
 #include <list>
@@ -37,6 +36,7 @@
 #include <string>
 #include <vector>
 #include <wx/colour.h>
+#include <wx/defs.h>
 #include <wx/filename.h>
 #include <wx/string.h>
 

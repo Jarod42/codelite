@@ -2,9 +2,8 @@
 #define DIDOPENTEXTDOCUMENTREQUEST_H
 
 #include "LSP/Notification.h"
-#include "MessageWithParams.h"
 
-#include <wx/filename.h>
+#include <wx/string.h>
 
 namespace LSP
 {

@@ -5,6 +5,7 @@
 #include "JSON.h"
 #include "ThemeImporters/ThemeImporterManager.hpp"
 #include "cl_command_event.h"
+#include "cl_config.h"
 #include "cl_standard_paths.h"
 #include "codelite_events.h"
 #include "event_notifier.h"
@@ -16,11 +17,10 @@
 
 #include <algorithm>
 #include <wx/busyinfo.h>
-#include <wx/dir.h>
 #include <wx/filename.h>
+#include <wx/log.h>
 #include <wx/msgdlg.h>
 #include <wx/settings.h>
-#include <wx/sstream.h>
 #include <wx/tokenzr.h>
 #include <wx/xml/xml.h>
 #include <wx/xrc/xmlres.h>

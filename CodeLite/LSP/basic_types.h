@@ -1,7 +1,6 @@
 #ifndef JSONRPC_BASICTYPES_H
 #define JSONRPC_BASICTYPES_H
 
-#include "IPathConverter.hpp"
 #include "JSON.h"
 #include "JSONObject.h"
 #include "clModuleLogger.hpp"

@@ -4,6 +4,8 @@
 #include "PHPEntityClass.h"
 #include "PHPLookupTable.h"
 
+#include <wx/wxcrtvararg.h>
+
 PHPEntityVariable::PHPEntityVariable() {}
 
 PHPEntityVariable::~PHPEntityVariable() {}

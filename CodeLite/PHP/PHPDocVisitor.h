@@ -26,11 +26,13 @@
 #ifndef PHPDOCVISITOR_H
 #define PHPDOCVISITOR_H
 
-#include "codelite_exports.h"
 #include "PHPEntityVisitor.h" // Base class: PHPEntityVisitor
-#include "PhpLexerAPI.h"
-#include <vector>
 #include "PHPSourceFile.h"
+#include "PhpLexerAPI.h"
+#include "codelite_exports.h"
+
+#include <map>
+#include <vector>
 
 class WXDLLIMPEXP_CL PHPDocVisitor : public PHPEntityVisitor
 {

@@ -1,7 +1,10 @@
 #include "PHPEntityClass.h"
-#include <wx/tokenzr.h>
-#include <algorithm>
+
 #include "PHPLookupTable.h"
+
+#include <algorithm>
+#include <wx/tokenzr.h>
+#include <wx/wxcrtvararg.h>
 
 PHPEntityClass::PHPEntityClass() {}
 

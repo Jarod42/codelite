@@ -27,10 +27,8 @@
 
 #include "AsyncProcess/asyncprocess.h"
 #include "codelite_exports.h"
-#include "macros.h"
 
 #include <wx/filename.h>
-#include <wx/log.h>
 
 #define clRemoveFile(filename) FileUtils::RemoveFile(filename, (wxString() << __FILE__ << ":" << __LINE__))
 

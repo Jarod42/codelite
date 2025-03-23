@@ -27,10 +27,8 @@
 #include "AsyncProcess/asyncprocess.h"
 #include "codelite_exports.h"
 
-#include <sstream>
 #include <string>
 #include <wx/arrstr.h>
-#include <wx/combobox.h>
 #include <wx/string.h>
 
 typedef std::basic_string_view<wxChar> wxStringView;

@@ -25,13 +25,10 @@
 
 #include "JSON.h"
 
-#include "StringUtils.h"
 #include "clFontHelper.h"
 #include "fileutils.h"
 
-#include <stdlib.h>
 #include <wx/dynarray.h>
-#include <wx/ffile.h>
 #include <wx/filename.h>
 
 JSON::JSON(const wxString& text)

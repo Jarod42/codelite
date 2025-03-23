@@ -30,6 +30,7 @@
 #include "file_logger.h"
 #include "fileutils.h"
 
+#include <set>
 #include <wx/filefn.h>
 #include <wx/filename.h>
 #include <wx/log.h>

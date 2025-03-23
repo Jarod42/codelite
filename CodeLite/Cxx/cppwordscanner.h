@@ -28,12 +28,6 @@
 #include "codelite_exports.h"
 #include "cpptoken.h"
 #include "macros.h"
-#include "wxStringHash.h"
-
-#include <memory>
-#include <set>
-#include <vector>
-#include <wx/arrstr.h>
 
 struct ByteState {
     short state;   // Holds the current byte state (one of CppWordScanner::STATE_*)

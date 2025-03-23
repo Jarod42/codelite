@@ -3,11 +3,9 @@
 
 #include "codelite_exports.h"
 #include "database/entry.h"
-#include "tag_tree.h"
 
 #include <vector>
 #include <wx/filename.h>
-#include <wx/textfile.h>
 
 class WXDLLIMPEXP_CL CTags
 {

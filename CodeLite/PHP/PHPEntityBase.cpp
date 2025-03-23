@@ -1,5 +1,4 @@
 #include "PHPEntityBase.h"
-#include <algorithm>
 
 PHPEntityBase::PHPEntityBase()
     : m_parent(NULL)

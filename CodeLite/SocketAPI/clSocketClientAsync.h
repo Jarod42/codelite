@@ -27,13 +27,14 @@
 #define CLSOCKETCLIENTASYNC_H
 
 #include "SocketAPI/clSocketBase.h"
-#include "SocketAPI/clSocketClient.h"
+//#include "SocketAPI/clSocketClient.h"
 #include "cl_command_event.h"
 #include "codelite_exports.h"
-#include "worker_thread.h"
+
 #include <wx/event.h>
 #include <wx/msgqueue.h>
 #include <wx/sharedptr.h>
+#include <wx/string.h>
 
 wxDECLARE_EXPORTED_EVENT(WXDLLIMPEXP_CL, wxEVT_ASYNC_SOCKET_CONNECTED, clCommandEvent);
 wxDECLARE_EXPORTED_EVENT(WXDLLIMPEXP_CL, wxEVT_ASYNC_SOCKET_CONNECTION_LOST, clCommandEvent);

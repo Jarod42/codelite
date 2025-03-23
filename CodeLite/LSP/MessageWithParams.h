@@ -2,10 +2,8 @@
 #define REQUESTMESSAGE_H
 
 #include "LSP/Message.h" // Base class: LSP::Message
-#include "LSP/ResponseMessage.h"
-#include "LSP/basic_types.h"
 #include "json_rpc_params.h"
-#include <wx/event.h>
+
 #include <wx/sharedptr.h>
 
 namespace LSP

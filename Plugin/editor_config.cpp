@@ -26,8 +26,7 @@
 
 #include "ColoursAndFontsManager.h"
 #include "cl_standard_paths.h"
-#include "dirsaver.h"
-#include "dirtraverser.h"
+#include "codelite_events.h"
 #include "drawingutils.h"
 #include "event_notifier.h"
 #include "file_logger.h"

@@ -24,7 +24,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "fileentry.h"
-#include <time.h>
+#include <ctime>
 
 FileEntry::FileEntry()
 		: m_id                   (wxNOT_FOUND)

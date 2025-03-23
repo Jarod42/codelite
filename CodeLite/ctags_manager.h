@@ -32,7 +32,7 @@
 #include "language.h"
 #include "macros.h"
 #include "tags_options_data.h"
-#include "wxStringHash.h"
+#include "tag_tree.h"
 
 #include <wx/event.h>
 

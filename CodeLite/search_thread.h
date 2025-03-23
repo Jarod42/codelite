@@ -28,13 +28,8 @@
 #include "JSON.h"
 #include "clFilesCollector.h"
 #include "codelite_exports.h"
-#include "singleton.h"
 #include "worker_thread.h"
-#include "wxStringHash.h"
 
-#include <deque>
-#include <list>
-#include <map>
 #include <vector>
 #include <wx/event.h>
 #include <wx/filename.h>

@@ -26,8 +26,8 @@
 
 #include "StringUtils.h"
 #include "build_settings_config.h"
-#include "buildmanager.h"
 #include "cl_command_event.h"
+#include "codelite_events.h"
 #include "configuration_mapping.h"
 #include "dirsaver.h"
 #include "editor_config.h"

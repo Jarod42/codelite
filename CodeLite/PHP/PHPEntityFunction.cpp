@@ -5,6 +5,8 @@
 #include "commentconfigdata.h"
 #include "file_logger.h"
 
+#include <wx/wxcrtvararg.h>
+
 PHPEntityFunction::PHPEntityFunction() {}
 
 PHPEntityFunction::~PHPEntityFunction() {}

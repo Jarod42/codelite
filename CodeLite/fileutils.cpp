@@ -1,4 +1,3 @@
-#include <string>
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -24,43 +23,42 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
+#include "fileutils.h"
+
 #include "AsyncProcess/asyncprocess.h"
 #include "Console/clConsoleBase.h"
 #include "StringUtils.h"
-#include "cl_config.h"
-#include "cl_standard_paths.h"
-#include "dirsaver.h"
 #include "file_logger.h"
-#include "fileutils.h"
 #include "macros.h"
 #include "procutils.h"
 #include "wxStringHash.h"
 
-#include <algorithm>
+#include <cstring>
 #include <fstream>
-#include <map>
+#include <functional>
 #include <wx/ffile.h>
-#include <wx/file.h>
+#include <wx/filename.h>
 #include <wx/log.h>
 #include <wx/regex.h>
-#include <wx/string.h>
-#include <wx/uri.h>
-#if wxUSE_GUI
-#include <wx/msgdlg.h>
-#endif
-#include <string.h> // strerror
 #include <wx/strconv.h>
 #include <wx/tokenzr.h>
 #include <wx/utils.h>
+
+#if wxUSE_GUI
+#include <wx/msgdlg.h>
+#endif
+
+#ifdef __WXMSW__
+#include <fileapi.h>
+#include <Windows.h>
+#include <WinBase.h>
+#endif
+
 #ifdef __WXGTK__
 #include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #endif
-#include <cstring>
-#include <functional>
-#include <memory>
-#include <wx/filename.h>
 
 static bool bRealPathModeResolveSymlinks = true;
 

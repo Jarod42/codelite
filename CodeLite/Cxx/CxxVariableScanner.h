@@ -7,8 +7,6 @@
 #include "macros.h"
 #include "wxStringHash.h"
 
-#include <stack>
-
 class WXDLLIMPEXP_CL CxxVariableScanner
 {
 protected:

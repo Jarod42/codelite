@@ -27,8 +27,8 @@
 #define CXXPREPROCESSOR_H
 
 #include "CxxLexerAPI.h"
-#include "CxxPreProcessorScanner.h"
 #include "codelite_exports.h"
+
 #include <set>
 #include <wx/filename.h>
 

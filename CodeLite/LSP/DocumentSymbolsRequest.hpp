@@ -2,10 +2,10 @@
 #define DOCUMDENET_SYMBOLS_REQUEST_HPP
 
 #include "LSP/Request.h"
+#include "LSP/ResponseMessage.h"
 #include "LSP/basic_types.h"
 
 #include <vector>
-#include <wx/filename.h>
 
 namespace LSP
 {

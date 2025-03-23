@@ -25,17 +25,17 @@
 
 #include "macromanager.h"
 
-#include "IWorkspace.h"
 #include "FileSystemWorkspace/clFileSystemWorkspace.hpp"
+#include "IWorkspace.h"
 #include "build_config.h"
 #include "clWorkspaceManager.h"
 #include "environmentconfig.h"
+#include "fileutils.h"
 #include "globals.h"
 #include "imanager.h"
 #include "project.h"
+#include "ssh_account_info.h"
 #include "workspace.h"
-#include "wxStringHash.h"
-#include "fileutils.h"
 
 #include <wx/regex.h>
 

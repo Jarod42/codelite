@@ -1,10 +1,9 @@
 #ifndef LSP_REQUEST_H
 #define LSP_REQUEST_H
 
-#include "IPathConverter.hpp"
 #include "LSP/MessageWithParams.h"
+#include "LSP/ResponseMessage.h"
 
-#include <wx/filename.h>
 #include <wx/string.h>
 
 namespace LSP

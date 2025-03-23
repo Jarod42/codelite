@@ -26,6 +26,7 @@
 #include "cl_editor_tip_window.h"
 
 #include "ColoursAndFontsManager.h"
+#include "codelite_events.h"
 #include "drawingutils.h"
 #include "event_notifier.h"
 #include "globals.h"

@@ -26,13 +26,13 @@
 #include "VirtualDirectorySelectorDlg.h"
 
 #include "bitmap_loader.h"
+#include "codelite_events.h"
 #include "event_notifier.h"
 #include "globals.h"
 #include "imanager.h"
 #include "plugin.h"
 #include "project.h"
 #include "tree_node.h"
-#include "windowattrmanager.h"
 #include "workspace.h"
 
 #include <deque>

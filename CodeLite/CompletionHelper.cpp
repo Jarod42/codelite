@@ -2,7 +2,6 @@
 
 #include "Cxx/CxxScannerTokens.h"
 #include "Cxx/CxxTokenizer.h"
-#include "file_logger.h"
 
 #include <vector>
 #include <wx/regex.h>

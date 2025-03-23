@@ -26,9 +26,9 @@
 #ifndef CODELITE_EXPORTS
 #define CODELITE_EXPORTS
 
+#include <wx/defs.h>
 #ifdef __WXMSW__
 
-#include <wx/string.h>
 #ifdef WXDLLIMPEXP_CL
 #undef WXDLLIMPEXP_CL
 #endif

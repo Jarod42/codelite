@@ -4,14 +4,10 @@
 #include "LSP/FilePath.hpp"
 #include "codelite_exports.h"
 
-#include <wx/sharedptr.h>
 #include <wx/string.h>
 
 class WXDLLIMPEXP_CL IPathConverter
 {
-public:
-    typedef wxSharedPtr<IPathConverter> Ptr_t;
-
 public:
     IPathConverter() {}
     virtual ~IPathConverter() {}

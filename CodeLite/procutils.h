@@ -24,6 +24,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma once
 
+#include "cl_command_event.h"
 #include "codelite_exports.h"
 
 #include <map>
@@ -33,16 +34,6 @@
 #include <wx/defs.h>
 #include <wx/process.h>
 #include <wx/string.h>
-#ifdef __WINDOWS__          // __WINDOWS__ defined by wx/defs.h
-#include <wx/msw/wrapwin.h> // includes windows.h
-// #include <devpropdef.h>
-#include <Psapi.h>
-#include <SetupAPI.h>
-#include <tlhelp32.h>
-#endif
-
-#include "cl_command_event.h"
-#include "codelite_events.h"
 
 struct ProcessEntry {
     wxString name;

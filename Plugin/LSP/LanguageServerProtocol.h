@@ -4,7 +4,6 @@
 #include "AsyncProcess/asyncprocess.h"
 #include "LSP/DocumentSymbolsRequest.hpp"
 #include "LSP/FileContentTracker.hpp"
-#include "LSP/IPathConverter.hpp"
 #include "LSP/LSPEvent.h"
 #include "LSP/LSPNetwork.h"
 #include "LSP/MessageWithParams.h"
@@ -17,8 +16,8 @@
 #include "wxStringHash.h"
 
 #include <functional>
-#include <map>
 #include <queue>
+#include <set>
 #include <string>
 #include <unordered_map>
 #include <wx/arrstr.h>

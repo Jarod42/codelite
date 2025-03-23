@@ -1,8 +1,8 @@
 #include "LSP/basic_types.h"
 
+#include "cl_standard_paths.h"
 #include "JSON.h"
 #include "clModuleLogger.hpp"
-#include "cl_standard_paths.h"
 #include "file_logger.h"
 
 #include <wx/filesys.h>

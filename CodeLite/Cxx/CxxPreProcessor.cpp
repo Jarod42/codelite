@@ -1,5 +1,6 @@
 #include "CxxPreProcessor.h"
 
+#include "CxxPreProcessorScanner.h"
 #include "file_logger.h"
 
 #include <wx/regex.h>

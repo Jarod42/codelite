@@ -4,8 +4,8 @@
 #include "LSP/Request.h"
 #include "basic_types.h"
 
-#include <wx/filename.h>
 #include <wx/string.h>
+
 namespace LSP
 {
 

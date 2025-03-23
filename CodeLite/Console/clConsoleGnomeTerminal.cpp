@@ -1,8 +1,6 @@
 #include "clConsoleGnomeTerminal.h"
 
-#include "dirsaver.h"
 #include "file_logger.h"
-#include "fileutils.h"
 #include "procutils.h"
 
 #include <wx/tokenzr.h>

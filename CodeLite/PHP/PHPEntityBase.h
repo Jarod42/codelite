@@ -29,17 +29,10 @@
 #include "JSON.h"
 #include "codelite_exports.h"
 #include "commentconfigdata.h"
-#include "wxStringHash.h"
 
-#include <iostream>
-#include <list>
-#include <map>
 #include <memory>
-#include <set>
 #include <wx/filename.h>
-#include <wx/sharedptr.h>
 #include <wx/string.h>
-#include <wx/wxcrtvararg.h> // Needed for wxPrintf
 #include <wx/wxsqlite3.h>
 
 // The entity type

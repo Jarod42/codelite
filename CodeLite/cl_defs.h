@@ -29,7 +29,7 @@
 //-----------------------------------
 // Use new toolbars where possible
 //-----------------------------------
-#include <wx/version.h>
+#include <wx/platform.h>
 
 #if defined(__WXMSW__) || defined(__WXMAC__)
 #define MAINBOOK_AUIBOOK 0

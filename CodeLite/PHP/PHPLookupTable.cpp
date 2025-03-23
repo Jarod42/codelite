@@ -5,7 +5,6 @@
 #include "PHPEntityFunctionAlias.h"
 #include "PHPEntityNamespace.h"
 #include "PHPEntityVariable.h"
-#include "clFilesCollector.h"
 #include "event_notifier.h"
 #include "file_logger.h"
 #include "fileextmanager.h"

@@ -25,6 +25,7 @@
 
 #include "ssh_account_info.h"
 
+#include "cl_standard_paths.h"
 #include "xor_string.h"
 
 SSHAccountInfo::SSHAccountInfo()

@@ -2,6 +2,8 @@
 
 #include "wxStringHash.h"
 
+#include <unordered_set>
+
 namespace FontUtils
 {
 #ifdef __WXMSW__
