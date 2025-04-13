@@ -5,9 +5,7 @@
 #include "ToolBoxPanel.h"
 #include "allocator_mgr.h"
 #include "attribute_style.h"
-#include "button_wrapper.h"
 #include "cl_command_event.h"
-#include "ctags_manager.h"
 #include "custom_control_wrapper.h"
 #include "designer_panel.h"
 #include "dialog_wrapper.h"
@@ -17,15 +15,8 @@
 #include "file_logger.h"
 #include "fileextmanager.h"
 #include "fileutils.h"
-#include "flexgridsizer_wrapper.h"
 #include "frame_wrapper.h"
 #include "globals.h"
-#include "myxh_grid.h"
-#include "myxh_listc.h"
-#include "myxh_richtext.h"
-#include "myxh_searchctrl.h"
-#include "myxh_toolbk.h"
-#include "myxh_treebk.h"
 #include "notebook_base_wrapper.h"
 #include "notebook_page_wrapper.h"
 #include "panel_wrapper_top_level.h"
@@ -36,6 +27,7 @@
 #include "preview_frame.h"
 #include "preview_panel.h"
 #include "preview_wizard.h"
+#include "properties_sheet.h"
 #include "ribbon_bar_wrapper.h"
 #include "ribbon_page_wrapper.h"
 #include "tool_bar_item_wrapper.h"
@@ -47,15 +39,12 @@
 #include "wxcrafter_plugin.h"
 #include "wxgui_bitmaploader.h"
 #include "wxgui_helpers.h"
-#include "xy_pair.h"
 
-#include <algorithm>
 #include <set>
 #include <wx/app.h>
 #include <wx/busyinfo.h>
 #include <wx/ffile.h>
 #include <wx/filedlg.h>
-#include <wx/imaggif.h>
 #include <wx/imaglist.h>
 #include <wx/infobar.h>
 #include <wx/log.h>

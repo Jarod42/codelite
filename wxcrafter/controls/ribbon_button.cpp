@@ -3,7 +3,6 @@
 #include "StdToWX.h"
 #include "allocator_mgr.h"
 #include "choice_property.h"
-#include "file_ficker_property.h"
 #include "wxc_bitmap_code_generator.h"
 #include "wxgui_bitmaploader.h"
 #include "wxgui_helpers.h"
