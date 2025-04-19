@@ -139,7 +139,6 @@ wxcWidget::~wxcWidget()
     }
     DeleteAllChildren();
     wxDELETE(m_eventsMenu);
-    m_properties.DeleteValues();
     m_controlEvents.Clear();
 }
 
@@ -323,13 +322,13 @@ void wxcWidget::DoClearFlags(MapStyles_t& mp)
     }
 }
 
-void wxcWidget::AddProperty(PropertyBase* prop)
+void wxcWidget::AddProperty(std::unique_ptr<PropertyBase> prop)
 {
-    if(prop) {
-        m_properties.PushBack(prop->GetLabel(), prop);
+    if (prop) {
+        m_properties.PushBack(prop->GetLabel(), std::move(prop));
 
     } else {
-        m_properties.PushBack("", NULL);
+        m_properties.PushBack("", nullptr);
     }
 }
 
@@ -370,7 +369,7 @@ void wxcWidget::DoAddSizerFlag(const wxString& name, WxStyleInfo info)
     if(!m_sizerFlags.Contains(name)) {
         m_sizerFlags.PushBack(name, info);
     } else {
-        m_sizerFlags.Item(name) = info;
+        m_sizerFlags.At(name) = info;
     }
 }
 
@@ -381,7 +380,7 @@ bool wxcWidget::IsGridBagSizerItem() const { return GetParent() && GetParent()->
 wxString wxcWidget::PropertyBool(const wxString& propname) const
 {
     if(m_properties.Contains(propname)) {
-        wxString value = m_properties.Item(propname)->GetValue();
+        wxString value = m_properties.At(propname)->GetValue();
 
         if(value == "1") {
             return "true";
@@ -398,7 +397,7 @@ wxString wxcWidget::PropertyBool(const wxString& propname) const
 wxString wxcWidget::PropertyFile(const wxString& propname) const
 {
     if(m_properties.Contains(propname)) {
-        wxString value = m_properties.Item(propname)->GetValue();
+        wxString value = m_properties.At(propname)->GetValue();
 
         // FIXME:: Expand codelite's macros here
         value.Replace("\\", "/");
@@ -413,7 +412,7 @@ wxString wxcWidget::PropertyFile(const wxString& propname) const
 wxString wxcWidget::PropertyString(const wxString& propname, const wxString& defaultValue) const
 {
     if(m_properties.Contains(propname)) {
-        wxString v = m_properties.Item(propname)->GetValue();
+        wxString v = m_properties.At(propname)->GetValue();
         v.Trim();
         if(v.IsEmpty()) {
             return defaultValue;
@@ -429,7 +428,7 @@ void wxcWidget::DoSetPropertyStringValue(const wxString& propname, const wxStrin
 {
     if(m_properties.Contains(propname)) {
         // Delete the old one and replace it with a new property
-        m_properties.Item(propname)->SetValue(value);
+        m_properties.At(propname)->SetValue(value);
     }
 }
 
@@ -597,13 +596,13 @@ bool wxcWidget::IsSizerFlagChecked(const wxString& style) const
         return false;
     }
 
-    return m_sizerFlags.Item(style).is_set;
+    return m_sizerFlags.At(style).is_set;
 }
 
 void wxcWidget::DoEnableStyle(wxcWidget::MapStyles_t& mp, const wxString& style, bool enable)
 {
     if(mp.Contains(style)) {
-        mp.Item(style).is_set = enable;
+        mp.At(style).is_set = enable;
     }
 }
 
@@ -700,7 +699,7 @@ void wxcWidget::UnSerialize(const JSONElement& json)
         JSONElement jsonProp = properties.arrayItem(i);
         wxString propLabel = jsonProp.namedObject("m_label").toString();
         if(m_properties.Contains(propLabel)) {
-            m_properties.Item(propLabel)->UnSerialize(jsonProp);
+            m_properties.At(propLabel)->UnSerialize(jsonProp);
         }
     }
 
@@ -968,7 +967,7 @@ void wxcWidget::LoadPropertiesFromwxFB(const wxXmlNode* node)
             // When importing from wxFB, leave the 'Base Class Suffix' property empty
             if(IsTopWindow()) {
                 if(m_properties.Contains(PROP_BASE_CLASS_SUFFIX)) {
-                    m_properties.Item(PROP_BASE_CLASS_SUFFIX)->SetValue("");
+                    m_properties.At(PROP_BASE_CLASS_SUFFIX)->SetValue("");
                 }
             }
         }
@@ -1253,7 +1252,7 @@ void wxcWidget::CopySizerAndAuiInfo(const wxcWidget* source, wxcWidget* target)
     MapStyles_t::const_iterator sizerIter = source->m_sizerFlags.begin();
     for(; sizerIter != source->m_sizerFlags.end(); ++sizerIter) {
         if(target->m_sizerFlags.Contains(sizerIter->first)) {
-            target->m_sizerFlags.Item(sizerIter->first) = sizerIter->second;
+            target->m_sizerFlags.At(sizerIter->first) = sizerIter->second;
         }
     }
     target->m_auiPaneInfo = source->m_auiPaneInfo;
@@ -1453,7 +1452,7 @@ void wxcWidget::AddEvent(const ConnectDetails& eventDetails)
 {
     if(m_connectedEvents.Contains(eventDetails.GetEventName())) {
         // Replace it
-        m_connectedEvents.Item(eventDetails.GetEventName()) = eventDetails;
+        m_connectedEvents.At(eventDetails.GetEventName()) = eventDetails;
 
     } else {
         // Add it
@@ -1673,13 +1672,13 @@ ConnectDetails wxcWidget::GetEventMetaData(const wxString& eventName) const
         return ConnectDetails();
     }
 
-    return m_controlEvents.GetEvents().Item(eventName);
+    return m_controlEvents.GetEvents().At(eventName);
 }
 
 ConnectDetails wxcWidget::GetEvent(const wxString& eventName) const
 {
     if(m_connectedEvents.Contains(eventName)) {
-        return m_connectedEvents.Item(eventName);
+        return m_connectedEvents.At(eventName);
     }
     return ConnectDetails();
 }
@@ -2105,7 +2104,7 @@ void wxcWidget::FixPaths(const wxString& cwd)
     MapProperties_t::iterator prop_iter = m_properties.begin();
     for(; prop_iter != m_properties.end(); prop_iter++) {
         if(prop_iter->second) {
-            FilePickerProperty* pb = dynamic_cast<FilePickerProperty*>(prop_iter->second);
+            FilePickerProperty* pb = dynamic_cast<FilePickerProperty*>(prop_iter->second.get());
             if(pb) {
                 pb->FixPaths(cwd);
             }
@@ -2294,17 +2293,14 @@ wxcWidget::Map_t wxcWidget::GetConnectedEventsRecursively() const
 PropertyBase* wxcWidget::GetProperty(const wxString& name)
 {
     if(m_properties.Contains(name)) {
-        return m_properties.Item(name);
+        return m_properties.At(name).get();
     }
     return NULL;
 }
 
 void wxcWidget::DelProperty(const wxString& name)
 {
-    if(m_properties.Contains(name)) {
-        delete m_properties.Item(name);
-        m_properties.Remove(name);
-    }
+    m_properties.Remove(name);
 }
 
 size_t wxcWidget::SizerFlagsAsInteger() const
@@ -2339,7 +2335,7 @@ void wxcWidget::EnableSizerFlag(const wxString& flag, bool enable)
     };
 
     if (m_sizerFlags.Contains(flag)) {
-        m_sizerFlags.Item(flag).is_set = enable;
+        m_sizerFlags.At(flag).is_set = enable;
 
         if (enable) {
             // Uncheck all "grouped" flags
@@ -2381,7 +2377,7 @@ size_t wxcWidget::StyleFlagsAsInteger() const
 int wxcWidget::PropertyInt(const wxString& propname, int defval) const
 {
     if(m_properties.Contains(propname)) {
-        wxString value = m_properties.Item(propname)->GetValue();
+        wxString value = m_properties.At(propname)->GetValue();
         return wxCrafter::ToNumber(value, defval);
 
     } else {
@@ -2497,7 +2493,7 @@ void wxcWidget::DoDeepCopy(const wxcWidget& rhs, enum DuplicatingOptions nametyp
                     }
                 }
 
-                this->m_properties.Item(propIter->first)->SetValue(newname);
+                this->m_properties.At(propIter->first)->SetValue(newname);
 
             } else if(propIter->first == PROP_FILE) {
 
@@ -2513,7 +2509,7 @@ void wxcWidget::DoDeepCopy(const wxcWidget& rhs, enum DuplicatingOptions nametyp
                 }
 
                 // update the file name property
-                this->m_properties.Item(propIter->first)->SetValue(filename);
+                this->m_properties.At(propIter->first)->SetValue(filename);
 
             } else if(propIter->first == PROP_INHERITED_CLASS) {
 
@@ -2529,10 +2525,10 @@ void wxcWidget::DoDeepCopy(const wxcWidget& rhs, enum DuplicatingOptions nametyp
                     }
                 }
 
-                this->m_properties.Item(propIter->first)->SetValue(classname);
+                this->m_properties.At(propIter->first)->SetValue(classname);
 
             } else {
-                this->m_properties.Item(propIter->first)->SetValue(propIter->second->GetValue());
+                this->m_properties.At(propIter->first)->SetValue(propIter->second->GetValue());
             }
         }
     }
@@ -2551,14 +2547,14 @@ void wxcWidget::DoDeepCopy(const wxcWidget& rhs, enum DuplicatingOptions nametyp
     MapStyles_t::const_iterator styleIter = rhs.m_styles.begin();
     for(; styleIter != rhs.m_styles.end(); ++styleIter) {
         if(this->m_styles.Contains(styleIter->first)) {
-            this->m_styles.Item(styleIter->first) = styleIter->second;
+            this->m_styles.At(styleIter->first) = styleIter->second;
         }
     }
 
     MapStyles_t::const_iterator sizerIter = rhs.m_sizerFlags.begin();
     for(; sizerIter != rhs.m_sizerFlags.end(); ++sizerIter) {
         if(this->m_sizerFlags.Contains(sizerIter->first)) {
-            this->m_sizerFlags.Item(sizerIter->first) = sizerIter->second;
+            this->m_sizerFlags.At(sizerIter->first) = sizerIter->second;
         }
     }
     this->m_auiPaneInfo = rhs.m_auiPaneInfo;
