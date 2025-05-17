@@ -277,11 +277,7 @@ if(NOT APPLE)
     endif()
 
     if(UNIX)
-        install(
-            DIRECTORY ${CL_SRC_ROOT}/translations/
-            DESTINATION ${CMAKE_INSTALL_PREFIX}/share/locale
-            USE_SOURCE_PERMISSIONS FILES_MATCHING
-            PATTERN "codelite.mo")
+        add_subdirectory(../translations)
     endif()
 
     if(UNIX AND CL_COPY_WX_LIBS) # If we're packaging with wx2.9
