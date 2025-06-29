@@ -743,7 +743,7 @@ void RemotyWorkspace::OnRun(clExecuteEvent& event)
     }
 
     // the main command to run
-    ::WrapWithQuotes(command);
+    StringUtils::WrapWithQuotes(command);
 
     wxString args = conf->GetArgs();
     args.Replace("\r", wxEmptyString);
@@ -754,7 +754,7 @@ void RemotyWorkspace::OnRun(clExecuteEvent& event)
     for (auto& arg : args_arr) {
         arg.Trim().Trim(false);
         // wrap with quotes if required
-        ::WrapWithQuotes(arg);
+        StringUtils::WrapWithQuotes(arg);
         command << " " << arg;
     }
 
@@ -811,7 +811,7 @@ wxString RemotyWorkspace::CreateEnvScriptContent() const
     wxString content;
     content << "# prepare the environment variables\n";
     for (auto& vt : envmap) {
-        content << "export " << vt.first << "=" << ::WrapWithQuotes(vt.second) << "\n";
+        content << "export " << vt.first << "=" << StringUtils::WrapWithQuotes(vt.second) << "\n";
     }
     return content;
 }
