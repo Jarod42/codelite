@@ -875,7 +875,7 @@ void ContextCpp::OnInsertDoxyComment(wxCommandEvent& event)
         }
 
         // Join the lines back
-        wxString doxyBlock = ::clJoinLinesWithEOL(lines, GetCtrl().GetEOL());
+        wxString doxyBlock = StringUtils::clJoinLinesWithEOL(lines, GetCtrl().GetEOL());
         doxyBlock << GetCtrl().GetEolString();
         doxyBlock.Replace("|", ""); // Remove any marker position
 
@@ -1644,7 +1644,7 @@ void ContextCpp::AutoAddComment()
                     }
 
                     // Join the lines back
-                    wxString doxyBlock = ::clJoinLinesWithEOL(lines, rCtrl.GetEOL());
+                    wxString doxyBlock = StringUtils::clJoinLinesWithEOL(lines, rCtrl.GetEOL());
                     int where = doxyBlock.Find('|');
                     if (where == wxNOT_FOUND) {
                         where = startPos;
