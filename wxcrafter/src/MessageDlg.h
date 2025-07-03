@@ -7,7 +7,7 @@ class MessageDlg : public MessageDlgBaseClass
 {
 public:
     MessageDlg(wxWindow* parent, const wxString& msg, const wxString& title);
-    virtual ~MessageDlg();
+    ~MessageDlg() override;
 
     // Accessors
     void SetMessage(const wxString& msg);
