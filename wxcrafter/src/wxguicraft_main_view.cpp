@@ -1,6 +1,7 @@
 #include "wxguicraft_main_view.h"
 
 #include "AuiToolBarTopLevel.h"
+#include "StringUtils.h"
 #include "ToolBoxPanel.h"
 #include "allocator_mgr.h"
 #include "cl_command_event.h"
@@ -3345,7 +3346,7 @@ void GUICraftMainPanel::BatchGenerate(const wxArrayString& files)
     }
     if (!projectsGenerated.IsEmpty()) {
         wxString message;
-        message << _("Generated Code For the following projects:\n") << wxImplode(projectsGenerated, "\n");
+        message << _("Generated Code For the following projects:\n") << StringUtils::wxImplode(projectsGenerated, "\n");
         ::wxMessageBox(message, "wxCrafter");
     }
 }
