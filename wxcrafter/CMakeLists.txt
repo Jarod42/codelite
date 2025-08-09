@@ -1,29 +1,21 @@
-if(WXC_APP)
-    message("-- Building wxCrafter as a standalone executable ")
-    add_definitions(-DSTANDALONE_BUILD=1)
-    add_definitions(-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\")
-else()
-    message("-- Building wxCrafter as codelite plugin ")
-    add_definitions(-DWXCAPP=0)
-endif(WXC_APP)
-
-# set the plugin name here
-if(WXC_APP)
-    set(PLUGIN_NAME "wxcrafter")
-else()
-    set(PLUGIN_NAME "wxCrafter")
-endif()
-
 if(NOT CL_SRC_ROOT)
     message(FATAL_ERROR "Missing CL_SRC_ROOT")
 endif()
+
+if(WXC_APP)
+    message("-- Building wxCrafter as a standalone executable")
+    set(PLUGIN_NAME "wxcrafter")
+else()
+    message("-- Building wxCrafter as codelite plugin")
+    set(PLUGIN_NAME "wxCrafter")
+endif(WXC_APP)
 
 set(WXC_DIR "${CL_SRC_ROOT}/wxcrafter")
 
 message("-- Generating makefile for wxCrafter")
 
 # Our project is called 'plugin' this is how it will be called in visual studio, and in our makefiles.
-project(${PLUGIN_NAME})
+project(wxCrafter)
 
 # wxWidgets include (this will do all the magic to configure everything)
 include("${wxWidgets_USE_FILE}")
@@ -106,53 +98,45 @@ if(MINGW)
 endif()
 
 # Define the output
-if(NOT WXC_APP)
-    # plugin mode
-    add_library(${PLUGIN_NAME} SHARED ${SRCS})
-else()
-    # executable
-    add_executable(${PLUGIN_NAME} ${SRCS} ${RES_FILES})
-endif()
+add_library(wxCrafterPlugin SHARED $<WXC_APP,EXCLUDE_FROM_ALL> ${SRCS})
+add_executable(wxcrafter $<$<NOT:WXC_APP>,EXCLUDE_FROM_ALL> ${SRCS} ${RES_FILES})
+
+#target_compile_definitions(wxCrafterPlugin PRIVATE WXCAPP=0)
+target_compile_definitions(wxcrafter PRIVATE STANDALONE_BUILD=1 INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\")
 
 if(UNIX OR APPLE)
-    set_target_properties(${PLUGIN_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
+    set_target_properties(wxCrafterPlugin PROPERTIES POSITION_INDEPENDENT_CODE ON)
+    set_target_properties(wxcrafter PROPERTIES POSITION_INDEPENDENT_CODE ON)
 endif()
 
-if(NOT WXC_APP AND USE_PCH)
-    target_precompile_headers(${PLUGIN_NAME} REUSE_FROM PCH)
+if(USE_PCH)
+    target_precompile_headers(wxCrafterPlugin REUSE_FROM PCH)
 endif()
 
 # Remove the "lib" prefix from the plugin name
-set_target_properties(${PLUGIN_NAME} PROPERTIES PREFIX "")
-target_link_libraries(${PLUGIN_NAME} wxcLib)
+set_target_properties(wxCrafterPlugin PROPERTIES OUTPUT_NAME "wxCrafter" PREFIX "")
 
-if(NOT WXC_APP)
-    if(NOT OFFICIAL_CL_BUILD)
-        target_link_libraries(${PLUGIN_NAME} ${LINKER_OPTIONS} wxsqlite3 ${SQLite3_LIBRARIES} libcodelite plugin)
-    else(OFFICIAL_CL_BUILD)
-        target_link_libraries(${PLUGIN_NAME} ${LINKER_OPTIONS})
-    endif(NOT OFFICIAL_CL_BUILD)
-else()
-    set(WXC_EXTRA_LIBS "")
-    if(NOT MINGW)
-        set(WXC_EXTRA_LIBS "-lutil")
-    else()
-        set(WXC_EXTRA_LIBS "-mwindows")
-    endif()
+target_link_libraries(wxCrafterPlugin wxcLib)
+target_link_libraries(wxcrafter wxcLib)
 
-    target_link_libraries(${PLUGIN_NAME} ${LINKER_OPTIONS} wxsqlite3 libcodelite plugin ${WXC_EXTRA_LIBS})
-endif()
+if(NOT OFFICIAL_CL_BUILD)
+    target_link_libraries(wxCrafterPlugin ${LINKER_OPTIONS} wxsqlite3 ${SQLite3_LIBRARIES} libcodelite plugin)
+else(OFFICIAL_CL_BUILD)
+    target_link_libraries(wxCrafterPlugin ${LINKER_OPTIONS})
+endif(NOT OFFICIAL_CL_BUILD)
+
+target_link_libraries(wxcrafter ${LINKER_OPTIONS} wxsqlite3 libcodelite plugin $<IF:MINGW,"-mwindows","-lutil">)
 
 if(NOT WXC_APP)
     # wxCrafter as codelite's plugin
-    cl_install_plugin(${PLUGIN_NAME})
+    cl_install_plugin(wxCrafterPlugin)
     cl_install_file_shared(${WXC_DIR}/wxgui.zip)
 elseif(NOT MINGW)
     set(CPACK_DEB_COMPONENT_INSTALL 1)
 
     # Installing an application
     install(
-        TARGETS ${PLUGIN_NAME}
+        TARGETS wxcrafter
         DESTINATION ${CL_INSTALL_BIN}
         PERMISSIONS ${EXE_PERM}
         COMPONENT standalone)
@@ -262,7 +246,7 @@ elseif(NOT MINGW)
 endif()
 
 if(WXC_APP AND MINGW)
-    install(TARGETS ${PLUGIN_NAME} DESTINATION "${CMAKE_INSTALL_PREFIX}")
+    install(TARGETS wxcrafter DESTINATION "${CMAKE_INSTALL_PREFIX}")
 endif()
 
 message(STATUS "wxCrafter - Done")
