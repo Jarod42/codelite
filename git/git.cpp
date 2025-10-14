@@ -674,8 +674,7 @@ void GitPlugin::OnFileAddSelected(wxCommandEvent& e)
     // Prepare the command:
     // git add --no-pager
     wxString cmd = "add";
-    for (size_t i = 0; i < files.size(); ++i) {
-        wxFileName fn(files.Item(i));
+    for (wxFileName fn : files) {
         fn.MakeRelativeTo(workingDir);
         wxString filename = fn.GetFullPath(wxPATH_UNIX);
         StringUtils::WrapWithQuotes(filename);
@@ -746,8 +745,7 @@ void GitPlugin::OnFileResetSelected(wxCommandEvent& e)
     // Prepare the command:
     // git add --no-pager
     wxString cmd = "checkout";
-    for (size_t i = 0; i < files.size(); ++i) {
-        wxFileName fn(files.Item(i));
+    for (wxFileName fn : files) {
         fn.MakeRelativeTo(workingDir);
         wxString filename = fn.GetFullPath(wxPATH_UNIX);
         StringUtils::WrapWithQuotes(filename);

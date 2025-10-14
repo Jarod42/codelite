@@ -38,9 +38,8 @@ bool clEditorConfig::LoadForFile(const wxFileName& filename, wxFileName& editorC
     clEditorConfigSection* cursection = &(m_sections.back());
     wxUnusedVar(cursection); // for debug purposes
     wxArrayString lines = ::wxStringTokenize(content, "\n", wxTOKEN_STRTOK);
-    for(size_t i = 0; i < lines.size(); ++i) {
+    for (wxString strLine : lines) {
         // Remove comments
-        wxString strLine = lines.Item(i);
         strLine = strLine.BeforeFirst('#');
         strLine = strLine.BeforeFirst(';');
 
@@ -107,8 +106,8 @@ public:
         DoGetLeaves(this, leaves);
 
         for (clEditorConfigTreeNode* leaf : leaves) {
-            for(size_t i = 0; i < patterns.size(); ++i) {
-                leaf->AddChild(patterns.Item(i));
+            for (const auto& pattern : patterns) {
+                leaf->AddChild(pattern);
             }
         }
     }
@@ -122,8 +121,8 @@ private:
             // leaf node
             leaves.push_back(node);
         } else {
-            for(size_t i = 0; i < node->children.size(); ++i) {
-                DoGetLeaves(node->children.at(i), leaves);
+            for (auto* child : node->children) {
+                DoGetLeaves(child, leaves);
             }
         }
     }
@@ -137,8 +136,8 @@ private:
             // leaf node
             patterns.Add(curpattern + node->data);
         } else {
-            for(size_t i = 0; i < node->children.size(); ++i) {
-                DoGetPatterns(node->children.at(i), patterns, curpattern + node->data);
+            for (auto* child : node->children) {
+                DoGetPatterns(child, patterns, curpattern + node->data);
             }
         }
     }
@@ -152,8 +151,8 @@ private:
             // leaf node
             node->data << pattern;
         } else {
-            for(size_t i = 0; i < node->children.size(); ++i) {
-                DoAddToAllLeaves(node->children.at(i), pattern);
+            for (auto* child : node->children) {
+                DoAddToAllLeaves(child, pattern);
             }
         }
     }
@@ -236,15 +235,15 @@ wxArrayString clEditorConfig::ProcessSection(wxString& strLine)
     }
 
     wxArrayString res;
-    for(size_t i = 0; i < trees.size(); ++i) {
-        wxArrayString patterns = trees.at(i)->GetPatterns();
+    for (auto* tree : trees) {
+        wxArrayString patterns = tree->GetPatterns();
         res.insert(res.end(), patterns.begin(), patterns.end());
-        delete trees.at(i);
+        delete tree;
     }
 
     // Loop over the array and change "**" => "*"
-    for(size_t i = 0; i < res.size(); ++i) {
-        res.Item(i).Replace("**", "*");
+    for (auto& s : res) {
+        s.Replace("**", "*");
     }
     return res;
 }
@@ -311,8 +310,7 @@ bool clEditorConfig::GetSectionForFile(const wxFileName& filename, clEditorConfi
     section.filename = editorConfigFile;
     bool match_found = false;
     for (const clEditorConfigSection& sec : m_sections) {
-        for(size_t i = 0; i < sec.patterns.size(); ++i) {
-            const wxString& pattern = sec.patterns.Item(i);
+        for (const wxString& pattern : sec.patterns) {
             bool is_wild = pattern.Contains("*");
 
             wxString fullpath = filename.GetFullPath(wxPATH_UNIX);

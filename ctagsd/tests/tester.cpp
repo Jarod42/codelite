@@ -40,8 +40,7 @@ std::size_t Tester::RunTests()
 
     std::vector<wxString> failures;
     size_t total_checks = 0;
-    for(size_t i = 0; i < m_tests.size(); i++) {
-        ITest* test = m_tests[i];
+    for (ITest* test : m_tests) {
         if(test->test()) {
             builder.Add(wxString() << test->name() << "....", AnsiColours::NormalText());
             builder.Add("OK", AnsiColours::Green());
