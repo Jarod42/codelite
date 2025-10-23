@@ -49,7 +49,7 @@ public:
     /**
      * @brief return list of keywords
      */
-    void get_cxx_keywords(std::vector<wxString>& keywords);
+    std::vector<wxString> get_cxx_keywords();
 
     /**
      * @brief format a tag comment

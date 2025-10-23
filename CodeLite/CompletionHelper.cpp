@@ -385,94 +385,558 @@ wxString CompletionHelper::truncate_file_to_location(const wxString& file_conten
     return wxEmptyString;
 }
 
-thread_local std::unordered_set<wxString> words;
-namespace
-{
-void populate_keywords()
-{
-    if(words.empty()) {
-        words.insert("auto");
-        words.insert("break");
-        words.insert("case");
-        words.insert("char");
-        words.insert("const");
-        words.insert("continue");
-        words.insert("default");
-        words.insert("define");
-        words.insert("defined");
-        words.insert("do");
-        words.insert("double");
-        words.insert("elif");
-        words.insert("else");
-        words.insert("endif");
-        words.insert("enum");
-        words.insert("error");
-        words.insert("extern");
-        words.insert("float");
-        words.insert("for");
-        words.insert("goto");
-        words.insert("if");
-        words.insert("ifdef");
-        words.insert("ifndef");
-        words.insert("include");
-        words.insert("int");
-        words.insert("line");
-        words.insert("long");
-        words.insert("bool");
-        words.insert("pragma");
-        words.insert("register");
-        words.insert("return");
-        words.insert("short");
-        words.insert("signed");
-        words.insert("sizeof");
-        words.insert("static");
-        words.insert("struct");
-        words.insert("switch");
-        words.insert("typedef");
-        words.insert("undef");
-        words.insert("union");
-        words.insert("unsigned");
-        words.insert("void");
-        words.insert("volatile");
-        words.insert("while");
-        words.insert("class");
-        words.insert("namespace");
-        words.insert("delete");
-        words.insert("friend");
-        words.insert("inline");
-        words.insert("new");
-        words.insert("operator");
-        words.insert("overload");
-        words.insert("protected");
-        words.insert("private");
-        words.insert("public");
-        words.insert("this");
-        words.insert("virtual");
-        words.insert("template");
-        words.insert("typename");
-        words.insert("dynamic_cast");
-        words.insert("static_cast");
-        words.insert("const_cast");
-        words.insert("reinterpret_cast");
-        words.insert("using");
-        words.insert("throw");
-        words.insert("catch");
-        words.insert("nullptr");
-        words.insert("noexcept");
-        words.insert("override");
-        words.insert("explicit");
-        words.insert("constexpr");
-        words.insert("thread_local");
-        words.insert("true");
-        words.insert("false");
-    }
-}
-} // namespace
-bool CompletionHelper::is_cxx_keyword(const wxString& word)
-{
-    populate_keywords();
-    return words.count(word) != 0;
-}
+thread_local const std::unordered_set<wxString> cppKeywords{
+    // Regular keywords
+    "alignas", // C++11
+    "alignof", // C++11
+    "and",     // alternative for &&
+    "and_eq",  // alternative for &=
+    "asm",
+    "auto",
+    "bitand", // alternative for &
+    "bitor",  // alternative for |
+    "bool",
+    "break",
+    "case",
+    "catch",
+    "char",
+    "char8_t",  // C++20
+    "char16_t", // C++11
+    "char32_t", // C++11
+    "class",
+    "compl",   // alternative for ~
+    "concept", // C++20
+    "const",
+    "consteval", // C++20
+    "constexpr", // C++11
+    "constinit", // C++20
+    "const_cast",
+    "continue",
+    "contract_assert", // C++26
+    "co_await",        // C++20
+    "co_return",       // C++20
+    "co_yield",        // C++20
+    "decltype",        // C++11
+    "default",
+    "delete",
+    "do",
+    "double",
+    "dynamic_cast",
+    "else",
+    "enum",
+    "explicit",
+    "export",
+    "extern",
+    "false",
+    "float",
+    "for",
+    "friend",
+    "goto",
+    "if",
+    "inline",
+    "int",
+    "long",
+    "mutable",
+    "namespace",
+    "new",
+    "noexcept", // C++11
+    "not",      // alternative for !
+    "not_eq",   // alternative for !=
+    "nullptr",  // C++11
+    "operator",
+    "or",    // alternative for ||
+    "or_eq", // alternative for |=
+    "private",
+    "protected",
+    "public",
+    "register",
+    "reinterpret_cast",
+    "requires", // C++20
+    "return",
+    "short",
+    "signed",
+    "sizeof",
+    "static",
+    "static_assert", // C++11
+    "static_cast",
+    "struct",
+    "switch",
+    "template",
+    "this",
+    "thread_local", // C++11
+    "throw",
+    "true",
+    "try",
+    "typedef",
+    "typeid",
+    "typename",
+    "union",
+    "unsigned",
+    "using",
+    "virtual",
+    "void",
+    "volatile",
+    "wchar_t",
+    "while",
+    "xor",    // alternative for ^
+    "xor_eq", // alternative for ^=
+
+    // Identifier with special meaning
+    "final",                             // C++11
+    "override",                          // C++11
+    "import",                            // C++20
+    "module",                            // C++20
+    "pre",                               // C++26
+    "post",                              // C++26
+    "trivially_relocatable_if_eligible", // C++26
+    "replaceable_if_eligible",           // C++26
+
+    // recognized tokens by the preprocessor when in context of a preprocessor directive
+    "if",
+    "elif",
+    "else",
+    "endif",
+
+    "ifdef",
+    "ifndef",
+    "elifdef",  // C++23
+    "elifndef", // C++23
+    "define",
+    "undef",
+
+    "include",
+    "embed", // C++26
+    "line",
+
+    "error",
+    "warning", // C++23
+    "pragma",
+
+    "defined",
+    "__has_include",       // C++17
+    "__has_cpp_attribute", // C++20
+    "__has_embed",         // C++26
+
+    "export", // (C++20)
+    "import", // (C++20)
+    "module", // (C++20)
+
+    // recognized tokens by the preprocessor outside the context of a preprocessor directive
+    "_Pragma", // C++ 11
+
+    // Standard attributes
+
+    "noreturn",           // C++11
+    "carries_dependency", // C++11, removed in C++26
+    "deprecated",         // C++14
+    "fallthrough",        // C++17
+    "maybe_unused",       // C++17
+    "nodiscard",          // C++17
+    "likely",             // C++20
+    "unlikely",           // C++20
+    "no_unique_address",  // C++20
+    "assume",             // C++23
+    "indeterminate",      // C++26
+
+    // predefined MACRO
+
+    "__cplusplus",
+    "__STDC_HOSTED__", // C++ 11)
+    "__FILE__",
+    "__LINE__",
+    "__DATE__",
+    "__TIME__",
+    "__STDCPP_DEFAULT_NEW_ALIGNMENT__", // C++ 17
+    "__STDCPP_­BFLOAT16_­T__",          // C++23
+    "__STDCPP_­FLOAT16_­T__",           // C++23
+    "__STDCPP_FLOAT32_T__",             // C++23
+    "__STDCPP_FLOAT64_T__",             // C++23
+    "__STDCPP_FLOAT128_T__",            // C++23
+    "__STDC_EMBED_NOT_FOUND__",         // C++26
+    "__STDC_EMBED_FOUND__",             // C++26
+    "__STDC_EMBED_EMPTY__",             // C++26
+
+    // additional macro names may be predefined by the implementations:
+
+    "__STDC__",
+    "__STDC_VERSION__",                 // C++11
+    "__STDC_ISO_10646__",               // C++11
+    "__STDC_MB_MIGHT_NEQ_WC__",         // C++11
+    "__STDCPP_THREADS__",               // C++11
+    "__STDCPP_STRICT_POINTER_SAFETY__", // C++11, removed in C++23
+
+    // The function-local predefined variable __func__ is not a predefined macro
+    "__func__",
+
+    // Feature testing C++20
+
+    "__has_cpp_attribute",
+
+    // Language features
+
+"__cpp_aggregate_bases",                 // C++17
+    "__cpp_aggregate_nsdmi",                 // C++14
+    "__cpp_aggregate_paren_init",            // C++20
+    "__cpp_alias_templates",                 // C++11
+    "__cpp_aligned_new",                     // C++17
+    "__cpp_attributes",                      // C++11
+    "__cpp_auto_cast",                       // C++23
+    "__cpp_binary_literals",                 // C++14
+    "__cpp_capture_star_this",               // C++17
+    "__cpp_char8_t",                         // C++20
+    "__cpp_concepts",                        // C++20
+    "__cpp_conditional_explicit",            // C++20
+    "__cpp_consteval",                       // C++20
+    "__cpp_constexpr",                       // C++11
+    "__cpp_constexpr_dynamic_alloc",         // C++20
+    "__cpp_constexpr_exceptions",            // C++26
+    "__cpp_constexpr_in_decltype",           // C++20
+    "__cpp_constinit",                       // C++20
+    "__cpp_contracts",                       // C++26
+    "__cpp_decltype",                        // C++11
+    "__cpp_decltype_auto",                   // C++14
+    "__cpp_deduction_guides",                // C++17
+    "__cpp_delegating_constructors",         // C++11
+    "__cpp_deleted_function",                // C++26
+    "__cpp_designated_initializers",         // C++20
+    "__cpp_enumerator_attributes",           // C++17
+    "__cpp_explicit_this_parameter",         // C++23
+    "__cpp_fold_expressions",                // C++17
+    "__cpp_generic_lambdas",                 // C++14
+    "__cpp_guaranteed_copy_elision",         // C++17
+    "__cpp_hex_float",                       // C++17
+    "__cpp_if_consteval",                    // C++23
+    "__cpp_if_constexpr",                    // C++17
+    "__cpp_impl_coroutine",                  // C++20
+    "__cpp_impl_destroying_delete",          // C++20
+    "__cpp_impl_three_way_comparison",       // C++20
+    "__cpp_implicit_move",                   // C++23
+    "__cpp_inheriting_constructors",         // C++11
+    "__cpp_init_captures",                   // C++14
+    "__cpp_initializer_lists",               // C++11
+    "__cpp_inline_variables",                // C++17
+    "__cpp_lambdas",                         // C++11
+    "__cpp_modules",                         // C++20
+    "__cpp_multidimensional_subscript",      // C++23
+    "__cpp_named_character_escapes",         // C++23
+    "__cpp_namespace_attributes",            // C++17
+    "__cpp_noexcept_function_type",          // C++17
+    "__cpp_nontype_template_args",           // C++17
+    "__cpp_nontype_template_parameter_auto", // C++17
+    "__cpp_nsdmi",                           // C++11
+    "__cpp_pack_indexing",                   // C++26
+    "__cpp_placeholder_variables",           // C++26
+    "__cpp_pp_embed",                        // C++26
+    "__cpp_range_based_for",                 // C++11
+    "__cpp_raw_strings",                     // C++11
+    "__cpp_ref_qualifiers",                  // C++11
+    "__cpp_return_type_deduction",           // C++14
+    "__cpp_rvalue_references",               // C++11
+    "__cpp_size_t_suffix",                   // C++23
+    "__cpp_sized_deallocation",              // C++14
+    "__cpp_static_assert",                   // C++11
+    "__cpp_static_call_operator",            // C++23
+    "__cpp_structured_bindings",             // C++17
+    "__cpp_template_parameters",             // C++26
+    "__cpp_template_template_args",          // C++17
+    "__cpp_threadsafe_static_init",          // C++11
+    "__cpp_trivial_relocatability",          // C++26
+    "__cpp_trivial_union",                   // C++26
+    "__cpp_unicode_characters",              // C++11
+    "__cpp_unicode_literals",                // C++11
+    "__cpp_user_defined_literals",           // C++11
+    "__cpp_using_enum",                      // C++20
+    "__cpp_variable_templates",              // C++14
+    "__cpp_variadic_friend",                 // C++26
+    "__cpp_variadic_templates",              // C++11
+    "__cpp_variadic_using",                  // C++17
+
+    // Library features
+    "__cpp_lib_adaptor_iterator_pair_constructor",   // C++23
+    "__cpp_lib_addressof_constexpr",                 // C++17
+    "__cpp_lib_algorithm_default_value_type",        // C++26
+    "__cpp_lib_algorithm_iterator_requirements",     // C++23
+    "__cpp_lib_aligned_accessor",                    // C++26
+    "__cpp_lib_allocate_at_least",                   // C++23
+    "__cpp_lib_allocator_traits_is_always_equal",    // C++17
+    "__cpp_lib_any",                                 // C++17
+    "__cpp_lib_apply",                               // C++17
+    "__cpp_lib_array_constexpr",                     // C++17
+    "__cpp_lib_as_const",                            // C++17
+    "__cpp_lib_associative_heterogeneous_erasure",   // C++23
+    "__cpp_lib_associative_heterogeneous_insertion", // C++26
+    "__cpp_lib_assume_aligned",                      // C++20
+    "__cpp_lib_atomic_flag_test",                    // C++20
+    "__cpp_lib_atomic_float",                        // C++20
+    "__cpp_lib_atomic_is_always_lock_free",          // C++17
+    "__cpp_lib_atomic_lock_free_type_aliases",       // C++20
+    "__cpp_lib_atomic_min_max",                      // C++26
+    "__cpp_lib_atomic_ref",                          // C++20
+    "__cpp_lib_atomic_shared_ptr",                   // C++20
+    "__cpp_lib_atomic_value_initialization",         // C++20
+    "__cpp_lib_atomic_wait",                         // C++20
+    "__cpp_lib_barrier",                             // C++20
+    "__cpp_lib_bind_back",                           // C++23
+    "__cpp_lib_bind_front",                          // C++20
+    "__cpp_lib_bit_cast",                            // C++20
+    "__cpp_lib_bitops",                              // C++20
+    "__cpp_lib_bitset",                              // C++26
+    "__cpp_lib_bool_constant",                       // C++17
+    "__cpp_lib_bounded_array_traits",                // C++20
+    "__cpp_lib_boyer_moore_searcher",                // C++17
+    "__cpp_lib_byte",                                // C++17
+    "__cpp_lib_byteswap",                            // C++23
+    "__cpp_lib_char8_t",                             // C++20
+    "__cpp_lib_chrono",                              // C++17
+    "__cpp_lib_chrono_udls",                         // C++14
+    "__cpp_lib_clamp",                               // C++17
+    "__cpp_lib_common_reference",                    // C++23
+    "__cpp_lib_common_reference_wrapper",            // C++23
+    "__cpp_lib_complex_udls",                        // C++14
+    "__cpp_lib_concepts",                            // C++20
+    "__cpp_lib_constexpr_algorithms",                // C++20
+    "__cpp_lib_constexpr_atomic",                    // C++26
+    "__cpp_lib_constexpr_bitset",                    // C++23
+    "__cpp_lib_constexpr_charconv",                  // C++23
+    "__cpp_lib_constexpr_cmath",                     // C++23
+    "__cpp_lib_constexpr_complex",                   // C++20
+    "__cpp_lib_constexpr_deque",                     // C++26
+    "__cpp_lib_constexpr_dynamic_alloc",             // C++20
+    "__cpp_lib_constexpr_exceptions",                // C++26
+    "__cpp_lib_constexpr_flat_map",                  // C++26
+    "__cpp_lib_constexpr_flat_set",                  // C++26
+    "__cpp_lib_constexpr_forward_list",              // C++26
+    "__cpp_lib_constexpr_functional",                // C++20
+    "__cpp_lib_constexpr_inplace_vector",            // C++26
+    "__cpp_lib_constexpr_iterator",                  // C++20
+    "__cpp_lib_constexpr_list",                      // C++26
+    "__cpp_lib_constexpr_map",                       // C++26
+    "__cpp_lib_constexpr_memory",                    // C++20
+    "__cpp_lib_constexpr_new",                       // C++26
+    "__cpp_lib_constexpr_numeric",                   // C++20
+    "__cpp_lib_constexpr_queue",                     // C++26
+    "__cpp_lib_constexpr_set",                       // C++26
+    "__cpp_lib_constexpr_stack",                     // C++26
+    "__cpp_lib_constexpr_string",                    // C++17
+    "__cpp_lib_constexpr_string_view",               // C++20
+    "__cpp_lib_constexpr_tuple",                     // C++20
+    "__cpp_lib_constexpr_typeinfo",                  // C++23
+    "__cpp_lib_constexpr_unordered_map",             // C++26
+    "__cpp_lib_constexpr_unordered_set",             // C++26
+    "__cpp_lib_constexpr_utility",                   // C++20
+    "__cpp_lib_constexpr_vector",                    // C++20
+    "__cpp_lib_constrained_equality",                // C++26
+    "__cpp_lib_containers_ranges",                   // C++23
+    "__cpp_lib_contracts",                           // C++26
+    "__cpp_lib_copyable_function",                   // C++26
+    "__cpp_lib_coroutine",                           // C++20
+    "__cpp_lib_debugging",                           // C++26
+    "__cpp_lib_destroying_delete",                   // C++20
+    "__cpp_lib_enable_shared_from_this",             // C++17
+    "__cpp_lib_endian",                              // C++20
+    "__cpp_lib_erase_if",                            // C++20
+    "__cpp_lib_exchange_function",                   // C++14
+    "__cpp_lib_execution",                           // C++17
+    "__cpp_lib_expected",                            // C++23
+    "__cpp_lib_filesystem",                          // C++17
+    "__cpp_lib_flat_map",                            // C++23
+    "__cpp_lib_flat_set",                            // C++23
+    "__cpp_lib_format",                              // C++20
+    "__cpp_lib_format_path",                         // C++26
+    "__cpp_lib_format_ranges",                       // C++23
+    "__cpp_lib_format_uchar",                        // C++26
+    "__cpp_lib_formatters",                          // C++23
+    "__cpp_lib_forward_like",                        // C++23
+    "__cpp_lib_freestanding_algorithm",              // C++26
+    "__cpp_lib_freestanding_array",                  // C++26
+    "__cpp_lib_freestanding_char_traits",            // C++26
+    "__cpp_lib_freestanding_charconv",               // C++26
+    "__cpp_lib_freestanding_cstdlib",                // C++26
+    "__cpp_lib_freestanding_cstring",                // C++26
+    "__cpp_lib_freestanding_cwchar",                 // C++26
+    "__cpp_lib_freestanding_errc",                   // C++26
+    "__cpp_lib_freestanding_execution",              // C++26
+    "__cpp_lib_freestanding_expected",               // C++26
+    "__cpp_lib_freestanding_feature_test_macros",    // C++26
+    "__cpp_lib_freestanding_functional",             // C++26
+    "__cpp_lib_freestanding_iterator",               // C++26
+    "__cpp_lib_freestanding_mdspan",                 // C++26
+    "__cpp_lib_freestanding_memory",                 // C++26
+    "__cpp_lib_freestanding_numeric",                // C++26
+    "__cpp_lib_freestanding_operator_new",           // C++26
+    "__cpp_lib_freestanding_optional",               // C++26
+    "__cpp_lib_freestanding_random",                 // C++26
+    "__cpp_lib_freestanding_ranges",                 // C++26
+    "__cpp_lib_freestanding_ratio",                  // C++26
+    "__cpp_lib_freestanding_string_view",            // C++26
+    "__cpp_lib_freestanding_tuple",                  // C++26
+    "__cpp_lib_freestanding_utility",                // C++26
+    "__cpp_lib_freestanding_variant",                // C++26
+    "__cpp_lib_fstream_native_handle",               // C++26
+    "__cpp_lib_function_ref",                        // C++26
+    "__cpp_lib_gcd_lcm",                             // C++17
+    "__cpp_lib_generator",                           // C++23
+    "__cpp_lib_generic_associative_lookup",          // C++14
+    "__cpp_lib_generic_unordered_lookup",            // C++20
+    "__cpp_lib_hardened_array",                      // C++26
+    "__cpp_lib_hardened_basic_string",               // C++26
+    "__cpp_lib_hardened_basic_string_view",          // C++26
+    "__cpp_lib_hardened_bitset",                     // C++26
+    "__cpp_lib_hardened_deque",                      // C++26
+    "__cpp_lib_hardened_expected",                   // C++26
+    "__cpp_lib_hardened_forward_list",               // C++26
+    "__cpp_lib_hardened_inplace_vector",             // C++26
+    "__cpp_lib_hardened_list",                       // C++26
+    "__cpp_lib_hardened_mdspan",                     // C++26
+    "__cpp_lib_hardened_optional",                   // C++26
+    "__cpp_lib_hardened_span",                       // C++26
+    "__cpp_lib_hardened_valarray",                   // C++26
+    "__cpp_lib_hardened_vector",                     // C++26
+    "__cpp_lib_hardware_interference_size",          // C++17
+    "__cpp_lib_has_unique_object_representations",   // C++17
+    "__cpp_lib_hazard_pointer",                      // C++26
+    "__cpp_lib_hive",                                // C++26
+    "__cpp_lib_hypot",                               // C++17
+    "__cpp_lib_incomplete_container_elements",       // C++17
+    "__cpp_lib_indirect",                            // C++26
+    "__cpp_lib_inplace_vector",                      // C++26
+    "__cpp_lib_int_pow2",                            // C++20
+    "__cpp_lib_integer_comparison_functions",        // C++20
+    "__cpp_lib_integer_sequence",                    // C++14
+    "__cpp_lib_integral_constant_callable",          // C++14
+    "__cpp_lib_interpolate",                         // C++20
+    "__cpp_lib_invoke",                              // C++17
+    "__cpp_lib_invoke_r",                            // C++23
+    "__cpp_lib_ios_noreplace",                       // C++23
+    "__cpp_lib_is_aggregate",                        // C++17
+    "__cpp_lib_is_constant_evaluated",               // C++20
+    "__cpp_lib_is_final",                            // C++14
+    "__cpp_lib_is_implicit_lifetime",                // C++23
+    "__cpp_lib_is_invocable",                        // C++17
+    "__cpp_lib_is_layout_compatible",                // C++20
+    "__cpp_lib_is_nothrow_convertible",              // C++20
+    "__cpp_lib_is_null_pointer",                     // C++14
+    "__cpp_lib_is_pointer_interconvertible",         // C++20
+    "__cpp_lib_is_scoped_enum",                      // C++23
+    "__cpp_lib_is_sufficiently_aligned",             // C++26
+    "__cpp_lib_is_swappable",                        // C++17
+    "__cpp_lib_is_virtual_base_of",                  // C++26
+    "__cpp_lib_is_within_lifetime",                  // C++26
+    "__cpp_lib_jthread",                             // C++20
+    "__cpp_lib_latch",                               // C++20
+    "__cpp_lib_launder",                             // C++17
+    "__cpp_lib_linalg",                              // C++26
+    "__cpp_lib_list_remove_return_type",             // C++20
+    "__cpp_lib_logical_traits",                      // C++17
+    "__cpp_lib_make_from_tuple",                     // C++17
+    "__cpp_lib_make_reverse_iterator",               // C++14
+    "__cpp_lib_make_unique",                         // C++14
+    "__cpp_lib_map_try_emplace",                     // C++17
+    "__cpp_lib_math_constants",                      // C++20
+    "__cpp_lib_math_special_functions",              // C++17
+    "__cpp_lib_mdspan",                              // C++23
+    "__cpp_lib_memory_resource",                     // C++17
+    "__cpp_lib_modules",                             // C++23
+    "__cpp_lib_move_iterator_concept",               // C++23
+    "__cpp_lib_move_only_function",                  // C++23
+    "__cpp_lib_node_extract",                        // C++17
+    "__cpp_lib_nonmember_container_access",          // C++17
+    "__cpp_lib_not_fn",                              // C++17
+    "__cpp_lib_null_iterators",                      // C++14
+    "__cpp_lib_optional",                            // C++17
+    "__cpp_lib_optional_range_support",              // C++26
+    "__cpp_lib_out_ptr",                             // C++23
+    "__cpp_lib_parallel_algorithm",                  // C++17
+    "__cpp_lib_philox_engine",                       // C++26
+    "__cpp_lib_polymorphic",                         // C++26
+    "__cpp_lib_polymorphic_allocator",               // C++20
+    "__cpp_lib_print",                               // C++23
+    "__cpp_lib_quoted_string_io",                    // C++14
+    "__cpp_lib_ranges",                              // C++20
+    "__cpp_lib_ranges_as_const",                     // C++23
+    "__cpp_lib_ranges_as_rvalue",                    // C++23
+    "__cpp_lib_ranges_cache_latest",                 // C++26
+    "__cpp_lib_ranges_cartesian_product",            // C++23
+    "__cpp_lib_ranges_chunk",                        // C++23
+    "__cpp_lib_ranges_chunk_by",                     // C++23
+    "__cpp_lib_ranges_concat",                       // C++26
+    "__cpp_lib_ranges_contains",                     // C++23
+    "__cpp_lib_ranges_enumerate",                    // C++23
+    "__cpp_lib_ranges_find_last",                    // C++23
+    "__cpp_lib_ranges_fold",                         // C++23
+    "__cpp_lib_ranges_generate_random",              // C++26
+    "__cpp_lib_ranges_iota",                         // C++23
+    "__cpp_lib_ranges_join_with",                    // C++23
+    "__cpp_lib_ranges_repeat",                       // C++23
+    "__cpp_lib_ranges_reserve_hint",                 // C++26
+    "__cpp_lib_ranges_slide",                        // C++23
+    "__cpp_lib_ranges_starts_ends_with",             // C++23
+    "__cpp_lib_ranges_stride",                       // C++23
+    "__cpp_lib_ranges_to_container",                 // C++23
+    "__cpp_lib_ranges_to_input",                     // C++26
+    "__cpp_lib_ranges_zip",                          // C++23
+    "__cpp_lib_ratio",                               // C++26
+    "__cpp_lib_raw_memory_algorithms",               // C++17
+    "__cpp_lib_rcu",                                 // C++26
+    "__cpp_lib_reference_from_temporary",            // C++23
+    "__cpp_lib_reference_wrapper",                   // C++26
+    "__cpp_lib_remove_cvref",                        // C++20
+    "__cpp_lib_result_of_sfinae",                    // C++14
+    "__cpp_lib_robust_nonmodifying_seq_ops",         // C++14
+    "__cpp_lib_sample",                              // C++17
+    "__cpp_lib_saturation_arithmetic",               // C++26
+    "__cpp_lib_scoped_lock",                         // C++17
+    "__cpp_lib_semaphore",                           // C++20
+    "__cpp_lib_senders",                             // C++26
+    "__cpp_lib_shared_mutex",                        // C++17
+    "__cpp_lib_shared_ptr_arrays",                   // C++17
+    "__cpp_lib_shared_ptr_weak_type",                // C++17
+    "__cpp_lib_shared_timed_mutex",                  // C++14
+    "__cpp_lib_shift",                               // C++20
+    "__cpp_lib_simd",                                // C++26
+    "__cpp_lib_simd_complex",                        // C++26
+    "__cpp_lib_smart_ptr_for_overwrite",             // C++20
+    "__cpp_lib_smart_ptr_owner_equality",            // C++26
+    "__cpp_lib_source_location",                     // C++20
+    "__cpp_lib_span",                                // C++20
+    "__cpp_lib_span_initializer_list",               // C++26
+    "__cpp_lib_spanstream",                          // C++23
+    "__cpp_lib_ssize",                               // C++20
+    "__cpp_lib_sstream_from_string_view",            // C++26
+    "__cpp_lib_stacktrace",                          // C++23
+    "__cpp_lib_start_lifetime_as",                   // C++23
+    "__cpp_lib_starts_ends_with",                    // C++20
+    "__cpp_lib_stdatomic_h",                         // C++23
+    "__cpp_lib_string_contains",                     // C++23
+    "__cpp_lib_string_resize_and_overwrite",         // C++23
+    "__cpp_lib_string_udls",                         // C++14
+    "__cpp_lib_string_view",                         // C++17
+    "__cpp_lib_submdspan",                           // C++26
+    "__cpp_lib_syncbuf",                             // C++20
+    "__cpp_lib_text_encoding",                       // C++26
+    "__cpp_lib_three_way_comparison",                // C++20
+    "__cpp_lib_to_address",                          // C++20
+    "__cpp_lib_to_array",                            // C++20
+    "__cpp_lib_to_chars",                            // C++17
+    "__cpp_lib_to_string",                           // C++26
+    "__cpp_lib_to_underlying",                       // C++23
+    "__cpp_lib_transformation_trait_aliases",        // C++14
+    "__cpp_lib_transparent_operators",               // C++14
+    "__cpp_lib_trivially_relocatable",               // C++26
+    "__cpp_lib_tuple_element_t",                     // C++14
+    "__cpp_lib_tuple_like",                          // C++23
+    "__cpp_lib_tuples_by_type",                      // C++14
+    "__cpp_lib_type_identity",                       // C++20
+    "__cpp_lib_type_trait_variable_templates",       // C++17
+    "__cpp_lib_uncaught_exceptions",                 // C++17
+    "__cpp_lib_unordered_map_try_emplace",           // C++17
+    "__cpp_lib_unreachable",                         // C++23
+    "__cpp_lib_unwrap_ref",                          // C++20
+    "__cpp_lib_variant",                             // C++17
+    "__cpp_lib_void_t",                              // C++17
+};
+
+bool CompletionHelper::is_cxx_keyword(const wxString& word) { return cppKeywords.count(word) != 0; }
 
 std::vector<wxString> CompletionHelper::split_function_signature(const wxString& signature, wxString* return_value,
                                                                  size_t flags) const
@@ -981,11 +1445,7 @@ wxString CompletionHelper::normalize_function(TagEntryPtr tag, size_t flags)
     return normalize_function(tag.get(), flags);
 }
 
-void CompletionHelper::get_cxx_keywords(std::vector<wxString>& keywords)
+std::vector<wxString> CompletionHelper::get_cxx_keywords()
 {
-    populate_keywords();
-    keywords.reserve(words.size());
-    for(const wxString& word : words) {
-        keywords.push_back(word);
-    }
+    return {cppKeywords.begin(), cppKeywords.end()};
 }

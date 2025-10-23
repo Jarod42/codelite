@@ -1553,8 +1553,7 @@ size_t CxxCodeCompletion::get_anonymous_tags(const wxString& name, const wxArray
 size_t CxxCodeCompletion::get_keywords_tags(const wxString& name, std::vector<TagEntryPtr>& tags)
 {
     CompletionHelper helper;
-    std::vector<wxString> keywords;
-    helper.get_cxx_keywords(keywords);
+    std::vector<wxString> keywords = helper.get_cxx_keywords();
     tags.reserve(keywords.size());
 
     for(const auto& keyword : keywords) {
