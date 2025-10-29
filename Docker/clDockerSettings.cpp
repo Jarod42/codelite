@@ -2,7 +2,7 @@
 
 #include "StdToWX.h"
 #include "cl_standard_paths.h"
-#include "globals.h"
+#include "fileutils.h"
 
 #ifdef __WXMSW__
 #include <wx/msw/registry.h>
@@ -22,12 +22,8 @@ clDockerSettings::clDockerSettings()
         }
     }
 #endif
-    if (!::FileUtils::FindExe("docker", m_docker, hints)) {
-        m_docker = "docker";
-    }
-    if (!::FileUtils::FindExe("docker-compose", m_dockerCompose, hints)) {
-        m_dockerCompose = "docker-compose";
-    }
+    m_docker = ::FileUtils::FindExe("docker", hints).value_or({"docker"});
+    m_dockerCompose = ::FileUtils::FindExe("docker-compose", hints).value_or({"docker-compose"});
 }
 
 void clDockerSettings::FromJSON(const JSONItem& json)

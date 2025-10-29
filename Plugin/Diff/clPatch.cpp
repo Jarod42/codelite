@@ -3,6 +3,7 @@
 #include "StringUtils.h"
 #include "cl_standard_paths.h"
 #include "dirsaver.h"
+#include "fileutils.h"
 #include "procutils.h"
 
 clPatch::clPatch()
@@ -12,7 +13,7 @@ clPatch::clPatch()
 #ifdef __WXMSW__
     hints.Add(clStandardPaths::Get().GetExecutablePath());
 #endif
-    ::FileUtils::FindExe("patch", m_patch, hints);
+    m_patch = ::FileUtils::FindExe("patch", hints).value_or({});
 }
 
 void clPatch::Patch(const wxFileName& patchFile, const wxString& workingDirectory, const wxString& args)

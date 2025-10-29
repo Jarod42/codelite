@@ -49,24 +49,18 @@ void LintOptions::FromJSON(const JSONItem& json)
 
 #ifndef __WXMSW__
     // Find an installed version of phpcs
-    if(m_phpcsPhar.IsEmpty()) {
-        wxFileName phpcsFile;
-        ::FileUtils::FindExe("phpcs", phpcsFile);
-        SetPhpcsPhar(phpcsFile);
+    if (m_phpcsPhar.IsEmpty()) {
+        SetPhpcsPhar(::FileUtils::FindExe("phpcs").value_or({}));
     }
 
     // Find an installed version of phpmd
-    if(m_phpmdPhar.IsEmpty()) {
-        wxFileName phpmdFile;
-        ::FileUtils::FindExe("phpmd", phpmdFile);
-        SetPhpmdPhar(phpmdFile);
+    if (m_phpmdPhar.IsEmpty()) {
+        SetPhpmdPhar(::FileUtils::FindExe("phpmd").value_or({});
     }
 
     // Find an installed version of phpstan
-    if(m_phpstanPhar.IsEmpty()) {
-        wxFileName phpstanFile;
-        ::FileUtils::FindExe("phpstan", phpstanFile);
-        SetPhpstanPhar(phpstanFile);
+    if (m_phpstanPhar.IsEmpty()) {
+        SetPhpstanPhar(::FileUtils::FindExe("phpstan").value_or({}));
     }
 #endif
 }

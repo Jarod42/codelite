@@ -11,7 +11,6 @@ LSPTypeScriptDetector::LSPTypeScriptDetector()
 
 bool LSPTypeScriptDetector::DoLocate()
 {
-    wxFileName typescript_lsp;
     wxArrayString hints;
 
     wxString fullname = "typescript-language-server";
@@ -23,12 +22,13 @@ bool LSPTypeScriptDetector::DoLocate()
     fullname << ".cmd";
 #endif
 
-    if(!FileUtils::FindExe(fullname, typescript_lsp, hints)) {
+    auto typescript_lsp = FileUtils::FindExe(fullname, hints);
+    if (!typescript_lsp) {
         return false;
     }
 
     wxString command;
-    command << typescript_lsp.GetFullPath();
+    command << typescript_lsp->GetFullPath();
     StringUtils::WrapWithQuotes(command);
 
     command << " --stdio";
