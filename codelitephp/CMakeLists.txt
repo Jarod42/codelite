@@ -59,16 +59,15 @@ if(BUILD_TESTING)
         ${LINKER_OPTIONS}
         -L"${CMAKE_LIBRARY_OUTPUT_DIRECTORY}"
         -L"${CL_LIBPATH}"
+        doctest
         PHPParser
         libcodelite
         plugin
         ${ADDITIONAL_LIBRARIES}
         wxsqlite3)
 
-    add_test(
-        NAME "PHPUnitTests"
-        COMMAND PHPUnitTests
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/PHPParserUnitTests/Tests)
+    set_target_properties(PHPUnitTests PROPERTIES WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/PHPParserUnitTests/Tests)
+    doctest_discover_tests(PHPUnitTests)
 endif(BUILD_TESTING)
 
 set(ADDITIONAL_LIBRARIES "")
