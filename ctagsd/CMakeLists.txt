@@ -56,10 +56,11 @@ cl_install_executable(ctagsd)
 
 include(CTest)
 if(BUILD_TESTING)
-    add_executable(ctagsd-tests "tests/main.cpp" "tests/tester.cpp")
+    add_executable(ctagsd-tests "tests/main.cpp")
     target_link_libraries(
         ctagsd-tests
         ctagdslib
+        doctest
         ${LINKER_OPTIONS}
         -L"${CL_LIBPATH}"
         libcodelite
@@ -67,7 +68,7 @@ if(BUILD_TESTING)
         wxsqlite3
         ${UTIL_LIB})
 
-    add_test(NAME "ctagsd-tests" COMMAND ctagsd-tests)
+    doctest_discover_tests(ctagsd-tests)
 
     cl_install_executable(ctagsd-tests)
 endif(BUILD_TESTING)
