@@ -52,3 +52,6 @@
 [submodule "submodules/LuaBridge"]
 	path = submodules/LuaBridge
 	url = https://github.com/eranif/LuaBridge.git
+[submodule "submodules/doctest"]
+	path = submodules/doctest
+	url = https://github.com/doctest/doctest
