@@ -41,8 +41,7 @@ PHPUserWorkspace& PHPUserWorkspace::Save()
     // Serialize the breakpoints
     JSON root(cJSON_Object);
     JSONItem json = root.toElement();
-    JSONItem bpArr = JSONItem::createArray("m_breakpoints");
-    json.append(bpArr);
+    JSONItem bpArr = json.AddArray("m_breakpoints");
 
     for (const auto& breakpoint : m_breakpoints) {
         bpArr.arrayAppend(breakpoint.ToJSON());

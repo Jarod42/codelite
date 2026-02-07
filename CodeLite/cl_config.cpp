@@ -38,10 +38,9 @@
         parent.append(obj);                             \
     }
 
-#define ADD_ARR_IF_NOT_EXISTS(parent, arrName)         \
-    if (!parent.hasNamedObject(arrName)) {             \
-        JSONItem arr = JSONItem::createArray(arrName); \
-        parent.append(arr);                            \
+#define ADD_ARR_IF_NOT_EXISTS(parent, arrName) \
+    if (!(parent).hasNamedObject(arrName)) {   \
+        (parent).AddArray(arrName);            \
     }
 
 namespace

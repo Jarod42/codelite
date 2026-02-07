@@ -209,8 +209,7 @@ JSONItem SignatureInformation::ToJSON(const wxString& name) const
     json.addProperty("label", m_label);
     json.addProperty("documentation", m_documentation);
     if(!m_parameters.empty()) {
-        JSONItem params = JSONItem::createArray("parameters");
-        json.append(params);
+        JSONItem params = json.AddArray("parameters");
         for (const auto& paramInfo : m_parameters) {
             params.append(paramInfo.ToJSON(""));
         }
@@ -237,8 +236,7 @@ void SignatureHelp::FromJSON(const JSONItem& json)
 JSONItem SignatureHelp::ToJSON(const wxString& name) const
 {
     JSONItem json = JSONItem::createObject(name);
-    JSONItem signatures = JSONItem::createArray("signatures");
-    json.append(signatures);
+    JSONItem signatures = json.AddArray("signatures");
     for(const SignatureInformation& si : m_signatures) {
         signatures.arrayAppend(si.ToJSON(""));
     }

@@ -350,8 +350,7 @@ JSONItem PHPWorkspace::ToJSON(JSONItem& e) const
     metadata.addProperty("type", wxString("php"));
 
     // Store the list of files
-    JSONItem projectsArr = JSONItem::createArray("projects");
-    e.append(projectsArr);
+    JSONItem projectsArr = e.AddArray("projects");
 
     for (const auto& [_, project] : m_projects) {
         wxFileName projectFile = project->GetFilename();

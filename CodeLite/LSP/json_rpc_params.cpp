@@ -82,11 +82,10 @@ JSONItem DidChangeTextDocumentParams::ToJSON(const wxString& name) const
 {
     JSONItem json = JSONItem::createObject(name);
     json.append(m_textDocument.ToJSON("textDocument"));
-    JSONItem arr = JSONItem::createArray("contentChanges");
+    JSONItem arr = json.AddArray("contentChanges");
     for (const auto& contentChange : m_contentChanges) {
         arr.arrayAppend(contentChange.ToJSON(""));
     }
-    json.append(arr);
     return json;
 }
 

@@ -63,8 +63,7 @@ clKeyboardBindingConfig& clKeyboardBindingConfig::Save()
     // set the version
     mainObj.addProperty("version", BINDING_VERSION);
 
-    JSONItem menuArr = JSONItem::createArray("menus");
-    mainObj.append(menuArr);
+    JSONItem menuArr = mainObj.AddArray("menus");
     for (const auto& [_, menuItem] : m_bindings) {
         JSONItem binding = JSONItem::createObject();
         binding.addProperty("resourceID", menuItem.resourceID);
