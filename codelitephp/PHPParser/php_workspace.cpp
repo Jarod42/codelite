@@ -342,8 +342,7 @@ void PHPWorkspace::FromJSON(const JSONItem& e)
 
 JSONItem PHPWorkspace::ToJSON(JSONItem& e) const
 {
-    JSONItem metadata = JSONItem::createObject("metadata");
-    e.append(metadata);
+    JSONItem metadata = e.AddObject("metadata");
 
     metadata.addProperty("version", PHP_WORKSPACE_VERSION);
     metadata.addProperty("ide", PHP_WORKSPACE_IDE);

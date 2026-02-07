@@ -13,8 +13,7 @@ JSONItem LSP::InitializeRequest::ToJSON(const wxString& name) const
     JSONItem json = Request::ToJSON(name);
 
     // add the 'params'
-    JSONItem params = JSONItem::createObject("params");
-    json.append(params);
+    JSONItem params = json.AddObject("params");
     params.addProperty("processId", GetProcessId());
     if (GetRootUri().IsEmpty()) {
         JSON nullItem(cJSON_NULL);

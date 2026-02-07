@@ -30,10 +30,9 @@ LintOptions::LintOptions()
 
         // Save it
         JSON newRoot(newConfigFile);
-        JSONItem e = JSONItem::createObject(GetName());
+        JSONItem e = newRoot.toElement().AddObject(GetName());
         e.addProperty("lintOnFileSave", m_lintOnFileSave);
         e.addProperty("lintOnFileLoad", m_lintOnFileLoad);
-        newRoot.toElement().append(e);
         newRoot.save(newConfigFile);
     }
 }
