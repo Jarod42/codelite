@@ -25,13 +25,10 @@
 
 #include "JSON.h"
 
-#include "StringUtils.h"
 #include "clFontHelper.h"
 #include "fileutils.h"
 
-#include <stdlib.h>
 #include <wx/dynarray.h>
-#include <wx/ffile.h>
 #include <wx/filename.h>
 
 JSON::JSON(const wxString& text)
@@ -97,8 +94,6 @@ JSONItem JSON::toElement() const
     }
     return JSONItem(m_json);
 }
-
-wxString JSON::errorString() const { return _errorString; }
 
 JSONItem JSONItem::namedObject(const wxString& name) const
 {
@@ -730,23 +725,6 @@ bool JSONItem::isNumber() const
         return false;
     }
     return m_json->type == cJSON_Number;
-}
-
-JSONItem JSONItem::detachProperty(const wxString& name)
-{
-    if (!m_json) {
-        return JSONItem(NULL);
-    }
-    cJSON* j = cJSON_DetachItemFromObject(m_json, name.c_str());
-    return JSONItem(j);
-}
-
-wxFileName JSONItem::toFileName() const
-{
-    if (!m_json) {
-        return wxFileName();
-    }
-    return wxFileName(m_valueString);
 }
 
 JSONItem& JSONItem::addProperty(const wxString& name, const wxFileName& filename)
