@@ -49,10 +49,13 @@
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
+class JSON;
+
 class WXDLLIMPEXP_CL JSONItem
 {
+    friend JSON;
+
 public:
-    explicit JSONItem(cJSON* json);
     JSONItem() = default;
     virtual ~JSONItem() = default;
 
@@ -173,7 +176,7 @@ public:
     JSONItem& addProperty(const wxString& name, long value);
     JSONItem& addProperty(const wxString& name, size_t value);
     JSONItem& addProperty(const wxString& name, bool value);
-    JSONItem& addProperty(const wxString& name, cJSON* pjson);
+    JSONItem& addProperty(const wxString& name, JSON&& json);
     JSONItem& addProperty(const wxString& name, const wxFileName& filename);
     JSONItem& addProperty(const wxString& name, const std::vector<int>& arr_int);
     template <class T = int>
@@ -215,6 +218,14 @@ public:
 
     bool isOk() const { return m_json != NULL; }
 
+private:
+    explicit JSONItem(cJSON* json);
+
+    const wxString& GetPropertyName() const { return m_propertyName; }
+    void SetPropertyName(const wxString& name) { m_propertyName = name; }
+    int getType() const { return m_type; }
+    void setType(int m_type) { this->m_type = m_type; }
+
     /**
      * @brief release the internal pointer
      */
@@ -224,13 +235,6 @@ public:
         m_json = nullptr;
         return temp;
     }
-
-private:
-    const wxString& GetPropertyName() const { return m_propertyName; }
-    void SetPropertyName(const wxString& name) { m_propertyName = name; }
-    int getType() const { return m_type; }
-    void setType(int m_type) { this->m_type = m_type; }
-
 private:
     cJSON* m_json = nullptr;
     wxString m_propertyName;
@@ -251,7 +255,6 @@ public:
     explicit JSON(const wxString& text);
     explicit JSON(const wxFileName& filename);
     explicit JSON(JSONItem item);
-    explicit JSON(cJSON* json);
 
     // Make this class not copyable
     JSON(const JSON&) = delete;
