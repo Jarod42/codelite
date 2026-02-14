@@ -1991,7 +1991,7 @@ void GitPlugin::InitDefaults()
     }
 
     LoadDefaultGitCommands(data); // Always do this, in case of new entries
-    conf.WriteItem(&data);
+    conf.WriteItem(data);
     conf.Save();
 
     if (IsWorkspaceOpened()) {
