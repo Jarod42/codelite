@@ -26,11 +26,11 @@
 #ifndef CLFILESFINDER_H
 #define CLFILESFINDER_H
 
+#include "JSON.h"
 #include "clFileFinder.h"
 #include "codelite_exports.h"
 
 #include <functional>
-#include <unordered_set>
 #include <vector>
 #include <wx/filename.h>
 #include <wx/string.h>
@@ -49,14 +49,13 @@ struct WXDLLIMPEXP_CL clFilesFinderMatch {
     {
     }
 
-    inline nlohmann::json ToJson() const
+    nlohmann::json ToJson() const
     {
-        nlohmann::json j = nlohmann::json::object();
-        j["filepath"] = m_filepath.ToStdString(wxConvUTF8);
+        nlohmann::json matches = nlohmann::json::array();
         for (const auto& m : m_matches) {
-            j["matches"].push_back(m.ToJson());
+            matches.push_back(m.ToJson());
         }
-        return j;
+        return {{"filepath", m_filepath}, {"matches", std::move(matches)}};
     }
 };
 

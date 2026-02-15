@@ -1383,11 +1383,8 @@ void Project::AppendToCompileCommandsJSON(const wxStringMap_t& compilersGlobalPa
             }
             compilePattern.Replace("$FileName", file_name);
 
-            nlohmann::json json;
-            json["file"] = StringUtils::ToStdString(fullpath);
-            json["directory"] = StringUtils::ToStdString(workingDirectory);
-            json["command"] = StringUtils::ToStdString(compilePattern);
-            compile_commands.push_back(json);
+            compile_commands.push_back(
+                {{"file", fullpath}, {"directory", workingDirectory}, {"command", compilePattern}});
         }
     }
 }

@@ -26,7 +26,7 @@
 #ifndef CLFILEFINDER_H
 #define CLFILEFINDER_H
 
-#include "assistant/common/json.hpp"
+#include "JSON.h"
 #include "codelite_exports.h"
 
 #include <vector>
@@ -50,9 +50,9 @@ struct WXDLLIMPEXP_CL clFileFinderMatch {
     {
     }
 
-    inline nlohmann::json ToJson() const
+    nlohmann::json ToJson() const
     {
-        return {{"line", line}, {"column", col}, {"text", matched_line.ToStdString(wxConvUTF8)}};
+        return {{"line", line}, {"column", col}, {"text", matched_line}};
     }
 };
 

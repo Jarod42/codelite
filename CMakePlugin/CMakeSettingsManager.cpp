@@ -54,10 +54,9 @@
 #include <wx/arrstr.h>
 
 // Codelite
+#include "JSON.h"
 #include "json_utils.h"
 #include "workspace.h"
-
-#include <assistant/common/json.hpp>
 
 // CMakePlugin
 #include "CMakePlugin.h"

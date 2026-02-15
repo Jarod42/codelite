@@ -25,25 +25,38 @@
 
 #ifndef ZJSONNODE_H
 #define ZJSONNODE_H
-// clang-format off
-#include <wx/vector.h>
-#include <wx/string.h>
-#include <wx/variant.h>
-#include <wx/filename.h>
-#include <string_view>
-#include <wx/gdicmn.h>
+
 #include "codelite_exports.h"
-#include <map>
+#include "macros.h"
+
+#include <assistant/common/json.hpp> // <nlohmann/json.hpp>
 #include <cJSON.h>
+#include <map>
+#include <string_view>
+#include <type_traits>
+#include <vector>
+#include <wx/filename.h>
+#include <wx/gdicmn.h>
+#include <wx/string.h>
+#include <wx/vector.h>
+
 #if wxUSE_GUI
 #include <wx/arrstr.h>
 #include <wx/colour.h>
 #include <wx/font.h>
 #endif
-#include "macros.h"
-#include <vector>
-#include <type_traits>
-// clang-format on
+
+namespace nlohmann
+{
+// Functions to allow correct automatic conversions between nlohmann::json and wxString
+// see https://github.com/nlohmann/json/Readme.md#arbitrary-types-conversions
+
+template <>
+struct adl_serializer<wxString> {
+    static void to_json(json& j, const wxString& s) { j = s.ToStdString(wxConvUTF8); }
+    static void from_json(const json& j, wxString& s) { s = wxString::FromUTF8(j); }
+};
+} // namespace nlohmann
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
