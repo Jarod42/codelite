@@ -26,7 +26,9 @@
 #ifndef ZJSONNODE_H
 #define ZJSONNODE_H
 
+#include "StringUtils.h"
 #include "codelite_exports.h"
+#include "json_utils.h"
 #include "macros.h"
 
 #include <assistant/common/json.hpp> // <nlohmann/json.hpp>
@@ -55,6 +57,11 @@ template <>
 struct adl_serializer<wxString> {
     static void to_json(json& j, const wxString& s) { j = s.ToStdString(wxConvUTF8); }
     static void from_json(const json& j, wxString& s) { s = wxString::FromUTF8(j); }
+};
+template <>
+struct adl_serializer<wxArrayString> {
+    static void to_json(json& j, const wxArrayString& a) { j = StringUtils::ToStdStrings(a); }
+    static void from_json(const json& j, wxArrayString& a) { a = JsonUtils::ToArrayString(j); }
 };
 } // namespace nlohmann
 

@@ -343,13 +343,11 @@ void clCodeLiteRemoteProcess::ListFiles(const wxString& root_dir,
     }
 
     // build the command and send it
-    const nlohmann::json json = {
-        {"command", "ls"},
-        {"root_dir", root_dir},
-        {"file_extensions", StringUtils::ToStdStrings(::wxStringTokenize(extensions, ",; |", wxTOKEN_STRTOK))},
-        {"exclude_extensions",
-         StringUtils::ToStdStrings(::wxStringTokenize(exclude_extensions, ",; |", wxTOKEN_STRTOK))},
-        {"exclude_patterns", StringUtils::ToStdStrings(::wxStringTokenize(exclude_patterns, ",; |", wxTOKEN_STRTOK))}};
+    const nlohmann::json json = {{"command", "ls"},
+                                 {"root_dir", root_dir},
+                                 {"file_extensions", ::wxStringTokenize(extensions, ",; |", wxTOKEN_STRTOK)},
+                                 {"exclude_extensions", ::wxStringTokenize(exclude_extensions, ",; |", wxTOKEN_STRTOK)},
+                                 {"exclude_patterns", ::wxStringTokenize(exclude_patterns, ",; |", wxTOKEN_STRTOK)}};
     const auto command = json.dump();
     LOG_IF_TRACE { clDEBUG1() << "ListFiles: sending command:" << command << endl; }
     m_process->Write(command + "\n");
@@ -370,14 +368,13 @@ void clCodeLiteRemoteProcess::Search(const wxString& root_dir,
     }
 
     // build the command and send it
-    const nlohmann::json json = {
-        {"command", "find"},
-        {"root_dir", root_dir},
-        {"find_what", find_what},
-        {"file_extensions", StringUtils::ToStdStrings(::wxStringTokenize(extensions, ",; |", wxTOKEN_STRTOK))},
-        {"exclude_patterns", StringUtils::ToStdStrings(::wxStringTokenize(exclude_patterns, ",; |", wxTOKEN_STRTOK))},
-        {"icase", icase},
-        {"whole_word", whole_word}};
+    const nlohmann::json json = {{"command", "find"},
+                                 {"root_dir", root_dir},
+                                 {"find_what", find_what},
+                                 {"file_extensions", ::wxStringTokenize(extensions, ",; |", wxTOKEN_STRTOK)},
+                                 {"exclude_patterns", ::wxStringTokenize(exclude_patterns, ",; |", wxTOKEN_STRTOK)},
+                                 {"icase", icase},
+                                 {"whole_word", whole_word}};
     const auto command = json.dump();
     m_process->Write(command + "\n");
     LOG_IF_TRACE { clDEBUG1() << command << endl; }
@@ -396,11 +393,8 @@ void clCodeLiteRemoteProcess::Locate(const wxString& path,
     }
 
     // build the command and send it
-    const nlohmann::json json = {{"command", "locate"},
-                                 {"path", path},
-                                 {"name", name},
-                                 {"ext", ext},
-                                 {"versions", StringUtils::ToStdStrings(versions)}};
+    const nlohmann::json json = {
+        {"command", "locate"}, {"path", path}, {"name", name}, {"ext", ext}, {"versions", versions}};
 
     const auto command = json.dump();
     m_process->Write(command + "\n");
@@ -756,15 +750,14 @@ void clCodeLiteRemoteProcess::Replace(const wxString& root_dir,
     }
 
     // build the command and send it
-    const nlohmann::json json = {
-        {"command", "replace"},
-        {"root_dir", root_dir},
-        {"find_what", find_what},
-        {"replace_with", replace_with},
-        {"file_extensions", StringUtils::ToStdStrings(::wxStringTokenize(extensions, ",; |", wxTOKEN_STRTOK))},
-        {"exclude_patterns", StringUtils::ToStdStrings(::wxStringTokenize(exclude_patterns, ",; |", wxTOKEN_STRTOK))},
-        {"icase", icase},
-        {"whole_word", whole_word}};
+    const nlohmann::json json = {{"command", "replace"},
+                                 {"root_dir", root_dir},
+                                 {"find_what", find_what},
+                                 {"replace_with", replace_with},
+                                 {"file_extensions", ::wxStringTokenize(extensions, ",; |", wxTOKEN_STRTOK)},
+                                 {"exclude_patterns", ::wxStringTokenize(exclude_patterns, ",; |", wxTOKEN_STRTOK)},
+                                 {"icase", icase},
+                                 {"whole_word", whole_word}};
     const auto command = json.dump();
     m_process->Write(command + "\n");
     LOG_IF_TRACE { clDEBUG1() << command << endl; }
