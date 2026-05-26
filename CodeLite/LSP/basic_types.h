@@ -3,7 +3,6 @@
 
 #include "CTags.hpp"
 #include "JSON.h"
-#include "JSONObject.h"
 #include "clModuleLogger.hpp"
 #include "codelite_exports.h"
 
@@ -73,14 +72,14 @@ public:
 //===----------------------------------------------------------------------------------
 // Position
 //===----------------------------------------------------------------------------------
-class WXDLLIMPEXP_CL Position : public Serializable
+class WXDLLIMPEXP_CL Position
 {
     int m_line = wxNOT_FOUND;
     int m_character = wxNOT_FOUND;
 
 public:
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 
     Position(int line, int col)
         : m_line(line)
@@ -88,7 +87,7 @@ public:
     {
     }
     Position() = default;
-    ~Position() override = default;
+    ~Position() = default;
     bool operator==(const Position& rhs) const = default;
     auto operator<=>(const Position& rhs) const = default;
 
@@ -110,14 +109,14 @@ public:
 //===----------------------------------------------------------------------------------
 // Range
 //===----------------------------------------------------------------------------------
-class WXDLLIMPEXP_CL Range : public Serializable
+class WXDLLIMPEXP_CL Range
 {
     Position m_start;
     Position m_end;
 
 public:
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 
     Range(const Position& start, const Position& end)
         : m_start(start)
@@ -125,7 +124,7 @@ public:
     {
     }
     Range() = default;
-    ~Range() override = default;
+    ~Range() = default;
 
     bool operator==(const Range&) const = default;
 
@@ -147,21 +146,21 @@ public:
 //===----------------------------------------------------------------------------------
 // TextDocumentContentChangeEvent
 //===----------------------------------------------------------------------------------
-class WXDLLIMPEXP_CL TextDocumentContentChangeEvent : public Serializable
+class WXDLLIMPEXP_CL TextDocumentContentChangeEvent
 {
     wxString m_text;
     Range m_range; // Optional
 
 public:
-    nlohmann::json ToJSON() const override;
-    void FromJSON(const JSONItem& json) override;
+    nlohmann::json ToJSON() const;
+    void FromJSON(const JSONItem& json);
 
     TextDocumentContentChangeEvent() = default;
     TextDocumentContentChangeEvent(const wxString& text)
         : m_text(text)
     {
     }
-    ~TextDocumentContentChangeEvent() override = default;
+    ~TextDocumentContentChangeEvent() = default;
 
     bool operator==(const TextDocumentContentChangeEvent&) const = default;
 
@@ -174,18 +173,18 @@ public:
 //===----------------------------------------------------------------------------------
 // TextDocumentIdentifier
 //===----------------------------------------------------------------------------------
-class WXDLLIMPEXP_CL TextDocumentIdentifier : public Serializable
+class WXDLLIMPEXP_CL TextDocumentIdentifier
 {
     URI m_filename;
 
 public:
-    nlohmann::json ToJSON() const override;
-    void FromJSON(const JSONItem& json) override;
+    nlohmann::json ToJSON() const;
+    void FromJSON(const JSONItem& json);
 
     TextDocumentIdentifier() = default;
     TextDocumentIdentifier(const wxString& filename) { URI::FromString(filename, &m_filename); }
 
-    ~TextDocumentIdentifier() override = default;
+    ~TextDocumentIdentifier() = default;
     bool operator==(const TextDocumentIdentifier&) const = default;
 
     TextDocumentIdentifier& SetFilename(const wxString& filename)
@@ -205,15 +204,15 @@ class WXDLLIMPEXP_CL VersionedTextDocumentIdentifier : public TextDocumentIdenti
     int m_version = 1;
 
 public:
-    nlohmann::json ToJSON() const override;
-    void FromJSON(const JSONItem& json) override;
+    nlohmann::json ToJSON() const;
+    void FromJSON(const JSONItem& json);
 
     VersionedTextDocumentIdentifier() = default;
     VersionedTextDocumentIdentifier(int version)
         : m_version(version)
     {
     }
-    ~VersionedTextDocumentIdentifier() override = default;
+    ~VersionedTextDocumentIdentifier() = default;
     bool operator==(const VersionedTextDocumentIdentifier&) const = default;
 
     VersionedTextDocumentIdentifier& SetVersion(int version)
@@ -228,17 +227,17 @@ public:
 // TextEdit
 //===----------------------------------------------------------------------------------
 
-class WXDLLIMPEXP_CL TextEdit : public LSP::Serializable
+class WXDLLIMPEXP_CL TextEdit
 {
     Range m_range;
     wxString m_newText;
 
 public:
     TextEdit() = default;
-    ~TextEdit() override = default;
+    ~TextEdit() = default;
     bool operator==(const TextEdit&) const = default;
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 
     void SetNewText(const wxString& newText) { this->m_newText = newText; }
     void SetRange(const Range& range) { this->m_range = range; }
@@ -247,7 +246,7 @@ public:
     bool IsOk() const { return m_range.IsOk(); }
 };
 
-class WXDLLIMPEXP_CL Location : public Serializable
+class WXDLLIMPEXP_CL Location
 {
     URI m_uri;
     Range m_range;
@@ -255,15 +254,15 @@ class WXDLLIMPEXP_CL Location : public Serializable
     wxString m_name;
 
 public:
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 
     Location(const wxString& uri, const Range& range)
         : m_range(range)
     { URI::FromString(uri, &m_uri); }
 
     Location() = default;
-    ~Location() override = default;
+    ~Location() = default;
     bool operator==(const Location&) const = default;
     Location& SetRange(const Range& range)
     {
@@ -288,7 +287,7 @@ public:
 //===----------------------------------------------------------------------------------
 // TextDocumentItem
 //===----------------------------------------------------------------------------------
-class WXDLLIMPEXP_CL TextDocumentItem : public Serializable
+class WXDLLIMPEXP_CL TextDocumentItem
 {
     URI m_uri;
     wxString m_languageId;
@@ -296,8 +295,8 @@ class WXDLLIMPEXP_CL TextDocumentItem : public Serializable
     int m_version = 1;
 
 public:
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 
     TextDocumentItem(const wxString& uri, const wxString& langId, const wxString& text, int version = 1)
         : m_languageId(langId)
@@ -306,7 +305,7 @@ public:
     { URI::FromString(uri, &m_uri); }
 
     TextDocumentItem() = default;
-    ~TextDocumentItem() override = default;
+    ~TextDocumentItem() = default;
     bool operator==(const TextDocumentItem&) const = default;
 
     TextDocumentItem& SetLanguageId(const wxString& languageId)
@@ -337,14 +336,14 @@ public:
     int GetVersion() const { return m_version; }
 };
 
-class WXDLLIMPEXP_CL ParameterInformation : public LSP::Serializable
+class WXDLLIMPEXP_CL ParameterInformation
 {
     wxString m_label;
     wxString m_documentation;
 
 public:
     ParameterInformation() = default;
-    ~ParameterInformation() override = default;
+    ~ParameterInformation() = default;
     bool operator==(const ParameterInformation&) const = default;
     ParameterInformation& SetDocumentation(const wxString& documentation)
     {
@@ -358,13 +357,13 @@ public:
     }
     const wxString& GetDocumentation() const { return m_documentation; }
     const wxString& GetLabel() const { return m_label; }
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 
     using Vec_t = std::vector<ParameterInformation>;
 };
 
-class WXDLLIMPEXP_CL SignatureInformation : public LSP::Serializable
+class WXDLLIMPEXP_CL SignatureInformation
 {
     wxString m_label;
     wxString m_documentation;
@@ -375,7 +374,7 @@ public:
 
 public:
     SignatureInformation() = default;
-    ~SignatureInformation() override = default;
+    ~SignatureInformation() = default;
     bool operator==(const SignatureInformation&) const = default;
     SignatureInformation& SetParameters(const ParameterInformation::Vec_t& parameters)
     {
@@ -395,11 +394,11 @@ public:
     }
     const wxString& GetDocumentation() const { return m_documentation; }
     const wxString& GetLabel() const { return m_label; }
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 };
 
-class WXDLLIMPEXP_CL SignatureHelp : public LSP::Serializable
+class WXDLLIMPEXP_CL SignatureHelp
 {
     SignatureInformation::Vec_t m_signatures;
     int m_activeSignature = 0;
@@ -407,7 +406,7 @@ class WXDLLIMPEXP_CL SignatureHelp : public LSP::Serializable
 
 public:
     SignatureHelp() = default;
-    ~SignatureHelp() override = default;
+    ~SignatureHelp() = default;
     bool operator==(const SignatureHelp&) const = default;
 
     SignatureHelp& SetActiveParameter(int activeParameter)
@@ -428,18 +427,18 @@ public:
     int GetActiveParameter() const { return m_activeParameter; }
     int GetActiveSignature() const { return m_activeSignature; }
     const SignatureInformation::Vec_t& GetSignatures() const { return m_signatures; }
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 };
 
-class WXDLLIMPEXP_CL MarkupContent : public LSP::Serializable
+class WXDLLIMPEXP_CL MarkupContent
 {
     wxString m_kind;
     wxString m_value;
 
 public:
     MarkupContent() = default;
-    ~MarkupContent() override = default;
+    ~MarkupContent() = default;
     bool operator==(const MarkupContent&) const = default;
 
     MarkupContent& SetKind(const wxString& kind)
@@ -454,18 +453,18 @@ public:
         return *this;
     }
     const wxString& GetValue() const { return m_value; }
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 };
 
-class WXDLLIMPEXP_CL Hover : public LSP::Serializable
+class WXDLLIMPEXP_CL Hover
 {
     MarkupContent m_contents;
     Range m_range;
 
 public:
     Hover() = default;
-    ~Hover() override = default;
+    ~Hover() = default;
     bool operator==(const Hover&) const = default;
 
     Hover& SetContents(const MarkupContent& contents)
@@ -480,8 +479,8 @@ public:
         return *this;
     }
     const Range& GetRange() const { return m_range; }
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 };
 
 enum DiagnosticSeverity {
@@ -503,15 +502,15 @@ enum DiagnosticSeverity {
     Hint = 4,
 };
 
-class WXDLLIMPEXP_CL Diagnostic : public Serializable
+class WXDLLIMPEXP_CL Diagnostic
 {
     Range m_range;
     wxString m_message;
     DiagnosticSeverity m_severity = DiagnosticSeverity::Error;
 
 public:
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 
     Diagnostic(const Range& range, const wxString& message)
         : m_range(range)
@@ -519,7 +518,7 @@ public:
     {
     }
     Diagnostic() = default;
-    ~Diagnostic() override = default;
+    ~Diagnostic() = default;
     bool operator==(const Diagnostic&) const = default;
 
     Diagnostic& SetRange(const Range& range)
@@ -538,18 +537,18 @@ public:
     const DiagnosticSeverity& GetSeverity() const { return m_severity; }
 };
 
-class WXDLLIMPEXP_CL Command : public Serializable
+class WXDLLIMPEXP_CL Command
 {
     wxString m_title;
     wxString m_command;
     wxString m_arguments;
 
 public:
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const;
+    void FromJSON(const JSONItem& json);
+    //nlohmann::json ToJSON() const;
 
     Command() = default;
-    ~Command() override = default;
+    ~Command() = default;
     bool operator==(const Command&) const = default;
 
     void SetTitle(const wxString& title) { this->m_title = title; }
@@ -561,7 +560,7 @@ public:
     const wxString& GetArguments() const { return m_arguments; }
 };
 
-class WXDLLIMPEXP_CL DocumentSymbol : public Serializable
+class WXDLLIMPEXP_CL DocumentSymbol
 {
     /**
      * The name of this symbol. Will be displayed in the user interface and therefore must not be
@@ -598,11 +597,11 @@ class WXDLLIMPEXP_CL DocumentSymbol : public Serializable
     std::vector<DocumentSymbol> children;
 
 public:
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    //nlohmann::json ToJSON() const;
 
     DocumentSymbol() = default;
-    ~DocumentSymbol() override = default;
+    ~DocumentSymbol() = default;
     bool operator==(const DocumentSymbol&) const = default;
 
     void SetChildren(const std::vector<DocumentSymbol>& children) { this->children = children; }
@@ -619,7 +618,7 @@ public:
     const Range& GetSelectionRange() const { return selectionRange; }
 };
 
-class WXDLLIMPEXP_CL SymbolInformation : public Serializable
+class WXDLLIMPEXP_CL SymbolInformation
 {
     /**
      * The name of this symbol.
@@ -653,11 +652,11 @@ class WXDLLIMPEXP_CL SymbolInformation : public Serializable
     wxString containerName;
 
 public:
-    void FromJSON(const JSONItem& json) override;
-    nlohmann::json ToJSON() const override;
+    void FromJSON(const JSONItem& json);
+    nlohmann::json ToJSON() const;
 
     SymbolInformation() = default;
-    ~SymbolInformation() override = default;
+    ~SymbolInformation() = default;
     bool operator==(const SymbolInformation&) const = default;
 
     void SetContainerName(const wxString& containerName) { this->containerName = containerName; }

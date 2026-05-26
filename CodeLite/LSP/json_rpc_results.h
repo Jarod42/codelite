@@ -2,7 +2,6 @@
 #define JSONRPC_RESULTS_H
 
 #include "JSON.h"
-#include "LSP/JSONObject.h"
 #include "codelite_exports.h"
 
 #include <memory>
@@ -12,20 +11,19 @@ namespace LSP
 //===----------------------------------------------------------------------------------
 // Result
 //===----------------------------------------------------------------------------------
-class WXDLLIMPEXP_CL Result : public Serializable
+class WXDLLIMPEXP_CL Result
 {
 public:
     using Ptr_t = std::shared_ptr<Result>;
 
 public:
     Result() = default;
-    ~Result() override = default;
+    virtual ~Result() = default;
     template <typename T>
     T* As() const
-    {
-        return dynamic_cast<T*>(const_cast<Result*>(this));
-    }
-    nlohmann::json ToJSON() const override { return nullptr; }
+    { return dynamic_cast<T*>(const_cast<Result*>(this)); }
+    // virtual nlohmann::json ToJSON() const final { return nullptr; }
+    virtual void FromJSON(const JSONItem& json) = 0;
 };
 
 //===----------------------------------------------------------------------------------
