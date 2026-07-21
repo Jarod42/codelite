@@ -86,5 +86,14 @@ jobs:
         path: |
           translations/codelite.pot
 
+    # Upload CodeLite-time-trace
+    - name: artifact
+      if: matrix.codelite-variant == 'All'
+      uses: actions/upload-artifact@v7
+      with:
+        name: codelite-time-trace-wx-${{matrix.wx-version}}${{matrix.arch.package-suffix}}
+        path: |
+          build-release/**.json
+
     - name: codelite --version
       run: xvfb-run -a codelite --version || exit 0 # codelite --version returns -1

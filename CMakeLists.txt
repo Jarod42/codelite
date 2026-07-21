@@ -996,13 +996,16 @@ endif()
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES
                                             "AppleClang")
   set(IS_CLANG 1)
+  message("-- IS_CLANG is set to 1")
 else()
   set(IS_CLANG 0)
+  message("-- IS_CLANG is set to 0")
 endif()
 
 if(IS_CLANG)
   add_compile_options(-Wthread-safety
                       -D_LIBCPP_ENABLE_THREAD_SAFETY_ANNOTATIONS)
+  add_compile_options(-ftime-trace)
 endif()
 
 # Extra lexers required by CodeLite

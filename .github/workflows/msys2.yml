@@ -113,6 +113,15 @@ jobs:
         path: |
           build-wxcrafter-release/installer/**.*
 
+    # Upload wxcrafter-time-trace
+    - name: artifact
+      if: matrix.wx-version == 3.2
+      uses: actions/upload-artifact@v7
+      with:
+        name: wxcrafter-time-trace-wx-${{matrix.wx-version}}${{matrix.arch.package-suffix}}
+        path: |
+          build-wxcrafter-release/**.json
+
     # CodeLite
 
     - name: Build, test and create CodeLite installer
@@ -132,6 +141,15 @@ jobs:
         name: codelite-installer-wx-${{matrix.wx-version}}${{matrix.arch.package-suffix}}
         path: |
           build-release/installer/**.*
+
+    # Upload CodeLite-time-trace
+    - name: artifact
+      if: matrix.wx-version == 3.2
+      uses: actions/upload-artifact@v7
+      with:
+        name: codelite-time-trace-wx-${{matrix.wx-version}}${{matrix.arch.package-suffix}}
+        path: |
+          build-release/**.json
     
     - name: Run installer
       shell: pwsh
