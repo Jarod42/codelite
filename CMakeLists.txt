@@ -53,6 +53,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(BUILD_TESTING "Build test executables" OFF)
 
+option(USE_CLANG_TIDY "Use clang-tidy" OFF)
+
+if(USE_CLANG_TIDY)
+    set(CMAKE_CXX_CLANG_TIDY_EXPORT_FIXES_DIR clang-tidy-fixes)
+    set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=modernize-use-nullptr,modernize-use-override)
+endif()
+
 # Set this option to "ON" in order to get CMake standard/expected behavior
 set(RETAIN_CACHED_VALUES
     OFF

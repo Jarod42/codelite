@@ -64,7 +64,7 @@ jobs:
       run: |
         mkdir build-release
         cd build-release
-        cmake .. -DCMAKE_BUILD_TYPE=Release ${{matrix.codelite-options}} -DCOPY_WX_LIBS=1 -DBUILD_TESTING=1
+        cmake .. -DCMAKE_BUILD_TYPE=Release ${{matrix.codelite-options}} -DCOPY_WX_LIBS=1 -DBUILD_TESTING=1 -DUSE_CLANG_TIDY=1
         make -j$(nproc)
         sudo make install
         ctest --output-on-failure
@@ -94,3 +94,12 @@ jobs:
         cd build-release
         cmake .. -DCMAKE_BUILD_TYPE=Release ${{matrix.codelite-options}} -DCOPY_WX_LIBS=1 -DBUILD_TESTING=1
         make -j$(nproc)
+
+    # Upload clang-tidy-fixes
+    - name: clang-tidy-fixes
+      if: matrix.codelite-variant == 'All'
+      uses: actions/upload-artifact@v7
+      with:
+        name: clang-tidy-fixes-${{matrix.wx-version}}
+        path: |
+          clang-tidy-fixes/**.*
