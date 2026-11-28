@@ -68,7 +68,7 @@ public:
     };
 
 protected:
-    size_t m_flags;
+    size_t m_flags = 0;
     CustomControlTemplateMap_t m_templateClasses;
     int m_sashPosition = -1;
     int m_secondarySashPos = -1;
@@ -76,7 +76,8 @@ protected:
     int m_mainFrameSashPos = -1;
     wxRect m_frameRect{-1, -1, -1, -1}; // The position and the size of the main frame (-1: not saved yet)
     wxArrayString m_history;
-    bool m_initCompleted;
+    bool m_initCompleted = false;
+    wxString m_language = "en";
 
 public:
     static wxcSettings& Get();
@@ -112,20 +113,14 @@ public:
     {
         this->m_templateClasses = templateClasses;
     }
-    size_t GetAnnoyDialogs() const { return m_flags; }
     const CustomControlTemplateMap_t& GetTemplateClasses() const { return m_templateClasses; }
 
     void RegisterCustomControl(CustomControlTemplate& cct);
     void DeleteCustomControl(const wxString& name);
 
-    bool GetShowDialog(int flag) const { return !(m_flags & flag); }
-
     CustomControlTemplate FindByControlId(int controlId) const;
     CustomControlTemplate FindByControlName(const wxString& name) const;
 
-    void DontShowDialog(int flag) { m_flags |= flag; }
-
-    void SetAnnoyDialogs(size_t annoyDialogs) { this->m_flags = annoyDialogs; }
     void SetSashPosition(int sashPosition) { this->m_sashPosition = sashPosition; }
     void SetSecondarySashPos(int secondarySashPos) { this->m_secondarySashPos = secondarySashPos; }
     void SetTreeviewSashPos(int treeviewSashPos) { this->m_treeviewSashPos = treeviewSashPos; }
@@ -139,4 +134,7 @@ public:
 
     void SetHistory(const wxArrayString& history) { this->m_history = history; }
     const wxArrayString& GetHistory() const { return m_history; }
+
+    void SetLanguage(const wxString& language) { this->m_language = language; }
+    const wxString& GetLanguage() const { return m_language; }
 };

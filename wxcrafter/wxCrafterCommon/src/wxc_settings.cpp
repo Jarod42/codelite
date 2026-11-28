@@ -6,8 +6,6 @@
 #include <wx/filename.h>
 
 wxcSettings::wxcSettings()
-    : m_flags(0)
-    , m_initCompleted(false)
 {
     Load();
 }
@@ -33,6 +31,7 @@ void wxcSettings::Load()
         m_frameRect.y = root.toElement().namedObject("m_frameY").toInt(-1);
         m_frameRect.width = root.toElement().namedObject("m_frameWidth").toInt(-1);
         m_frameRect.height = root.toElement().namedObject("m_frameHeight").toInt(-1);
+        m_language = root.toElement().namedObject("language").toString(m_language);
         m_history = root.toElement().namedObject("recentFiles").toArrayString();
 
         JSONItem arr = root.toElement().namedObject("m_templateClasses");
@@ -62,6 +61,7 @@ void wxcSettings::Save()
     root.toElement().addProperty("m_frameWidth", m_frameRect.width);
     root.toElement().addProperty("m_frameHeight", m_frameRect.height);
     root.toElement().addProperty("recentFiles", m_history);
+    root.toElement().addProperty("language", m_language);
 
     JSONItem arr = JSONItem::createArray();
 

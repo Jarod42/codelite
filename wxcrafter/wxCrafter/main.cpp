@@ -58,6 +58,39 @@ IMPLEMENT_APP(wxcApp)
 using SetProcessDPIAwareFunc = BOOL(WINAPI*)();
 #endif
 
+namespace
+{
+void InitLanguage()
+{
+    if (wxTranslations::Get() == nullptr) {
+        wxTranslations::Set(new wxTranslations{});
+    }
+#if defined(__WXGTK__)
+    // Cater for a --prefix= build. This gets added automatically to the search path for catalogues.
+    // So hack in the standard ones too, otherwise wxstd.mo will be missed
+    wxFileTranslationsLoader::AddCatalogLookupPathPrefix(wxT("/usr/share/locale"));
+    wxFileTranslationsLoader::AddCatalogLookupPathPrefix(wxT("/usr/local/share/locale"));
+
+#elif defined(__WXMSW__)
+    wxFileTranslationsLoader::AddCatalogLookupPathPrefix(clStandardPaths::Get().GetInstallDir() +
+                                                         wxT("\\share\\locale"));
+#endif
+    auto& translation = *wxTranslations::Get();
+
+    if (!translation.AddStdCatalog()) {
+        clWARNING() << "Cannot find standard wx catalog";
+    }
+    if (translation.AddCatalog(wxT("codelite")) || translation.AddCatalog(wxT("CodeLite"))) {
+        clDEBUG() << "Find CodeLite catalog";
+    } else {
+        clWARNING() << "Cannot find CodeLite catalog";
+    }
+    const auto language = wxcSettings::Get().GetLanguage();
+    clDEBUG() << "Set language to" << language;
+    translation.SetLanguage(language);
+}
+} // namespace
+
 bool wxcApp::OnInit()
 {
     // parse command line
@@ -143,6 +176,8 @@ bool wxcApp::OnInit()
     // Open log file
     FileLogger::OpenLog("wxcrafter.log", FileLogger::System);
     clDEBUG() << "wxCrafter started" << endl;
+
+    InitLanguage();
 
     // Initialize the colours and font manager
     ColoursAndFontsManager::Get().Load();

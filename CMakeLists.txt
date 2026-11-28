@@ -1071,6 +1071,11 @@ set(ASSISTANTLIB_WITH_OPENSSL
 add_subdirectory("${CL_SRC_ROOT}/submodules/assistant")
 
 add_subdirectory(wxcrafter)
+
+if(NOT APPLE)
+  add_subdirectory(translations)
+endif()
+
 if(NOT WXC_APP)
   if(NOT NO_CORE_PLUGINS)
     add_subdirectory(Plugins)
@@ -1092,9 +1097,7 @@ if(NOT WXC_APP)
   add_subdirectory(codelite_echo)
 
   add_subdirectory(LiteEditor)
-  if(NOT APPLE)
-    add_subdirectory(translations)
-  endif()
+
   add_dependencies(databaselayersqlite wxsqlite3)
   add_dependencies(libcodelite databaselayersqlite wxsqlite3)
   add_dependencies(plugin libcodelite)

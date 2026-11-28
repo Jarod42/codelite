@@ -13,5 +13,6 @@ protected:
 
 private:
     bool m_useTabModeStart = false;
-    bool m_useTabModeEnd = false;
+    wxString m_languageStart;
+    bool m_standAlone;
 };
